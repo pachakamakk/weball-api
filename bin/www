@@ -26,33 +26,34 @@ var sslOptions = {
  */
 
 /* Dev time */
-var portHTTP = 8080;
-var portHTTPS = 8181;
+//var portHTTP = 8080;
+//var portHTTPS = 8181;
 
 /* Production time */
 // var portHTTPS = 443;
+var portHTTP = 80;
 
 
 /**
  * Create HTTP & HTTPS server.
  */
 
-//http = http.createServer(app);
-https = https.createServer(sslOptions, app);
+http = http.createServer(app);
+//https = https.createServer(sslOptions, app);
 
 /**
  * Listen on provided portHTTP, on all network interfaces.
  */
-/*
 http.listen(portHTTP, function(){
 console.log("Express server listening on port " + portHTTP)})
 http.on('error', onError);
 http.on('listening', onListening);
-*/
+/*
 https.listen(portHTTPS, function(){
 console.log("Secure Express server listening on port " + portHTTPS)})
 https.on('error', onErrorHTTPS);
 https.on('listening', onListeningHTTPS);
+*/
 
 /**
  * Normalize a portHTTP into a number, string, or false.
