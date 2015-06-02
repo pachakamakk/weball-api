@@ -1,0 +1,55 @@
+WEBALL JSON API
+
+Every route returns 200 in case of success ,40X in case of client error and 5XX in case of server error.
+Every red parameter is mandatory. The parameters mustn't be formated in JSON and must be in the query's body.
+The server always returns JSON responses.
+
+Connect to the API and get a token :
+  /login POST
+    Parameters :
+      "username":"my_uname",
+      "password":"my_pwd"
+    Response :
+      {token : "42blahBLAH"}
+
+Get informations about me :
+  /me GET
+    Parameters :
+      "token":"42blahBLAH"
+    Response :
+      {
+        username:jazalizil,
+        email:jazalizil@weball.fr,
+        firstname:jalil,
+        lastname:dabbech,
+        photoUrl:/img/jazalizil.png,
+        age:42,
+        friends: [
+          {
+            username:eliasck,
+            email:eliasck@weball.fr,
+            firstname:elias,
+            lastname:ck,
+            photoUrl:/img/eliasck.png,
+            age:21,
+            friends : [],
+            terrainsFavs : [],
+            hasTeam : false,
+            teamId : null,
+            points : 42,
+            register_date: 2015-03-31T19:53:28.245Z
+          }
+        ]
+        terrainsFavs : [1244349085, 34554343555],
+        hasTeam: false,
+        teamId : null,
+        points : 100,
+        register_date: 2015-03-31T19:53:28.245Z
+      }
+
+Modify informations about me :
+  /me POST
+    Parameters:
+      "token":"42blahBLAH",
+      "username":"null",
+      "email": "toto@tata.fr"

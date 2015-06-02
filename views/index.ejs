@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+  <head>
+    <title>API - weBall</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+      <h1><b>Welcome to API Documentation - weBall </b></h1>
+      <hr><br><b>https://localhost:8181/ - SSL 3.0 Certificate</b>
+
+      <p color="dark">
+      Every route returns <font color="green">200</font> in case of success, <font color="DarkGoldenRod">40X</font> in case of client error and <font color="red">500</font> in case of server error.</br>
+      Every <font color="red">red</font> parameter is mandatory. The parameters mustn't be formated in JSON and must be in the query's body.</br>
+      The server returns only JSON responses.</br>
+      </p>
+
+<br><br><hr>
+<a><b>Register on the API as a simple user</b></a>
+<br><br><b>/users POST</b> <br>
+<pre> Parameters
+<font color="red">
+"username":"yourusername",
+"password":"password42"
+"email":"yourmail@example.com",
+"firstname":"zlatan",
+"lastname":"ibrahimovic",
+"age":"15"
+</font></pre>
+<pre><br> Response
+<font color="green">
+{'message': 'Registed', 'status': 200}</font> </pre>
+
+
+<br><br><hr>
+<a><b>Connect and get a token</b></a>
+<br><br><b>/login POST</b> <br>
+<pre> Parameters
+<font color="red">
+"login":"login_x",
+"password":"password42"
+</font> </pre>
+<pre><br> Response
+<font color="green">
+{"token":"42"} </font> </pre>
+
+
+<br><br><hr>
+<a><b>Get informations about current user</b></a>
+<br><br><b>/me GET</b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+</font></pre>
+<pre><br>Response
+<font color="green">
+{
+  "username": "elias",
+  "email": "elias@weball.fr",
+  "firstname": "elias",
+  "age": 20,
+  "lastname": "elias",
+  "register_date": "2015-04-06T17:14:41.808Z",
+  "points": 0,
+  "hasTeam": false,
+  "terrainsFavs": [],
+  "friends": []
+} </font> </pre>
+
+
+<br><br><hr>
+<a><b>Modify informations about current user</b></a>
+<br><br><b>/me POST</b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42",</font><font>
+"username":"zlatan",
+"email":"zlatan@weball.fr"
+</font></pre><br>
+<pre> Response
+<font color="green">
+{'message': 'Modified', 'status': 200}</font> </pre>
+
+
+<br><br><hr>
+<a><b>Get user infos from username</b></a>
+<br><br><b>/users/jazalizil GET</b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+</font> </pre>
+<pre><br> Response
+<font color="green">
+{
+  "username": "jazalizil",
+  "email": "jazalizil@weball.fr",
+  "firstname": "jalil",
+  "age": 42,
+  "lastname": "dab",
+  "register_date": "2015-05-31T14:32:30.931Z",
+  "has_team": false,
+  "fav_fields": [],
+  "points": 0,
+  "friends": []
+} </font> </pre>
+
+
+<br><br><hr>
+<a><b>Get list of matchs</b></a>
+<br><br><b>/matchs GET</b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42",
+"start":"YYYY-MM-DD",
+"end":"YYYY-MM-DD"
+</font> </pre>
+<pre><br> Response
+<font color="green">
+{
+    TOFILL
+} </font> </pre>
+
+
+<br><br><hr>
+<a><b>Find a match by id</b></a>
+<br><br><b>/matchs/find GET</b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42",
+"id":"42"
+</font> </pre>
+<pre><br> Response
+<font color="green">
+{
+    TOFILL
+}
+</font> </pre>
+
+
+<br><br><hr>
+<a><b>Add a match</b></a>
+<br><br><b>/matchs POST</b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42",
+"date":"YYYY-MM-DD"
+</font> </pre>
+<pre><br> Response
+<font color="green">
+{
+    TO FIL
+}
+</font> </pre>
+
+
+
+<br><br><hr>
+<a><b>Get list of terrains</b></a>
+<br><br><b>/terrains GET</b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+</font> </pre>
+<pre> Response
+<font color="green">
+{
+    TOFILL
+}
+</font> </pre>
+
+
+<br><br><hr>
+<a><b>Find terrain by name</b></a>
+<br><br><b>/terrains/find GET</b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42",
+"name" : "Five Paris"
+</font> </pre>
+<pre> Response
+<font color="green">
+{
+    TOFILL
+}
+</font> </pre>
+
+
+<br><br><hr>
+<a><b>Get list of teams</b></a>
+<br><br><b>/teams GET</b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+</font> </pre>
+<pre> Response
+<font color="green">
+{
+    TOFILL
+}
+</font> </pre>
+
+
+<br><br><hr>
+<a><b>Find a team by id</b></a>
+<br><br><b>/teams/find GET</b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42",
+"id":"42"
+</font> </pre>
+<pre> Response
+<font color="green">
+{
+    TOFILL
+}
+</font> </pre>
+
+
+<br><br><hr>
+<a><b>Add Credit Card (Commentaire: Stock dans api Paypal et la CardId dans la DB User)</b></a>
+<br><br><b>/paypal/credit-card/create POST</b> <br>
+<pre> Parameters
+<font color="red">
+"type": "visa",
+"number": "4417119669820331",
+"expire_month": "11",
+"expire_year": "2018",
+"cvv2": "123",
+"first_name": "Joe",
+"last_name": "Shopper"
+</font> </pre>
+<pre><br> Response
+<font color="green">
+{status: '200', message: 'Created'}
+</font> </pre>
+
+
+<br><br><hr>
+<a><b>Get Credit Card </b></a>
+<br><br><b>/paypal/credit-card/get POST</b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+</font> </pre>
+<pre><br> Response
+<font color="green">
+{ 
+  state: 'ok',
+  type: 'visa',
+  number: 'xxxxxxxxxxxx0331',
+  expire_month: '11',
+  expire_year: '2018',
+  first_name: 'Joe',
+  last_name: 'Shopper',
+  valid_until: '2018-04-10T00:00:00Z',
+  create_time: '2015-04-11T13:07:17Z',
+  update_time: '2015-04-11T13:07:17Z'
+}
+</font> </pre>
+
+
+<br><br><hr>
+<a><b>Delete Credit Card </b></a>
+<br><br><b>/paypal/credit-card/delete DELETE</b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+</font> </pre>
+<pre><br> Response
+<font color="green">
+{status: '200', message: 'Deleted'}
+</font> </pre>
+
+
+<br><br><hr>
+<a><b>Create a Payment with CC Saved </b></a>
+<br><br><b>/paypal/payment/create-cc-saved POST</b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+</font> </pre>
+<pre><br> Response
+<font color="green">
+{
+    "id": "PAY-7LV19186FE7690736KUVMTXQ",
+    "create_time": "2015-04-12T19:39:10Z",
+    "update_time": "2015-04-12T19:39:36Z",
+    "state": "approved",
+    "intent": "sale",
+    "payer": {
+        "payment_method": "credit_card",
+        "funding_instruments": [
+            {
+                "credit_card_token": {
+                    "credit_card_id": "CARD-71379790Y3841240WKUVK4BY",
+                    "last4": "0331",
+                    "type": "visa",
+                    "expire_month": "11",
+                    "expire_year": "2018"
+                }
+            }
+        ]
+    },
+    "transactions": [
+        {
+            "amount": {
+                "total": "1.00",
+                "currency": "EUR",
+                "details": {
+                    "subtotal": "1.00"
+                }
+            },
+            "description": "Paiement à weBall SAS.",
+            "related_resources": [
+                {
+                    "sale": {
+                        "id": "1Y15049942881315U",
+                        "create_time": "2015-04-12T19:39:10Z",
+                        "update_time": "2015-04-12T19:39:36Z",
+                        "amount": {
+                            "total": "1.00",
+                            "currency": "EUR"
+                        },
+                        "state": "pending",
+                        "parent_payment": "PAY-7LV19186FE7690736KUVMTXQ",
+                        "links": [
+                            {
+                                "href": "https://api.sandbox.paypal.com/v1/payments/sale/1Y15049942881315U",
+                                "rel": "self",
+                                "method": "GET"
+                            },
+                            {
+                                "href": "https://api.sandbox.paypal.com/v1/payments/sale/1Y15049942881315U/refund",
+                                "rel": "refund",
+                                "method": "POST"
+                            },
+                            {
+                                "href": "https://api.sandbox.paypal.com/v1/payments/payment/PAY-7LV19186FE7690736KUVMTXQ",
+                                "rel": "parent_payment",
+                                "method": "GET"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ],
+    "links": [
+        {
+            "href": "https://api.sandbox.paypal.com/v1/payments/payment/PAY-7LV19186FE7690736KUVMTXQ",
+            "rel": "self",
+            "method": "GET"
+        }
+    ],
+    "httpStatusCode": 201
+}
+</font> </pre>
+
+  </body>
+</html>

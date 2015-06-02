@@ -1,0 +1,247 @@
+{
+	"id": "a1bba847-e500-944b-793a-1bb85a6add2c",
+	"name": "weball.api",
+	"description": "",
+	"order": [],
+	"folders": [
+		{
+			"id": "92eb68e2-0587-66dd-a27b-8f2613073e64",
+			"name": "matchs",
+			"description": "",
+			"write": true,
+			"order": [],
+			"collection_name": "weball.api",
+			"collection_owner": 0,
+			"collection_id": "a1bba847-e500-944b-793a-1bb85a6add2c",
+			"collection": "a1bba847-e500-944b-793a-1bb85a6add2c",
+			"owner": 0
+		},
+		{
+			"id": "216c01f0-7e52-b3c4-f8f8-fc04a6367489",
+			"name": "user",
+			"description": "",
+			"write": true,
+			"order": [
+				"9b1841e2-45c7-77a2-c6ce-e16de1871006",
+				"68bdd307-b3d2-ea4a-1944-b3ad894924cc",
+				"c1e4c359-7b95-0dc4-a438-e3d96a6b3aa9",
+				"d025d16b-773d-23d3-3778-af6bb13cc00a",
+				"2c344782-5205-afd2-0ecc-5407091475b6",
+				"5092cbf9-d128-074d-6aa1-d9308ff51506"
+			],
+			"collection_name": "weball.api",
+			"collection_owner": 0,
+			"collection_id": "a1bba847-e500-944b-793a-1bb85a6add2c",
+			"collection": "a1bba847-e500-944b-793a-1bb85a6add2c",
+			"owner": 0
+		}
+	],
+	"timestamp": 1433077227459,
+	"owner": 0,
+	"remoteLink": "",
+	"public": false,
+	"createdAt": 1433077227459,
+	"updatedAt": 1433077227459,
+	"synced": false,
+	"requests": [
+		{
+			"id": "2c344782-5205-afd2-0ecc-5407091475b6",
+			"headers": "x-access-token: {{token}}\n",
+			"url": "{{localhost}}/users/jazalizil",
+			"pathVariables": {},
+			"preRequestScript": "",
+			"method": "GET",
+			"collectionId": "a1bba847-e500-944b-793a-1bb85a6add2c",
+			"data": [],
+			"dataMode": "params",
+			"name": "User from username",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1433085071131,
+			"version": 2,
+			"responses": [],
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"folder": "216c01f0-7e52-b3c4-f8f8-fc04a6367489",
+			"synced": false
+		},
+		{
+			"id": "5092cbf9-d128-074d-6aa1-d9308ff51506",
+			"headers": "x-access-token: {{token}}\n",
+			"url": "{{localhost}}/users",
+			"pathVariables": {},
+			"preRequestScript": "",
+			"method": "GET",
+			"collectionId": "a1bba847-e500-944b-793a-1bb85a6add2c",
+			"data": [],
+			"dataMode": "params",
+			"name": "List of users",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1433085139100,
+			"version": 2,
+			"responses": [],
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"folder": "216c01f0-7e52-b3c4-f8f8-fc04a6367489",
+			"synced": false
+		},
+		{
+			"id": "68bdd307-b3d2-ea4a-1944-b3ad894924cc",
+			"headers": "",
+			"url": "{{localhost}}/login",
+			"pathVariables": {},
+			"preRequestScript": "",
+			"method": "POST",
+			"collectionId": "a1bba847-e500-944b-793a-1bb85a6add2c",
+			"data": [
+				{
+					"key": "login",
+					"value": "jazalizil",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "mypassword",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"name": "Login",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1433082992417,
+			"version": 2,
+			"responses": [],
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"folder": "216c01f0-7e52-b3c4-f8f8-fc04a6367489",
+			"synced": false
+		},
+		{
+			"id": "9b1841e2-45c7-77a2-c6ce-e16de1871006",
+			"headers": "",
+			"url": "{{localhost}}/users",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "username",
+					"value": "jazalizil",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "mypassword",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "email",
+					"value": "jazalizil@weball.fr",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "firstname",
+					"value": "jalil",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "lastname",
+					"value": "dab",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "age",
+					"value": "42",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1433082759990,
+			"name": "Register",
+			"description": "",
+			"collectionId": "a1bba847-e500-944b-793a-1bb85a6add2c",
+			"responses": [],
+			"synced": false
+		},
+		{
+			"id": "c1e4c359-7b95-0dc4-a438-e3d96a6b3aa9",
+			"headers": "x-access-token: {{token}}\n",
+			"url": "{{localhost}}/me",
+			"pathVariables": {},
+			"preRequestScript": "",
+			"method": "GET",
+			"collectionId": "a1bba847-e500-944b-793a-1bb85a6add2c",
+			"data": [],
+			"dataMode": "params",
+			"name": "My info",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1433083093607,
+			"version": 2,
+			"responses": [],
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"folder": "216c01f0-7e52-b3c4-f8f8-fc04a6367489",
+			"synced": false
+		},
+		{
+			"id": "d025d16b-773d-23d3-3778-af6bb13cc00a",
+			"headers": "x-access-token: {{token}}\n",
+			"url": "{{localhost}}/me",
+			"pathVariables": {},
+			"preRequestScript": "",
+			"method": "POST",
+			"collectionId": "a1bba847-e500-944b-793a-1bb85a6add2c",
+			"data": [
+				{
+					"key": "username",
+					"value": "jazalizil",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "mypassword",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "email",
+					"value": "jazalizil@weball.fr",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"name": "Modify my infos",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1433084219984,
+			"version": 2,
+			"responses": [],
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"folder": "216c01f0-7e52-b3c4-f8f8-fc04a6367489",
+			"synced": false
+		}
+	]
+}

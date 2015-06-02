@@ -1,0 +1,33 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color:##34495e;
+  background:#ecf0f1;
+}
+
+a {
+  color: #2980b9;
+}
+
+/*dark background */
+/*body{
+  background:url("/images/bg.jpg");
+}*/
+
+
+h1{
+  text-align:$align;
+  padding:10px 0px 0px 0px;
+  font:26px Helvetica;
+  color:#2c3e50;
+  text-transform:uppercase;
+  /*text-shadow:#000 0px 1px 5px;*/
+  margin:0px;
+}
+
+p{
+  font:15px Lato;
+  color:#7f8c8d;
+  /*text-shadow:#000 0px 1px 5px;*/
+  margin-bottom:30px;
+}
