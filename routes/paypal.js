@@ -9,7 +9,7 @@ var auth = require('../middlewares/paypal/openIdConnect');
 // OpenID Connect 
 router.route('/openidconnect')
 .post(validateToken, auth.connect, function(req, res, next) {
-	res.send(200);
+	res.sendStatus(200);
 });
 
 

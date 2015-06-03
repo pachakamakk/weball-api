@@ -26,8 +26,8 @@ router.route('/')
     if (req.body.password !== undefined) user.password = req.body.password;
     user.email = req.body.email;    
     user.save(function(err){
-      if (err) res.send(err);
-      else res.json({'message': 'Modified', 'status': 200});
+      if (err) next(err);
+      else res.sendStatus(200);
     });
   });
 });

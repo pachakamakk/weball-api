@@ -6,7 +6,7 @@ var isAuth = require('../middlewares/validateToken');
 router.route('/')
 
 .get(isAuth, function(req, res, next) {
-  res.send(200);
+  res.sendStatus(200);
 });
 
 module.exports = router;

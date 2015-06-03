@@ -25,7 +25,7 @@ router.route('/')
   });
   chatroom.save(function(err){
     if (err) next(err);
-    else res.send(200);
+    else res.sendStatus(200);
   });
 });
 

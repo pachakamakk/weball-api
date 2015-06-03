@@ -19,7 +19,7 @@ router.route('/')
     console.log(imgName);
 
     if (!imgName)
-      next({status:'405', message:'Bad image file'});
+      next({status:'403', message:'Bad image file'});
     else {
       res.json({name : __dirname + 'images/' + req.user.username});
     }
@@ -32,7 +32,7 @@ router.route('/:uname')
 .get(validateToken, function(req, res, next){
   User.find({username:req.params.uname}, function(err, user){
     if (err) next(err);
-    else if (!user) next({status:'403', message:'No such user'});
+    else if (!user) next({status:'404', message:'No such user'});
     else res.json(user.photoUrl);
   });
 });

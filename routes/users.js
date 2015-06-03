@@ -8,7 +8,7 @@ router.route('/')
   // List users
   .get(validateToken, function(req, res, next) {
     var query = User.find({}).select(
-      'username email firstname age lastname register_date has_team fav_fields points friends'
+      'username email firstname age lastname registerDate hasTeam favFields points friends'
     );
     query.exec(function(err, users) {
       if (err) next(err);
@@ -31,26 +31,22 @@ router.route('/')
     if (err)
       next(err);
     else
-      res.json({
-        'message': 'Registed',
-        'status': 200
-      });
+      res.sendStatus(200);
   });
 });
 
-router.route('/:uname')
+router.route('/:id')
   //Get user from his username
   .get(validateToken, function(req, res, next) {
-    var query = User.findOne({
-      username: req.params.uname
-    }).select(
-      'username email firstname age lastname register_date has_team fav_fields points friends'
+    var query = User.findById(req.params.id).select(
+      'username email firstname age lastname registerDate hasTeam favFields points friends'
     );
     query.exec(function(err, user) {
       //Error
       if (err) next(err);
       //No user found
       else if (!user) next({
+        status: 404,
         error: 'No such user'
       });
       //Success

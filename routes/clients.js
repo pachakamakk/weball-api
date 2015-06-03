@@ -21,7 +21,7 @@ router.route('/')
     if (err)
       next(err);
     else
-      res.send(200);
+      res.sendStatus(200);
   });
 })
 

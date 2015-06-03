@@ -1,63 +1,88 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 var ObjectId = mongoose.Schema.Types.ObjectId;
-
-var roles = {"ADMIN":0, "USER":1, "FIVE":2};
-
-var validateEmail = function(email) {
-    var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    return re.test(email)
-};
-
+var roles = require('../utils/roles');
+var validateEmail = require('../utils/validateEmail');
 
 // UserSchema model
 var UserSchema = new mongoose.Schema({
-    username: {
-    	type : String,
-      match: /^[a-zA-Z0-9-_.]{3,15}$/,
-    	required : true,
-      lowercase:true,
-    	index : {unique : true}
+  username: {
+    type: String,
+    match: /^[a-zA-Z0-9-_.]{3,15}$/,
+    required: true,
+    lowercase: true,
+    index: {
+      unique: true
+    }
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true,
+    index: {
+      unique: true
     },
-    password: {
-      type: String,
-      required : true
-    },
-    email:{
-    	type : String,
-    	required : true,
-    	index : {unique : true},
-      validate:[validateEmail, 'Veuillez entrer une adresse email valide.']
-    },
-    firstname: {
-      type : String,
-      match: /[a-zA-Z]{2,12}$/,
-      required : true
-    },
-    lastname: {
-      type : String,
-      match: /[a-zA-Z]{2,12}$/,
-      required : true
-    },
-    age : {
-      type : Number,
-      required : true,
-      min : 15,
-      max: 100
-    },
-    location : {
-      type : String,
-      required : false,
-    },
-    role: {type: Number, default: roles.USER},
-    photoUrl: String,
-    creditCardId: String,
-    friends : { type: [ObjectId] },
-    fav_fields : { type : [ObjectId] },
-    has_team : { type: Boolean, default: false},
-    teamId : {type : ObjectId},
-    points : {type: Number, default: 0, min: 0, max: 100},
-    register_date : {type : Date, default : Date.now}
+    validate: [validateEmail, 'Veuillez entrer une adresse email valide.']
+  },
+  firstname: {
+    type: String,
+    match: /[a-zA-Z]{2,12}$/,
+    required: true
+  },
+  lastname: {
+    type: String,
+    match: /[a-zA-Z]{2,12}$/,
+    required: true
+  },
+  age: {
+    type: Number,
+    required: true,
+    min: 15,
+    max: 100
+  },
+  location: {
+    type: String,
+    required: false,
+  },
+  role: {
+    type: Number,
+    default: roles.USER
+  },
+  photoUrl: String,
+  creditCardId: String,
+  friends: {
+    type: [ObjectId],
+    ref: 'User'
+  },
+  favFields: {
+    type: [ObjectId],
+    ref: 'Field'
+  },
+  hasTeam: {
+    type: Boolean,
+    default: false
+  },
+  team: {
+    type: ObjectId,
+    ref: 'Team'
+  },
+  points: {
+    type: Number,
+    default: 0,
+    min: 0,
+    max: 100
+  },
+  five: {
+    type: ObjectId,
+    ref: 'Five'
+  },
+  registerDate: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 
@@ -91,4 +116,3 @@ UserSchema.methods.verifyPassword = function(password, cb) {
 
 
 module.exports = mongoose.model('User', UserSchema);
-module.exports.roles = Object.freeze(roles);
