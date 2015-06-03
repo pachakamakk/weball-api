@@ -6,7 +6,7 @@
 
 var app = require('../app');
 var debug = require('debug')('api:server');
-//var http = require('http');
+var http = require('http');
 var https = require('https');
 var fs = require('fs');
 
@@ -21,58 +21,30 @@ var sslOptions = {
   rejectUnauthorized: false
 };
 
-/**
- * Get portHTTP from environment and store in Express.
- */
-
-/* Dev time */
-//var portHTTP = 8080;
-//var portHTTPS = 8181;
-
-/* Production time */
-var portHTTPS = 443;
-// var portHTTP = 80;
+var port = process.env.PORT;
 
 
 /**
  * Create HTTP & HTTPS server.
  */
 
-//http = http.createServer(app);
-https = https.createServer(sslOptions, app);
+http = http.createServer(app);
+//https = https.createServer(sslOptions, app);
 
 /**
  * Listen on provided portHTTP, on all network interfaces.
  */
-/*
-http.listen(portHTTP, function(){
-console.log("Express server listening on port " + portHTTP)})
+http.listen(port, function(){
+console.log("Express server listening on port " + port)})
 http.on('error', onError);
 http.on('listening', onListening);
-*/
+/*
 https.listen(portHTTPS, function(){
-console.log("Secure Express server listening on port " + portHTTPS)})
+console.log("Secure Express server listening on port " + portHTTP)})
 https.on('error', onErrorHTTPS);
 https.on('listening', onListeningHTTPS);
+*/
 
-/**
- * Normalize a portHTTP into a number, string, or false.
- */
-
-function normalizeportHTTP(val) {
-
-  if (isNaN(portHTTP)) {
-    // named pipe
-    return val;
-  }
-
-  if (portHTTP >= 0) {
-    // portHTTP number
-    return portHTTP;
-  }
-
-  return false;
-}
 
 /**
  * Event listener for HTTP server "error" event.
@@ -83,9 +55,9 @@ function onError(error) {
     throw error;
   }
 
-  var bind = typeof portHTTP  === 'string'
-    ? 'Pipe ' + portHTTP
-    : 'portHTTP ' + portHTTP
+  var bind = typeof port  === 'string'
+    ? 'Pipe ' + port
+    : 'port ' + port
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -111,9 +83,9 @@ function onErrorHTTPS(error) {
     throw error;
   }
 
-  var bind = typeof portHTTPS  === 'string'
-    ? 'Pipe ' + portHTTPS
-    : 'portHTTPS ' + portHTTPS
+  var bind = typeof port  === 'string'
+    ? 'Pipe ' + port
+    : 'port ' + port
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -137,7 +109,7 @@ function onListening() {
   var addr = http.address();
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
-    : 'portHTTP ' + addr.portHTTP;
+    : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
 
@@ -145,6 +117,6 @@ function onListeningHTTPS() {
   var addr = https.address();
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
-    : 'portHTTPS ' + addr.portHTTPS;
+    : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
