@@ -2,6 +2,8 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
+var roles = {"ADMIN":0, "USER":1, "FIVE":2};
+
 var validateEmail = function(email) {
     var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return re.test(email)
@@ -27,10 +29,6 @@ var UserSchema = new mongoose.Schema({
     	index : {unique : true},
       validate:[validateEmail, 'Veuillez entrer une adresse email valide.']
     },
-    isAdmin: {
-      type:Boolean,
-      default:false
-    },
     firstname: {
       type : String,
       match: /[a-zA-Z]{2,12}$/,
@@ -51,6 +49,7 @@ var UserSchema = new mongoose.Schema({
       type : String,
       required : false,
     },
+    role: {type: Number, default: roles.USER},
     photoUrl: String,
     creditCardId: String,
     friends : { type: [ObjectId] },
@@ -92,3 +91,4 @@ UserSchema.methods.verifyPassword = function(password, cb) {
 
 
 module.exports = mongoose.model('User', UserSchema);
+module.exports.roles = Object.freeze(roles);
