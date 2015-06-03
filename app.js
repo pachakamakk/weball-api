@@ -11,6 +11,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
+var login = require('./routes/login');
 var users = require('./routes/users');
 //var clients = require('./routes/clients');
 var me = require('./routes/me');
@@ -57,6 +58,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes Point
 app.use('/', index);
+app.use('/login', login);
 app.use('/users', users);
 //app.use('/clients', clients);
 app.use('/me', me);
