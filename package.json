@@ -12,22 +12,13 @@
     "debug": "latest",
     "ejs": "^2.3.1",
     "express": "latest",
-    "express-force-ssl": "^0.2.11",
-    "express-session": "latest",
-    "express-ssl": "^3.1.0",
-    "express.io": "latest",
     "fs": "latest",
-    "jade": "latest",
     "jwt-simple": "^0.2.0",
     "mongoose": "latest",
     "morgan": "latest",
-    "oauth2orize": "latest",
-    "passport": "latest",
-    "passport-http": "latest",
-    "passport-http-bearer": "latest",
     "paypal-rest-sdk": "^1.5.2",
     "serve-favicon": "latest",
-    "simple-oauth2": "latest",
-    "uber-api": "latest"
+    "uber-api": "latest",
+    "simple-oauth2": "latest"
   }
 }

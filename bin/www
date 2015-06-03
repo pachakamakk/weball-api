@@ -10,9 +10,7 @@ var http = require('http');
 var https = require('https');
 var fs = require('fs');
 
-/**
- * Certificate + private key.
- */
+/*
 var sslOptions = {
   key: fs.readFileSync('./config/ssl/server.key'),
   cert: fs.readFileSync('./config/ssl/server.crt'),
@@ -20,31 +18,29 @@ var sslOptions = {
   requestCert: true,
   rejectUnauthorized: false
 };
+*/
 
 var port = process.env.PORT;
-
 
 /**
  * Create HTTP & HTTPS server.
  */
 
 http = http.createServer(app);
-//https = https.createServer(sslOptions, app);
 
-/**
- * Listen on provided portHTTP, on all network interfaces.
- */
 http.listen(port, function(){
 console.log("Express server listening on port " + port)})
 http.on('error', onError);
 http.on('listening', onListening);
+
 /*
-https.listen(portHTTPS, function(){
-console.log("Secure Express server listening on port " + portHTTP)})
+https = https.createServer(sslOptions, app);
+
+https.listen(port, function(){
+console.log("Secure Express server listening on port " + port)})
 https.on('error', onErrorHTTPS);
 https.on('listening', onListeningHTTPS);
 */
-
 
 /**
  * Event listener for HTTP server "error" event.

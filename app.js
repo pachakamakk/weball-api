@@ -1,8 +1,8 @@
-var expressio = require('express.io');
-var ssl = require('express-ssl');
+var express = require('express');
+//var ssl = require('express-ssl');
+//app.use(ssl());
 
-var app = expressio();
-app.http().io();
+var app = express();
 
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -11,13 +11,12 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-var login = require('./routes/login');
 var users = require('./routes/users');
-var clients = require('./routes/clients');
+//var clients = require('./routes/clients');
 var me = require('./routes/me');
 var photo = require('./routes/photo');
 var matchs = require('./routes/matchs');
-var chat = require('./routes/chat')(app);
+var chat = require('./routes/chat');
 
 // UBER
 var UBER_ID = 'zURMqUhzvDsPcZidFT11IU9sdDmZvd56';
@@ -50,18 +49,16 @@ app.set('view engine', 'ejs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 
-app.use(ssl());
-app.use(logger('dev'));
+app.use(logger('combined'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(expressio.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes Point
 app.use('/', index);
-app.use('/login', login);
 app.use('/users', users);
-app.use('/clients', clients);
+//app.use('/clients', clients);
 app.use('/me', me);
 app.use('/photo', photo);
 app.use('/chat', chat);

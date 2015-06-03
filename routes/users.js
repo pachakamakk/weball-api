@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
-var isAuth = require('../middlewares/auth').isAuthenticated;
 var validateToken = require('../middlewares/validateToken');
 
 // GET list users, POST save user

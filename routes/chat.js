@@ -37,6 +37,4 @@ router.route('/:id')
   });
 });
 
-module.exports=function(app) {
-  return router;
-};
+module.exports=router;
