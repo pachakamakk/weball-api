@@ -33,6 +33,13 @@ router.route('/')
     else
       res.sendStatus(200);
   });
+})
+
+// Register user
+.patch(function(req, res, next) {
+  console.log("message");
+  res.json("ok")
+
 });
 
 router.route('/:id')
