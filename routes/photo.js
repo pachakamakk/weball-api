@@ -2,17 +2,16 @@
 var User = require('../models/user');
 var express = require('express');
 var fs = require('fs');
-var validateToken = require('../middlewares/validateToken');
 var router = express.Router();
 
 router.route('/')
 // GET current user photo url
-.get(validateToken, function(req, res){
+.get(function(req, res){
   res.json({'photo' : req.user.photoUrl});
 })
 
 // UPDATE user photo
-.post(validateToken, function(req, res, next){
+.post(function(req, res, next){
   console.log(__dirname);
   fs.readFile(req.files.image.path, function(err, data){
     var imgName = req.files.image.name;
@@ -29,7 +28,7 @@ router.route('/')
 router.route('/:uname')
 
 // GET photo url from username
-.get(validateToken, function(req, res, next){
+.get(function(req, res, next){
   User.find({username:req.params.uname}, function(err, user){
     if (err) next(err);
     else if (!user) next({status:'404', message:'No such user'});

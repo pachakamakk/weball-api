@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var Field = require('../models/field');
-var validateToken = require('../middlewares/validateToken');
 var isFive = require('../middlewares/isFive');
 
 
@@ -14,7 +13,7 @@ var isFive = require('../middlewares/isFive');
 
 router.route('/')
   // Add field
-  .post(validateToken, isFive, function(req, res, next) {
+  .post(function(req, res, next) {
     var field = new Field({
       name: req.body.name,
       price: req.body.price,
@@ -28,7 +27,7 @@ router.route('/')
   })
 
 // List fields
-.get(validateToken, function(req, res, next) {
+.get(function(req, res, next) {
   Field.find(function(err, fields) {
     if (err) next(err);
     else res.json(fields);
@@ -37,13 +36,13 @@ router.route('/')
 
 
 router.route('/:id')
-  .get(validateToken, function(req, res, next) {
+  .get(function(req, res, next) {
     Field.findById(req.params.id, function(err, field) {
       if (err) next(err);
       else res.json(field);
     });
   })
-  .delete(validateToken, isFive, function(req, res, next) {
+  .delete(isFive, function(req, res, next) {
     Field.remove({
       _id: req.five._id
     }, function(err, five) {

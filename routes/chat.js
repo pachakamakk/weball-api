@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var Chatroom = require('../models/chatroom');
-var isAuth = require('../middlewares/validateToken');
 
 /**
  **  GET List chatrooms of current user
@@ -10,7 +9,7 @@ var isAuth = require('../middlewares/validateToken');
 **/
 
 router.route('/')
-.get(isAuth, function(req, res, next){
+.get(function(req, res, next){
   Chatroom.find({ $or:[ {'senderId' : req.user._id}, {'receiverId' : req.body.receiverId} ] },
     function(err, rooms) {
       if (err) next(err);
@@ -18,7 +17,7 @@ router.route('/')
     });
 
 })
-.post(isAuth, function(req, res, next){
+.post(function(req, res, next){
   var chatroom = new Chatroom({
     senderId:req.user._id,
     receiverId:req.body.receiverId
