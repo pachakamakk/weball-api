@@ -6,6 +6,7 @@
  ** Functions for Login, Generate Jwt 
  */
 
+
 var User = require('../models/user');
 var Token = require('../models/token');
 var jwt = require('jwt-simple');

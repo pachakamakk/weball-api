@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
-var isAuth = require('../middlewares/validateToken');
 
 /** /me POST : update current user
  **  param : username, email
@@ -12,14 +11,14 @@ var isAuth = require('../middlewares/validateToken');
 router.route('/')
 
 // GET current user
-.get(isAuth, function(req, res){
+.get(function(req, res){
   res.json(req.user);
 })
 
 // POST update current user
 // TODO : See documentation of findByIdAndUpdate
 
-.post(isAuth, function(req, res, next){
+.post(function(req, res, next){
   User.findById({_id: req.user._id}, function(err, user){
     if (err) next(err);
     user.username = req.body.username;
