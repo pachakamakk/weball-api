@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var Team = require('../models/team');
-var validateToken = require('../middlewares/validateToken');
-
 
 /**
  ** GET list teams
@@ -11,7 +9,7 @@ var validateToken = require('../middlewares/validateToken');
  **/
 
 router.route('/')
-  .get(validateToken, function(req, res, next) {
+  .get(function(req, res, next) {
     Team.find({
       userIds: req.user._id
     }, function(err, team) {
@@ -19,7 +17,7 @@ router.route('/')
       else res.json(team);
     });
   })
-  .post(validateToken, function(req, res, next) {
+  .post(function(req, res, next) {
     var team = new Team();
     team.name = req.body.name;
     team.leader = req.user._id;
@@ -35,7 +33,7 @@ router.route('/')
   });
 
 router.route('/:id')
-  .get(validateToken, function(req, res, next) {
+  .get(function(req, res, next) {
     Team.findById(req.params.id, function(err, team) {
       if (err) next(err);
       else res.json(team);

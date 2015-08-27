@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 var ObjectId = mongoose.Schema.Types.ObjectId;
-var roles = require('../utils/roles');
 var validateEmail = require('../utils/validateEmail');
 
 // UserSchema model
@@ -25,7 +24,7 @@ var UserSchema = new mongoose.Schema({
     index: {
       unique: true
     },
-    validate: [validateEmail, 'Veuillez entrer une adresse email valide.']
+    validate: [validateEmail, 'adress email invalid']
   },
   firstname: {
     type: String,
@@ -48,18 +47,23 @@ var UserSchema = new mongoose.Schema({
     required: false,
   },
   role: {
-    type: Number,
-    default: roles.USER
+    type: [String],
+    required: false
   },
-  photoUrl: String,
-  creditCardId: String,
+  photo: {
+    type: String,
+    required: false
+  },
+  creditCardId: String, // To delete
   friends: {
     type: [ObjectId],
-    ref: 'User'
+    ref: 'User',
+    default: null
   },
   favFields: {
     type: [ObjectId],
-    ref: 'Field'
+    ref: 'Field',
+    default: null
   },
   hasTeam: {
     type: Boolean,
@@ -67,7 +71,8 @@ var UserSchema = new mongoose.Schema({
   },
   team: {
     type: ObjectId,
-    ref: 'Team'
+    ref: 'Team',
+    default: null
   },
   points: {
     type: Number,
@@ -82,6 +87,11 @@ var UserSchema = new mongoose.Schema({
   registerDate: {
     type: Date,
     default: Date.now
+  },
+  token: {
+    type: ObjectId,
+    ref: 'Token',
+    default: null
   }
 });
 
@@ -106,13 +116,11 @@ UserSchema.pre('save', function(callback) {
 });
 
 // Verify user password in order to authenticate calls to API
-
 UserSchema.methods.verifyPassword = function(password, cb) {
   bcrypt.compare(password, this.password, function(err, isMatch) {
     if (err) return cb(err);
     cb(null, isMatch);
   });
 };
-
 
 module.exports = mongoose.model('User', UserSchema);

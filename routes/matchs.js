@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var Match = require('../models/match');
 var Team = require('../models/team');
-var validateToken = require('../middlewares/validateToken');
 
 /**
  ** GET  matchs list of the current user
@@ -13,7 +12,7 @@ var validateToken = require('../middlewares/validateToken');
 
 router.route('/')
 
-.get(validateToken, function(req, res, next) {
+.get(function(req, res, next) {
   if (req.user.hasTeam)
     Match.find(function(err, matchs) {
       if (err) next(err);
@@ -23,7 +22,7 @@ router.route('/')
     res.json({});
 })
 
-.post(validateToken, function(req, res, next) {
+.post(function(req, res, next) {
   var match = new Match({
     gameDate: req.body.date,
     field: req.body.field,
@@ -52,7 +51,7 @@ router.route('/')
 
 router.route('/:id')
 
-.get(validateToken, function(req, res, next) {
+.get(function(req, res, next) {
   Match.find({
     _id: req.params.id
   }, function(err, match) {
@@ -62,7 +61,7 @@ router.route('/:id')
 });
 
 router.route('/:my')
-  .get(validateToken, function(req, res, next) {
+  .get(function(req, res, next) {
     Match.find({
       teams: req.user.team
     }, function(err, res) {
