@@ -23,6 +23,10 @@ router.route('/')
 })
 
 .post(function(req, res, next) {
+  //Vérifier si aucun match n'existe à cette date pour ce five et ce terrain.
+  // Enregistrer le match et le mettre en attente ou complet selon si c'est un match privée ou public
+  
+
   var match = new Match({
     gameDate: req.body.date,
     field: req.body.field,

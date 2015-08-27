@@ -11,23 +11,25 @@ var isFive = require('../middlewares/isFive');
  ** DELETE supprimer field
  **/
 
-router.route('/')
-  // Add field
-  .post(function(req, res, next) {
-    var field = new Field({
-      name: req.body.name,
-      price: req.body.price,
-      five: req.five._id
-    });
-
-    field.save(function(err) {
-      if (err) next(err);
-      else res.sendStatus(200);
-    })
+router.post('/', function(req, res, next) {
+  console.log(req.body);
+  var field = new Field({
+    available: req.body.available,
+    name: req.body.name,
+    calendar: req.body.calendar,
+    five: req.body._id
+  });
+  field.save(function(err, field) {
+    if (err) {
+      console.log(err);
+      next(err);
+    } else res.json(field);
   })
+})
 
-// List fields
-.get(function(req, res, next) {
+// List fields by Id?
+.get('/', function(req, res, next) {
+  console.log("message");
   Field.find(function(err, fields) {
     if (err) next(err);
     else res.json(fields);

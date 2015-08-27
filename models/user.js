@@ -36,11 +36,9 @@ var UserSchema = new mongoose.Schema({
     match: /[a-zA-Z]{2,12}$/,
     required: true
   },
-  age: {
-    type: Number,
-    required: true,
-    min: 15,
-    max: 100
+  birthday: {
+    type: Date,
+    required: false, //After set true 
   },
   location: {
     type: String,
@@ -54,7 +52,6 @@ var UserSchema = new mongoose.Schema({
     type: String,
     required: false
   },
-  creditCardId: String, // To delete
   friends: {
     type: [ObjectId],
     ref: 'User',
@@ -65,11 +62,7 @@ var UserSchema = new mongoose.Schema({
     ref: 'Field',
     default: null
   },
-  hasTeam: {
-    type: Boolean,
-    default: false
-  },
-  team: {
+  teams: {
     type: ObjectId,
     ref: 'Team',
     default: null
@@ -87,11 +80,6 @@ var UserSchema = new mongoose.Schema({
   registerDate: {
     type: Date,
     default: Date.now
-  },
-  token: {
-    type: ObjectId,
-    ref: 'Token',
-    default: null
   }
 });
 

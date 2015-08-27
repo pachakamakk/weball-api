@@ -5,19 +5,24 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 var Mixed = mongoose.Schema.Types.Mixed;
 
 module.exports = mongoose.model('Field', {
-  name: {
+  available: {
     type: String,
-    unique: true,
     required: true
   },
-  price: {
-    type: [Number],
+  name: {
+    type: String,//Cetait à true ca veut dire y'a des terrains qui peuvent pas s'appeler pareil ? 
     required: true
   },
-  // devise: {
-  //   type: [Number],
-  //   required: true
-  // },
+  calendar: {
+    type: [{
+      available: Boolean,
+      status: String,
+      amount: String,
+      matchId: ObjectId,
+      date: Number, // Date for moment test with number
+    }],
+    ref: 'Match',
+  },
   five: {
     type: ObjectId,
     ref: 'Five'

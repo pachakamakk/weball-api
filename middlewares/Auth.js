@@ -56,7 +56,6 @@ var validateAccesAPIAndGetUser = function(req, res, next) {
       'firstname': 1,
       'age': 1,
       'lastname': 1,
-      'has_team': 1,
       'fav_fields': 1,
       'points': 1,
       'friends': 1

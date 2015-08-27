@@ -53,16 +53,29 @@ router.post(function(req, res, next) {
   });
 })
 
-// Register user
-.patch(function(req, res, next) {
-  console.log("message");
-  res.json("ok")
 
-});
+// Update Partial Ressource of user
+.patch('/:_id', function(req, res, next) {
+  var query = {
+    _id: req.params._id
+  };
+
+  User.findOneAndUpdate(query, req.body, {
+    'new': true
+  }).select({
+    'password': 0,
+    '_id': 0
+  }).exec(function(err, updated) {
+    if (err)
+      next(err);
+    else
+      res.json(updated);
+  });
+})
 
 
 //Get user from his username
-router.get('/:uname', function(req, res, next) {
+.get('/:uname', function(req, res, next) {
   User.findOne({
       username: req.params.uname
     }).select({
