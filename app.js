@@ -10,6 +10,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+
 var index = require('./routes/index');
 var login = require('./routes/login');
 var users = require('./routes/users');
@@ -20,6 +21,7 @@ var matchs = require('./routes/matchs');
 var chat = require('./routes/chat');
 var fields = require('./routes/fields');
 var teams = require('./routes/teams');
+var five = require('./routes/five');
 
 // UBER
 var UBER_ID = 'zURMqUhzvDsPcZidFT11IU9sdDmZvd56';
@@ -52,7 +54,8 @@ app.set('view engine', 'ejs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 
-app.use(logger('combined'));
+app.use(logger('dev')); //combined 
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -66,6 +69,7 @@ app.use('/users', users);
 app.use('/me', me);
 app.use('/photo', photo);
 app.use('/chat', chat);
+app.use('/five', five);
 app.use('/matchs', matchs);
 app.use('/fields', fields);
 app.use('/teams', teams);

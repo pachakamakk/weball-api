@@ -10,7 +10,7 @@ module.exports = mongoose.model('Field', {
     required: true
   },
   name: {
-    type: String,//Cetait à true ca veut dire y'a des terrains qui peuvent pas s'appeler pareil ? 
+    type: String,
     required: true
   },
   calendar: {
@@ -21,7 +21,7 @@ module.exports = mongoose.model('Field', {
       matchId: ObjectId,
       date: Number, // Date for moment test with number
     }],
-    ref: 'Match',
+    ref: 'Match'
   },
   five: {
     type: ObjectId,

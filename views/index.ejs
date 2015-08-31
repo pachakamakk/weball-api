@@ -7,7 +7,7 @@
   </head>
   <body>
       <h1><b>Welcome to API Documentation - weBall </b></h1>
-      <hr><br><b>https://localhost:8181/ - SSL 3.0 Certificate</b>
+      <hr><br><b>http://localhost:8080/ <!-- ( SSL 3.0 Certificate) --></b>
 
       <p color="dark">
       Every route returns <font color="green">200</font> in case of success, <font color="DarkGoldenRod">40X</font> in case of client error and <font color="red">500</font> in case of server error.</br>
@@ -15,7 +15,18 @@
       The server returns only JSON responses.</br>
       </p>
 
+
 <br><br><hr>
+
+<a><b>Lunch the server and mongoDB</b></a>
+<br><br><b>./mongod </b>
+<br><br><b>./nodemon [port] or ./node [port]</b> <br>
+<pre> Port per default: 8080
+</pre>
+
+
+<br><br><hr>
+
 <a><b>Register on the API as a simple user</b></a>
 <br><br><b>/users POST</b> <br>
 <pre> Parameters
@@ -25,11 +36,18 @@
 "email":"yourmail@example.com",
 "firstname":"zlatan",
 "lastname":"ibrahimovic",
-"age":"15"
+"birthday":"1942-08-30T23:42:00.756Z"
 </font></pre>
 <pre><br> Response
 <font color="green">
-{'message': 'Registed', 'status': 200}</font> </pre>
+{
+  "username":"yourusername",
+  "password":"password42"
+  "email":"yourmail@example.com",
+  "firstname":"zlatan",
+  "lastname":"ibrahimovic",
+  "birthday":"1942-08-30T23:42:00.756Z" 
+}</font> </pre>
 
 
 <br><br><hr>
@@ -46,8 +64,8 @@
 
 
 <br><br><hr>
-<a><b>Get informations about current user</b></a>
-<br><br><b>/me GET</b> <br>
+<a><b>Get informations about (current) user</b></a>
+<br><br><b>/me or /:_id  GET</b> <br>
 <pre> Parameters
 <font color="red">
 "token":"42"
@@ -58,7 +76,7 @@
   "username": "elias",
   "email": "elias@weball.fr",
   "firstname": "elias",
-  "age": 20,
+  "birthday":"1942-08-30T23:42:00.756Z",
   "lastname": "elias",
   "register_date": "2015-04-06T17:14:41.808Z",
   "points": 0,
@@ -69,8 +87,8 @@
 
 
 <br><br><hr>
-<a><b>Modify informations about current user</b></a>
-<br><br><b>/me POST</b> <br>
+<a><b>Modify partial information about (current) user</b></a>
+<br><br><b>/me or /:_id  PATCH</b> <br>
 <pre> Parameters
 <font color="red">
 "token":"42",</font><font>
@@ -79,7 +97,10 @@
 </font></pre><br>
 <pre> Response
 <font color="green">
-{'message': 'Modified', 'status': 200}</font> </pre>
+{
+  "username": "elias",
+  "email": "elias@weball.fr"
+}</font> </pre>
 
 
 <br><br><hr>
@@ -95,7 +116,7 @@
   "username": "jazalizil",
   "email": "jazalizil@weball.fr",
   "firstname": "jalil",
-  "age": 42,
+  "birthday":"1942-08-30T23:42:00.756Z",
   "lastname": "dab",
   "register_date": "2015-05-31T14:32:30.931Z",
   "has_team": false,
@@ -106,18 +127,60 @@
 
 
 <br><br><hr>
-<a><b>Get list of matchs</b></a>
-<br><br><b>/matchs GET</b> <br>
+<a><b>Get list of five or a five by id </b></a>
+<br><br><b>/five /five/:_id GET</b> <br>
 <pre> Parameters
 <font color="red">
-"token":"42",
-"start":"YYYY-MM-DD",
-"end":"YYYY-MM-DD"
+"token":"42"
 </font> </pre>
 <pre><br> Response
 <font color="green">
 {
-    TOFILL
+  "_id": "55e1828816788cb60022ceaf",
+  "siren": 1,
+  "name": "myFirstFive",
+  "__v": 0,
+  "user": [
+    "UserAdminFiveObjectID"
+  ],
+  "registerDate": "2015-08-30T18:06:00.756Z",
+  "gps": {
+    "longitude": "3.2398723987",
+    "latitude": "2.23082397237"
+  },
+  "fields": [
+    "FieldObjectID"
+  ]
+},
+{
+  ...
+} </font> </pre>
+
+
+<br><br><hr>
+<a><b>Get list of matchs per field </b></a>
+<br><br><b>/five/field/matchs/:_id GET</b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+</font> </pre>
+<pre><br> Response
+<font color="green">
+{
+    
+} </font> </pre>
+
+<br><br><hr>
+<a><b>Get list of matchs per field </b></a>
+<br><br><b>/five/field/matchs/:_id GET</b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+</font> </pre>
+<pre><br> Response
+<font color="green">
+{
+    
 } </font> </pre>
 
 

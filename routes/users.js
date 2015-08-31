@@ -94,7 +94,7 @@ router.post(function(req, res, next) {
       if (err) next(err);
       // No user found
       else if (!user) next({
-        status: 401,
+        status: 404,
         message: 'No such user'
       });
       // Success

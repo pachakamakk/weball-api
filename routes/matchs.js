@@ -22,35 +22,39 @@ router.route('/')
     res.json({});
 })
 
+ // Create a new Match
 .post(function(req, res, next) {
-  //Vérifier si aucun match n'existe à cette date pour ce five et ce terrain.
-  // Enregistrer le match et le mettre en attente ou complet selon si c'est un match privée ou public
-  
 
-  var match = new Match({
-    gameDate: req.body.date,
-    field: req.body.field,
-    teams: []
-  });
-  var userTeam = new Team({
-    name: req.body.team,
-    match: match._id,
-    leader: req.user._id,
-    players: []
-  });
-  userTeam.save(function(err) {
-    if (err) next(err);
-    else {
-      console.log(match);
-      match.teams.push(userTeam._id);
-      match.save(function(err) {
-        if (err)
-          next(err);
-        else
-          res.sendStatus(200);
-      });      
-    }
-  });
+  // Vérifier si aucun match n'existe à cette date pour ce five et ce terrain.
+  // Enregistrer le match et le mettre en attente ou complet selon si c'est un match privée ou public
+
+
+
+
+  // var match = new Match({
+  //   gameDate: req.body.date,
+  //   field: req.body.field,
+  //   teams: []
+  // });
+  // var userTeam = new Team({
+  //   name: req.body.team,
+  //   match: match._id,
+  //   leader: req.user._id,
+  //   players: []
+  // });
+  // userTeam.save(function(err) {
+  //   if (err) next(err);
+  //   else {
+  //     console.log(match);
+  //     match.teams.push(userTeam._id);
+  //     match.save(function(err) {
+  //       if (err)
+  //         next(err);
+  //       else
+  //         res.sendStatus(200);
+  //     });
+  //   }
+  // });
 });
 
 router.route('/:id')
