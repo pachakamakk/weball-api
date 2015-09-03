@@ -2,29 +2,32 @@
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
-
 function arrayLimit(t) {
   return t.length <= 2;
 }
 
 module.exports = mongoose.model('Match', {
-  state: {
-    type: String, //Waiting: Players, Completed: Ready, Over: Finish
-    default: "Waiting"
+  status: {
+    type: String, // Waiting: Players, Completed: Ready, Over: Finish
+    default: "waiting"
   },
-  gameDate: {
+  start_date: {
     type: Date,
-    required: true
+    // required: true
   },
-  registerDate: {
+  end_date: {
+    type: Date,
+    // required: true
+  },
+  created_at: {
     type: Date,
     default: Date.now
   },
-  field: {
+  fieldId: {
     type: ObjectId,
     required: true
   },
-  teams: {
+  teamsId: {
     type: [ObjectId],
     validate: [arrayLimit, '2 équipes par match!']
   }

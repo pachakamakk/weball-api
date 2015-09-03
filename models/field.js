@@ -2,11 +2,10 @@
 
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
-var Mixed = mongoose.Schema.Types.Mixed;
 
 module.exports = mongoose.model('Field', {
   available: {
-    type: String,
+    type: Boolean,
     required: true
   },
   name: {
@@ -15,16 +14,17 @@ module.exports = mongoose.model('Field', {
   },
   calendar: {
     type: [{
-      available: Boolean,
       status: String,
       amount: String,
       matchId: ObjectId,
-      date: Number, // Date for moment test with number
+      start_date: Date,
+      end_date: Date  // Date for moment test with number
     }],
     ref: 'Match'
   },
   five: {
     type: ObjectId,
-    ref: 'Five'
+    ref: 'Five',
+    required: true
   }
 });

@@ -65,7 +65,7 @@
 
 <br><br><hr>
 <a><b>Get informations about (current) user</b></a>
-<br><br><b>/me or /:_id  GET</b> <br>
+<br><br><b>GET /me or /:_id  </b> <br>
 <pre> Parameters
 <font color="red">
 "token":"42"
@@ -88,18 +88,18 @@
 
 <br><br><hr>
 <a><b>Modify partial information about (current) user</b></a>
-<br><br><b>/me or /:_id  PATCH</b> <br>
+<br><br><b>PATCH /me or /:_id </b> <br>
 <pre> Parameters
 <font color="red">
 "token":"42",</font><font>
-"username":"zlatan",
-"email":"zlatan@weball.fr"
+"username":"newName",
+"email":"new@weball.fr"
 </font></pre><br>
 <pre> Response
 <font color="green">
 {
-  "username": "elias",
-  "email": "elias@weball.fr"
+  "username": "newName",
+  "email": "new@weball.fr"
 }</font> </pre>
 
 
@@ -128,7 +128,7 @@
 
 <br><br><hr>
 <a><b>Get list of five or a five by id </b></a>
-<br><br><b>/five /five/:_id GET</b> <br>
+<br><br><b>GET /five or /five/:_id </b> <br>
 <pre> Parameters
 <font color="red">
 "token":"42"
@@ -158,17 +158,96 @@
 
 
 <br><br><hr>
-<a><b>Get list of matchs per field </b></a>
-<br><br><b>/five/field/matchs/:_id GET</b> <br>
+<a><b>Modify partial information of a five by id. </b></a>
+<br><br><b>PATCH /five/:_id </b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42",</font>
+"siren": 2</pre>
+<pre><br> Response
+<font color="green">
+{
+  "_id": "55e1828816788cb60022ceaf",
+  "siren": 2,
+  "name": "myFirstFive",
+  "__v": 0,
+  "user": [
+    "UserAdminFiveObjectID"
+  ],
+  "registerDate": "2015-08-30T18:06:00.756Z",
+  "gps": {
+    "longitude": "3.2398723987",
+    "latitude": "2.23082397237"
+  },
+  "fields": [
+    "FieldObjectID"
+  ]
+} </font> <br>
+Informations: fieldId is automaticaly added in the [fields]</pre>
+
+
+<br><br><hr>
+<a><b>Create a field for a Five </b></a>
+<br><br><b>POST /fields </b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42",
+"fiveId:"55e1828816788cb60022ceaf",
+"available": true,
+"name": "My First Field"
+</font> </pre>
+<pre><br> Response
+<font color="green">
+ {
+    "_id": "55e4bd368bb0246e00b18c5b",
+    "available": true,
+    "name": "My First Field",
+    "five": "55e1828816788cb60022ceaf",
+    "__v": 0,
+    "calendar": []
+ }
+ </font> </pre>
+
+
+<br><br><hr>
+<a><b>Get list of fields by Five Id </b></a>
+<br><br><b>GET /fields/:_id </b> <br>
 <pre> Parameters
 <font color="red">
 "token":"42"
 </font> </pre>
 <pre><br> Response
 <font color="green">
-{
-    
-} </font> </pre>
+[
+ {
+    "_id": "55e4bd368bb0246e00b18c5b",
+    "available": true,
+    "name": "MyField5",
+    "five": "55e1828816788cb60022ceaf",
+    "__v": 0,
+    "calendar": [
+      {
+        "_id": "55e4bd368bb0246e00b18c5c",
+        "status": "available",
+        "amount": "10",
+        "start_date": "2015-08-30T18:06:00.756Z",
+        "end_date": "2015-08-30T19:06:00.756Z"
+      },
+      {
+        "_id": "55e4bd368bb0246e00b18c5c",
+        "status": "waiting",
+        "matchId": "ObjectId"
+        "amount": "10",
+        "start_date": "2015-08-30T20:06:00.756Z",
+        "end_date": "2015-08-30T21:06:00.756Z",
+      }
+    ]
+  },
+  {
+    ...
+  }
+]
+ </font> </pre>
 
 <br><br><hr>
 <a><b>Get list of matchs per field </b></a>

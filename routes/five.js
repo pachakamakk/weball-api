@@ -38,6 +38,7 @@ router.post('/', function(req, res, next) {
   })
 })
 
+
 // Get a Five By Id
 .get('/:_id', function(req, res, next) {
   Five.findById(req.params._id).exec(function(err, five) {
@@ -50,9 +51,8 @@ router.post('/', function(req, res, next) {
 })
 
 
-// 
+// Update partial ressource of a Five by Id
 .patch('/:_id', function(req, res, next) {
-
   var exist = false;
   Five.findById(req.params._id).exec(function(err, five) {
     five.siren = req.body.siren;
@@ -90,8 +90,8 @@ router.post('/', function(req, res, next) {
       if (err) {
         next(err);
       } else res.json(five);
-    })
-  })
-})
+    });
+  });
+});
 
 module.exports = router;
