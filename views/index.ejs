@@ -18,7 +18,7 @@
 
 <br><br><hr>
 
-<a><b>Lunch the server and mongoDB</b></a>
+<a><b>Launch the server and mongoDB</b></a>
 <br><br><b>./mongod </b>
 <br><br><b>./nodemon [port] or ./node [port]</b> <br>
 <pre> Port per default: 8080
@@ -27,7 +27,7 @@
 
 <br><br><hr>
 
-<a><b>Register on the API as a simple user</b></a>
+<a><b>Register as a simple user</b></a>
 <br><br><b>/users POST</b> <br>
 <pre> Parameters
 <font color="red">
@@ -46,7 +46,17 @@
   "email":"yourmail@example.com",
   "firstname":"zlatan",
   "lastname":"ibrahimovic",
-  "birthday":"1942-08-30T23:42:00.756Z" 
+  "birthday":"1942-08-30T23:42:00.756Z"
+  "_id": "55ead53641548544e3fa2c20",
+  "registerDate": "2015-09-05T11:42:46.780Z",
+  "points": 0,
+  "favFields": [
+    null
+  ],
+  "friends": [
+    null
+  ],
+  "role": []
 }</font> </pre>
 
 
@@ -127,6 +137,33 @@
 
 
 <br><br><hr>
+<a><b>Create a Five company</b></a>
+<br><br><b>POST /five </b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+</font> </pre>
+<pre><br> Response
+<font color="green">
+{
+  "__v": 0,
+  "siren": 12345678,
+  "name": "My First Five",
+  "zipCode": 93600,
+  "country": "France",
+  "address": "140 rue des fou",
+  "phone": "+33661713886",
+  "_id": "55e9ac78420b845f2916ae2b",
+  "gps": {
+    "longitude": "3.1323434",
+    "latitude": "2.12233443434"
+  },
+  admins: [],
+  fields: []
+}
+</font> </pre>
+
+<br><br><hr>
 <a><b>Get list of five or a five by id </b></a>
 <br><br><b>GET /five or /five/:_id </b> <br>
 <pre> Parameters
@@ -136,21 +173,20 @@
 <pre><br> Response
 <font color="green">
 {
-  "_id": "55e1828816788cb60022ceaf",
-  "siren": 1,
-  "name": "myFirstFive",
   "__v": 0,
-  "user": [
-    "UserAdminFiveObjectID"
-  ],
-  "registerDate": "2015-08-30T18:06:00.756Z",
+  "siren": 12345678,
+  "name": "My First Five",
+  "zipCode": 93600,
+  "country": "France",
+  "address": "140 rue des fou",
+  "phone": "+33661713886",
+  "_id": "55e9ac78420b845f2916ae2b",
   "gps": {
-    "longitude": "3.2398723987",
-    "latitude": "2.23082397237"
+    "longitude": "3.1323434",
+    "latitude": "2.12233443434"
   },
-  "fields": [
-    "FieldObjectID"
-  ]
+  admins: [],
+  fields: []
 },
 {
   ...
@@ -194,24 +230,69 @@ Informations: fieldId is automaticaly added in the [fields]</pre>
 "token":"42",
 "fiveId:"55e1828816788cb60022ceaf",
 "available": true,
-"name": "My First Field"
+"name": "My First Field",
+"picture": "http://mypicture.com/mypic.png"
+"pricesPerHalf": {
+  0: { // 0: The first day of week is Sunday
+      9: 10, 
+      12: -1, // -1: Is not available/closed
+      14: 15, 
+      23: -1
+    }, 
+    ...
+  6: { // dimanche
+      9: 5, // Begining
+      23: -1, // End
+    }
+  }
+  "pricesPerHour": {}
+</font> </pre>
+<pre><br> Response
+<font color="green">
+ {
+    "_id": "55e9b4198893e4a933a1a4a9",
+    "available": true,
+    "name": "My First Field",
+    "five": "55e1828816788cb60022ceaf",
+    "__v": 0,
+    "pricesPerHalf": {
+      0: { 
+          9: 10, 
+          12: -1,
+          14: 15, 
+           23: -1
+         },
+      ...   
+      6: {
+           9: 5,
+           23: -1,
+         }
+  }
+  "pricesPerHour": {}
+ }
+ </font> </pre>
+
+<br><br><hr>
+<a><b>Get a field Id </b></a>
+<br><br><b>GET /fields/:_id </b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
 </font> </pre>
 <pre><br> Response
 <font color="green">
  {
     "_id": "55e4bd368bb0246e00b18c5b",
     "available": true,
-    "name": "My First Field",
+    "name": "MyField5",
     "five": "55e1828816788cb60022ceaf",
     "__v": 0,
-    "calendar": []
  }
  </font> </pre>
 
-
 <br><br><hr>
 <a><b>Get list of fields by Five Id </b></a>
-<br><br><b>GET /fields/:_id </b> <br>
+<br><br><b>GET /fields/five/:_id </b> <br>
 <pre> Parameters
 <font color="red">
 "token":"42"
@@ -225,23 +306,7 @@ Informations: fieldId is automaticaly added in the [fields]</pre>
     "name": "MyField5",
     "five": "55e1828816788cb60022ceaf",
     "__v": 0,
-    "calendar": [
-      {
-        "_id": "55e4bd368bb0246e00b18c5c",
-        "status": "available",
-        "amount": "10",
-        "start_date": "2015-08-30T18:06:00.756Z",
-        "end_date": "2015-08-30T19:06:00.756Z"
-      },
-      {
-        "_id": "55e4bd368bb0246e00b18c5c",
-        "status": "waiting",
-        "matchId": "ObjectId"
-        "amount": "10",
-        "start_date": "2015-08-30T20:06:00.756Z",
-        "end_date": "2015-08-30T21:06:00.756Z",
-      }
-    ]
+
   },
   {
     ...
@@ -250,8 +315,79 @@ Informations: fieldId is automaticaly added in the [fields]</pre>
  </font> </pre>
 
 <br><br><hr>
+<a><b>Create a Match by Field id </b></a>
+<br><br><b>POST /matchs</b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+"name": "My First Match"
+"status": "waiting"
+"start_date": "2015-08-30T18:00:00.756Z"
+"end_date": "2015-08-30T19:00:00.756Z"
+"fieldId": "55e9b4198893e4a933a1a4a9"
+"teamName": "myTeam"
+</font> </pre>
+<pre><br> Response
+<font color="green">
+{
+  "__v": 0,
+  "name": "My First Match",
+  "start_date": "2015-08-30T18:00:00.756Z",
+  "end_date": "2015-08-30T19:00:00.756Z",
+  "fieldId": "55e9b4198893e4a933a1a4a9",
+  "_id": "55e9b7b904e7c357407e4f83",
+  "status": "waiting"
+} </font> </pre>
+
+<br><br><hr>
+<a><b>Get match by id</b></a>
+<br><br><b>GET /matchs/:_id </b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+</font> </pre>
+<pre><br> Response
+<font color="green">
+{
+  "_id": "55eed6dd08538bd2ae153095",
+  "name": "My First Match",
+  "start_date": "2015-08-30T16:30:00.756Z",
+  "end_date": "2015-08-30T17:00:00.756Z",
+  "fieldId": "55ee0b8ca2dba0466ad5dc13",
+  "amount": "10",
+  "status": "waiting",
+  "__v": 0,
+  "teamsId": []
+}
+</font> </pre>
+
+<br><br><hr>
+<a><b>Join a match by id</b></a>
+<br><br><b>PATCH /matchs/join/:_id </b> <br> <br>
+Details: Rejoindre une équipe seulement si il y a de la place, définit par maxPlayers/2.
+<pre> Parameters
+<font color="red">
+"token":"42"
+"teamId":"84"
+</font> </pre>
+<pre><br> Response
+<font color="green">
+{
+  "_id": "55eed6dd08538bd2ae153095",
+  "name": "My First Match",
+  "start_date": "2015-08-30T16:30:00.756Z",
+  "end_date": "2015-08-30T17:00:00.756Z",
+  "fieldId": "55ee0b8ca2dba0466ad5dc13",
+  "amount": "10",
+  "status": "waiting",
+  "__v": 0,
+  "teamsId": []
+}
+</font> </pre>
+
+<br><br><hr>
 <a><b>Get list of matchs per field </b></a>
-<br><br><b>/five/field/matchs/:_id GET</b> <br>
+<br><br><b>GET /matchs/fields/:_id </b> <br>
 <pre> Parameters
 <font color="red">
 "token":"42"
@@ -261,39 +397,6 @@ Informations: fieldId is automaticaly added in the [fields]</pre>
 {
     
 } </font> </pre>
-
-
-<br><br><hr>
-<a><b>Find a match by id</b></a>
-<br><br><b>/matchs/find GET</b> <br>
-<pre> Parameters
-<font color="red">
-"token":"42",
-"id":"42"
-</font> </pre>
-<pre><br> Response
-<font color="green">
-{
-    TOFILL
-}
-</font> </pre>
-
-
-<br><br><hr>
-<a><b>Add a match</b></a>
-<br><br><b>/matchs POST</b> <br>
-<pre> Parameters
-<font color="red">
-"token":"42",
-"date":"YYYY-MM-DD"
-</font> </pre>
-<pre><br> Response
-<font color="green">
-{
-    TO FIL
-}
-</font> </pre>
-
 
 
 <br><br><hr>

@@ -16,26 +16,26 @@ var Five = require('../models/five');
 router.post('/', function(req, res, next) {
   var five = new Five({
     siren: req.body.siren,
-    fields: ObjectId(req.body.fieldId),
+    fields: req.body.fieldId,
     name: req.body.name,
     zipCode: req.body.zipCode,
     city: req.body.city,
     country: req.body.country,
-    adress: req.body.adress,
+    address: req.body.address,
     phone: req.body.phone,
     registerDate: req.body.registerDate,
     gps: {
       longitude: req.body.longitude,
       latitude: req.body.latitude
     },
-    admins: ObjectId(req.body.admins)
+    admins: req.body.admins
   });
   five.save(function(err, field) {
     if (err) {
       console.log(err);
       next(err);
     } else res.json(field);
-  })
+  });
 })
 
 
@@ -48,6 +48,19 @@ router.post('/', function(req, res, next) {
       res.json(five);
     }
   });
+})
+
+// Get all Five 
+.get('/', function(req, res, next) {
+  Five.find({})
+    .select({
+      'registerDate': 0,
+      'admins': 0
+    })
+    .exec(function(err, five) {
+      if (err) next(err);
+      else res.json(five);
+    });
 })
 
 
