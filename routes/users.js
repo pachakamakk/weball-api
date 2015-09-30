@@ -33,21 +33,23 @@ router.get('/', function(req, res, next) {
     });
 })
 
-
 // Register user 
-router.post(function(req, res, next) {
+router.post('/', function(req, res, next) {
+  console.log(new Date(req.body.birthday));
+
   var user = new User({
     username: req.body.username,
     password: req.body.password,
     email: req.body.email,
     firstname: req.body.firstname,
     age: req.body.age,
+    birthday: req.body.birthday,
     lastname: req.body.lastname
   });
-
   user.save(function(err, user) {
-    if (err)
-      next(err);
+    if (err) {
+      return next(err);
+    }
     else
       res.json(user);
   });
@@ -61,7 +63,7 @@ router.post(function(req, res, next) {
   };
 
   User.findOneAndUpdate(query, req.body, {
-    'new': true
+    'new': true // get user after has been updated
   }).select({
     'password': 0,
     '_id': 0
@@ -94,7 +96,7 @@ router.post(function(req, res, next) {
       if (err) next(err);
       // No user found
       else if (!user) next({
-        status: 401,
+        status: 404,
         message: 'No such user'
       });
       // Success

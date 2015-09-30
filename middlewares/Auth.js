@@ -11,6 +11,13 @@ var Token = require('../models/token');
 var User = require('../models/user');
 
 
+/* How to use? 
+**
+** example for 1 route: app.get('/:_id', Auth.validateAccesAPIAndGetUser, function(err, match){});
+** example for group of end point: router.use(Auth.validateAccesAPIAndGetUser;
+**
+*/
+
 var validateAccessAPIbyToken = function(req, res, next) {
   var token = (req.body && req.body.token) || (req.query && req.query.token) || req.headers['x-access-token'];
   if (!token)
@@ -31,7 +38,7 @@ var validateAccessAPIbyToken = function(req, res, next) {
 };
 
 
-var validateAccesAPIAndGetUser = function(req, res, next) {
+var validateAccessAPIAndGetUser = function(req, res, next) {
   var token = (req.body && req.body.token) || (req.query && req.query.token) || req.headers['x-access-token'];
   if (!token)
     return next({
@@ -77,4 +84,4 @@ var validateAccesAPIAndGetUser = function(req, res, next) {
 };
 
 exports.validateAccessAPIbyToken = validateAccessAPIbyToken;
-exports.validateAccesAPIAndGetUser = validateAccesAPIAndGetUser;
+exports.validateAccessAPIAndGetUser = validateAccessAPIAndGetUser;

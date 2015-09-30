@@ -6,25 +6,34 @@ var Mixed = mongoose.Schema.Types.Mixed;
 
 module.exports = mongoose.model('Field', {
   available: {
-    type: String,
+    type: Boolean,
     required: true
   },
   name: {
-    type: String,//Cetait à true ca veut dire y'a des terrains qui peuvent pas s'appeler pareil ? 
+    type: String,
     required: true
   },
-  calendar: {
-    type: [{
-      available: Boolean,
-      status: String,
-      amount: String,
-      matchId: ObjectId,
-      date: Number, // Date for moment test with number
-    }],
-    ref: 'Match',
-  },
-  five: {
+  fiveId: {
     type: ObjectId,
-    ref: 'Five'
+    ref: 'Five',
+    required: true
+  },
+  pricesPerHour: {
+    0: Mixed, // Dimanche
+    1: Mixed,
+    2: Mixed,
+    3: Mixed,
+    4: Mixed,
+    5: Mixed,
+    6: Mixed
+  },
+  pricesPerHalf: {
+    0: Mixed,
+    1: Mixed,
+    2: Mixed,
+    3: Mixed,
+    4: Mixed,
+    5: Mixed,
+    6: Mixed
   }
 });

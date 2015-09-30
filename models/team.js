@@ -2,28 +2,29 @@
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
-module.exports = mongoose.model('Team', {
+var TeamSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
   },
-  match: {
+  matchId: {
     type: ObjectId,
     ref: 'Match',
     default: null
   },
   registerDate: {
-    type: Date,
-    default: Date.now
+    type: Date
   },
-  players: {
+  playersId: {
     type: [ObjectId],
     ref: 'User',
     default: []
   },
-  leader: {
+  leaderId: {
     type: ObjectId,
-    ref: 'User',
-    required: true
+    ref: 'User'
+      //  required: true
   }
 });
+
+module.exports = mongoose.model('Team', TeamSchema);

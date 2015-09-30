@@ -1,69 +1,63 @@
 var mongoose = require('mongoose');
 var roles = require('../utils/roles');
 var ObjectId = mongoose.Schema.Types.ObjectId;
-var Mixed = mongoose.Schema.Types.Mixed;
 
 
 var FiveSchema = new mongoose.Schema({
-  role: {
-    type: Number,
-    default: roles.FIVE
-  },
   siren: {
-    type: Number,
-    index: {
-      unique: true
-    },
-    required: true
-  },
-  owner: {
-    type: ObjectId,
-    required: true
+    type: Number
+    // index: {
+    //   unique: true // Mode dev desac
+    // },
+    // required: true
   },
   fields: {
     type: [ObjectId],
-    required: true
+    ref: 'Field'
+      // required: true
   },
   name: {
     type: String,
-    unique: true,
-    required: true
+   // unique: true,
+    // required: true
   },
-  postalCode: {
+  zipCode: {
     type: Number,
-    required: true
+    //  required: true
   },
   city: {
     type: String,
-    required: true
+    //  required: true
   },
-  county: {
+  country: {
     type: String,
-    required: true
+    //required: true
   },
   address: {
     type: String,
-    required: true
+    // required: true
   },
-  schedule: {
-    type: Mixed,
-    required: true
-  },
+
+  // schedule: {
+  //   type: Mixed,
+  //   required: true
+  // },
   phone: {
-    type: Number,
-    required: true
+    type: String,
+    //  required: true
   },
   gps: {
-    type: Mixed,
-    required: true
+    longitude: String,
+    latitude: String
   },
+  // required: true
   registerDate: {
     type: Date,
     default: Date.now
   },
-  user: {
-    type: ObjectId,
-    required: true,
+  admins: { //admin
+    type: [ObjectId], 
+    //  required: true,
     ref: 'User'
   }
 });

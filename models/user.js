@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt-nodejs');
+var bcrypt = require('bcrypt');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 var validateEmail = require('../utils/validateEmail');
 
@@ -38,19 +38,19 @@ var UserSchema = new mongoose.Schema({
   },
   birthday: {
     type: Date,
-    required: false, //After set true 
+    //  required: false, //After set true 
   },
   location: {
     type: String,
-    required: false,
+    // required: false,
   },
   role: {
     type: [String],
-    required: false
+    //required: false
   },
   photo: {
     type: String,
-    required: false
+    // required: false
   },
   friends: {
     type: [ObjectId],
@@ -60,11 +60,6 @@ var UserSchema = new mongoose.Schema({
   favFields: {
     type: [ObjectId],
     ref: 'Field',
-    default: null
-  },
-  teams: {
-    type: ObjectId,
-    ref: 'Team',
     default: null
   },
   points: {
@@ -77,6 +72,10 @@ var UserSchema = new mongoose.Schema({
     type: ObjectId,
     ref: 'Five'
   },
+  matchsId: {
+    type: [ObjectId],
+    ref: 'Matchs'
+  },
   registerDate: {
     type: Date,
     default: Date.now
@@ -87,18 +86,20 @@ var UserSchema = new mongoose.Schema({
 // Execute before each user.save() call
 UserSchema.pre('save', function(callback) {
   var user = this;
-
   // Break out if the password hasn't changed
   if (!user.isModified('password')) return callback();
 
   // Password changed so we need to hash it
   bcrypt.genSalt(5, function(err, salt) {
-    if (err) return callback(err);
-
-    bcrypt.hash(user.password, salt, null, function(err, hash) {
-      if (err) return callback(err);
-      user.password = hash;
-      callback();
+    if (err)
+      return callback(err);
+    bcrypt.hash(user.password, salt, function(err, hash) {
+      if (err)
+        return callback(err);
+      else {
+        user.password = hash;
+        callback();
+      }
     });
   });
 });
@@ -110,5 +111,6 @@ UserSchema.methods.verifyPassword = function(password, cb) {
     cb(null, isMatch);
   });
 };
+
 
 module.exports = mongoose.model('User', UserSchema);
