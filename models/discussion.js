@@ -16,3 +16,14 @@ module.exports = mongoose.model('Discussion', {
     default: Date.now
   }
 });
+
+// module.exports = mongoose.model('Discussion', {
+//   usersId: {
+//     type: [ObjectId]
+//   },
+//   messages: [{
+//     content: String,
+//     createdAt: Date,
+//     createdBy: ObjectId
+//   }]
+// });

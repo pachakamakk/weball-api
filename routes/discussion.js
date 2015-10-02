@@ -41,7 +41,7 @@ router.route('/')
 
 .patch(Auth.validateAccessAPIAndGetUser, function(req, res, next) {
   Discussion.findById(req.body.discussion).exec(function(err, discussion) {
-    if (err) next(err);
+    if (err) return next(err);
     if (discussion.members.indexOf(req.user._id) == -1) {
       var err = new Error('Not a member of this discussion');
       err.status = 401;
@@ -67,7 +67,7 @@ router.route("/:discussion")
   .get(Auth.validateAccessAPIAndGetUser, function(req, res, next) {
     Discussion.findById(req.params.discussion).exec(function(err, discussion) {
       if (err)
-        next(err);
+        return next(err);
       else if (!discussion) {
         console.log("Not found");
         res.sendStatus(420);
@@ -99,5 +99,36 @@ router.route("/:discussion")
       }
     });
   });
+
+// Send message to user 
+// router.put('/', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
+//   // Vérifier si la discussion existe déja sinon en créer une nouvelle
+//   // Inserer son user self + user id du destinataire
+//   // Inserer le message, la date du message
+//   Discussion.findOne({......}, function(err, discussion) {
+//     if (err)
+//       return next(err);
+//     else if (discussion) {
+//       // Store Message
+//     } else {
+//       // Create Discussion + Store Message
+//     }
+//   });
+// });
+
+// Get messages of a discussion by Id
+// router.get('/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
+//   Discussion.findById(req.params._id, function(err, discussion) {
+//     if (err)
+//       return next(err);
+//     else if (discussion) {
+//       res.json(discussion);
+//     } else
+//       return next({
+//         status: 404,
+//         message: 'Discussion Not Found'
+//       }, null);
+//   });
+// });
 
 module.exports = router;
