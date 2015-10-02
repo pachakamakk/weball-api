@@ -40,13 +40,8 @@ module.exports = mongoose.model('Match', {
     ref: 'User',
     required: true
   },
-
   fieldId: {
     type: ObjectId,
     required: true
-  },
-  teamsId: {
-    type: [ObjectId],
-    validate: [arrayLimit, '2 équipes par match!']
   }
 });

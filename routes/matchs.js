@@ -292,26 +292,22 @@
 
  // Update Partial Ressource of a match
  router.patch('/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
-   Match.findById(req.params._id).lean().exec(function(err, match) {
+   Match.findById(req.params._id).exec(function(err, match) {
      if (err)
        next(err);
      else if (match) {
-       match.created_by = "xxx";
-       console.log(match.created_by);
-       console.log(req.user._id);
-       console.log(typeof req.user._id);
-       console.log(typeof match.created_by);
-       console.log(match)
-         // if (match.created_by.toString() != req.user._id.toString())
-         //   return next({
-         //     status: 405,
-         //     message: 'Only Creator can modify the match'
-         //   }, null);
-         match.save(function(err, savedMatch) {
+       if (match.created_by.toString() != req.user._id.toString())
+         return next({
+           status: 405,
+           message: 'Only Creator can modify the match'
+         }, null);
+       else
+         Match.update({
+           _id: req.params._id
+         }, req.body, function(err, savedMatch) {
            if (err) return next(err);
            res.json(savedMatch);
          });
-       //res.json("savedMatch");
      } else
        return next({
          status: 404,
@@ -319,6 +315,5 @@
        }, null);
    });
  })
-
 
  module.exports = router;
