@@ -18,50 +18,50 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
  ** 
  **/
 
-router.route('/')
-  .post(Auth.validateAccessAPIAndGetUser, function(req, res, next) {
-    console.log(req.body.members);
-    var str = req.body.members;
-    var parsed_members = str.split(",").map(function(val) {
-      return String(val);
-    });
-    var discussion = new Discussion({
-      members: parsed_members,
-      messages: []
-    });
-    discussion.members.push(req.user._id);
-    discussion.save(function(err) {
-      if (err)
-        next(err);
-      else {
-        res.json(discussion);
-      }
-    });
-  })
+// router.route('/')
+//   .post(Auth.validateAccessAPIAndGetUser, function(req, res, next) {
+//     console.log(req.body.members);
+//     var str = req.body.members;
+//     var parsed_members = str.split(",").map(function(val) {
+//       return String(val);
+//     });
+//     var discussion = new Discussion({
+//       members: parsed_members,
+//       messages: []
+//     });
+//     discussion.members.push(req.user._id);
+//     discussion.save(function(err) {
+//       if (err)
+//         next(err);
+//       else {
+//         res.json(discussion);
+//       }
+//     });
+//   })
 
-.patch(Auth.validateAccessAPIAndGetUser, function(req, res, next) {
-  Discussion.findById(req.body.discussion).exec(function(err, discussion) {
-    if (err) return next(err);
-    if (discussion.members.indexOf(req.user._id) == -1) {
-      var err = new Error('Not a member of this discussion');
-      err.status = 401;
-      return next(err);
-    }
-    var message = new Message({
-      senderId: req.user._id,
-      discussion: req.body.discussion,
-      message: req.body.message
-    });
-    message.save(function(err) {
-      if (err) next(err);
-    });
-    discussion.messages.push(message._id);
-    discussion.save(function(err) {
-      if (err) next(err);
-      else res.sendStatus(200);
-    });
-  });
-});
+// .patch(Auth.validateAccessAPIAndGetUser, function(req, res, next) {
+//   Discussion.findById(req.body.discussion).exec(function(err, discussion) {
+//     if (err) return next(err);
+//     if (discussion.members.indexOf(req.user._id) == -1) {
+//       var err = new Error('Not a member of this discussion');
+//       err.status = 401;
+//       return next(err);
+//     }
+//     var message = new Message({
+//       senderId: req.user._id,
+//       discussion: req.body.discussion,
+//       message: req.body.message
+//     });
+//     message.save(function(err) {
+//       if (err) next(err);
+//     });
+//     discussion.messages.push(message._id);
+//     discussion.save(function(err) {
+//       if (err) next(err);
+//       else res.sendStatus(200);
+//     });
+//   });
+// });
 
 router.route("/:discussion")
   .get(Auth.validateAccessAPIAndGetUser, function(req, res, next) {
@@ -100,21 +100,41 @@ router.route("/:discussion")
     });
   });
 
+router.post('/', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
+  var discussion = new Discussion({
+    usersId: req.user._id,
+    messages: {
+      content: req.body.content,
+      createdAt: new Date(),
+      createdBy: req.body.createdBy
+    }
+  });
+  discussion.save(function(err, discussion) {
+    if (err) next(err);
+    else
+      res.json(discussion)
+  });
+
+});
+
 // Send message to user 
-// router.put('/', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
-//   // Vérifier si la discussion existe déja sinon en créer une nouvelle
-//   // Inserer son user self + user id du destinataire
-//   // Inserer le message, la date du message
-//   Discussion.findOne({......}, function(err, discussion) {
-//     if (err)
-//       return next(err);
-//     else if (discussion) {
-//       // Store Message
-//     } else {
-//       // Create Discussion + Store Message
-//     }
-//   });
-// });
+router.put('/', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
+  // Vérifier si la discussion existe déja sinon en créer une nouvelle
+  // Inserer son user self + user id du destinataire
+  // Inserer le message, la date du message
+  Discussion.findOne({
+    usersId: req.user._id
+  }, function(err, discussion) {
+    if (err)
+      return next(err);
+    else if (discussion) {
+    	res.json(discussion)
+      // Store Message
+    } else {
+      // Create Discussion + Store Message
+    }
+  });
+});
 
 // Get messages of a discussion by Id
 // router.get('/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
