@@ -101,6 +101,7 @@ router.route("/:discussion")
   });
 
 router.post('/', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
+	console.log("okokokok")
   var discussion = new Discussion({
     usersId: req.user._id,
     messages: {
@@ -114,7 +115,6 @@ router.post('/', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
     else
       res.json(discussion)
   });
-
 });
 
 // Send message to user 
