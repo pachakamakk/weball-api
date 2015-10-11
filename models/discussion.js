@@ -21,9 +21,24 @@ module.exports = mongoose.model('Discussion', {
   usersId: {
     type: [ObjectId]
   },
+  lastUser: { // for get information for viewListMessages
+    photo: String,
+    firstName: String,
+    lastName: String,
+    username: String
+  },
   messages: [{
-    content: String,
-    createdAt: Date,
-    createdBy: ObjectId
+    content: {
+      type: String,
+      required: true
+    },
+    createdAt: {
+      type: Date,
+      required: true
+    },
+    createdBy: {
+      type: ObjectId,
+      required: true
+    }
   }]
 });

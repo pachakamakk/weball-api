@@ -1,4 +1,5 @@
 var express = require('express');
+var socket_io = require("socket.io");
 //var ssl = require('express-ssl');
 //app.use(ssl());
 
@@ -10,7 +11,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-
 var index = require('./routes/index');
 var login = require('./routes/login');
 var users = require('./routes/users');
@@ -18,11 +18,11 @@ var users = require('./routes/users');
 var me = require('./routes/me');
 var photo = require('./routes/photo');
 var matchs = require('./routes/matchs');
-var chat = require('./routes/chat');
+var chats = require('./routes/chats');
 var fields = require('./routes/fields');
 var teams = require('./routes/teams');
 var five = require('./routes/five');
-var discussion = require('./routes/discussion');
+var discussions = require('./routes/discussion');
 
 // UBER
 // var UBER_ID = 'zURMqUhzvDsPcZidFT11IU9sdDmZvd56';
@@ -47,13 +47,14 @@ var discussion = require('./routes/discussion');
 var mongoose = require('mongoose');
 var db_server = require('./config/db');
 mongoose.connect(db_server.url);
+
 // When the connection is disconnected
-mongoose.connection.on('error', function(err) {
-  console.error('Failed to connect to DB ' + db_server.url + ' on startup ', err);
-});
-mongoose.connection.on('disconnected', function() {
-  console.log('Mongoose default connection to DB :' + db_server.url + ' disconnected');
-});
+// mongoose.connection.on('error', function(err) {
+//   console.error('Failed to connect to DB ' + db_server.url + ' on startup ', err);
+// });
+// mongoose.connection.on('disconnected', function() {
+//   console.log('Mongoose default connection to DB :' + db_server.url + ' disconnected');
+// });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -78,12 +79,12 @@ app.use('/users', users);
 //app.use('/clients', clients);
 app.use('/me', me);
 app.use('/photo', photo);
-app.use('/chat', chat);
+app.use('/chats', chats);
 app.use('/five', five);
 app.use('/matchs', matchs);
 app.use('/fields', fields);
 app.use('/teams', teams);
-app.use('/discussion', discussion);
+app.use('/discussions', discussions);
 //app.use('/paypal', paypalRoute);
 
 // catch 404 and forward to error handler

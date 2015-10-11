@@ -1,4 +1,4 @@
-// Chatroom client schema for a match
+// Chatroom schema for a match
 
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
@@ -20,13 +20,11 @@ module.exports = mongoose.model('Chat', {
       type: ObjectId,
       required: true
     },
-    username: {
-      type: String,
-      required: true
-    },
-    photo: {
-      type: String,
-      required: true
+    infoUser: {
+      username: String,
+      firstName: String,
+      lastName: String,
+      photo: String
     }
   }],
   matchId: ObjectId // for a Chat

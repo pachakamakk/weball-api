@@ -1,247 +1,620 @@
 {
-	"id": "a1bba847-e500-944b-793a-1bb85a6add2c",
-	"name": "weball.api",
-	"description": "",
-	"order": [],
-	"folders": [
+	"version": 1,
+	"collections": [
 		{
-			"id": "92eb68e2-0587-66dd-a27b-8f2613073e64",
-			"name": "matchs",
+			"id": "8928f65f-fc8d-565d-cf71-2050fb723fdf",
+			"name": "Field",
 			"description": "",
+			"order": [
+				"4857ec8e-8cea-c9a0-8984-66302e751063"
+			],
+			"folders": [],
+			"timestamp": 1441378335837,
+			"synced": false,
+			"remote_id": 0,
+			"owner": 0,
+			"sharedWithTeam": false,
+			"subscribed": false,
+			"remoteLink": "",
+			"public": false,
+			"createdAt": 1441378335837,
+			"updatedAt": 1441379507970,
 			"write": true,
-			"order": [],
-			"collection_name": "weball.api",
-			"collection_owner": 0,
-			"collection_id": "a1bba847-e500-944b-793a-1bb85a6add2c",
-			"collection": "a1bba847-e500-944b-793a-1bb85a6add2c",
-			"owner": 0
+			"requests": [
+				{
+					"id": "4857ec8e-8cea-c9a0-8984-66302e751063",
+					"headers": "",
+					"url": "127.0.0.1:8080/fields/55ee0b8ca2dba0466ad5dc13",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "GET",
+					"data": [],
+					"dataMode": "params",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1441716366179,
+					"name": "Get a Field",
+					"description": "",
+					"collectionId": "8928f65f-fc8d-565d-cf71-2050fb723fdf",
+					"responses": []
+				}
+			]
 		},
 		{
-			"id": "216c01f0-7e52-b3c4-f8f8-fc04a6367489",
-			"name": "user",
+			"id": "a649ae52-80fb-3dcf-4c6e-fc4558ac674f",
+			"name": "Teams",
 			"description": "",
-			"write": true,
 			"order": [
-				"9b1841e2-45c7-77a2-c6ce-e16de1871006",
-				"68bdd307-b3d2-ea4a-1944-b3ad894924cc",
-				"c1e4c359-7b95-0dc4-a438-e3d96a6b3aa9",
-				"d025d16b-773d-23d3-3778-af6bb13cc00a",
-				"2c344782-5205-afd2-0ecc-5407091475b6",
-				"5092cbf9-d128-074d-6aa1-d9308ff51506"
+				"83fe6fc8-dc40-4240-3418-048abda1826d",
+				"c2576f3d-afad-e8f0-e774-6bed6d83fdfb"
 			],
-			"collection_name": "weball.api",
-			"collection_owner": 0,
-			"collection_id": "a1bba847-e500-944b-793a-1bb85a6add2c",
-			"collection": "a1bba847-e500-944b-793a-1bb85a6add2c",
-			"owner": 0
+			"folders": [],
+			"timestamp": 1442407196720,
+			"synced": false,
+			"remote_id": 0,
+			"owner": 0,
+			"sharedWithTeam": false,
+			"subscribed": false,
+			"remoteLink": "",
+			"public": false,
+			"createdAt": 1442407196720,
+			"updatedAt": 1442410400457,
+			"write": true,
+			"requests": [
+				{
+					"id": "83fe6fc8-dc40-4240-3418-048abda1826d",
+					"headers": "token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis\n",
+					"url": "127.0.0.1:8080/teams/55eed6dd08538bd2ae153096",
+					"pathVariables": {},
+					"preRequestScript": "",
+					"method": "GET",
+					"collectionId": "a649ae52-80fb-3dcf-4c6e-fc4558ac674f",
+					"data": [],
+					"dataMode": "params",
+					"name": "Get a Team",
+					"description": "",
+					"descriptionFormat": "html",
+					"time": 1442407376358,
+					"version": 2,
+					"responses": [],
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {}
+				},
+				{
+					"id": "c2576f3d-afad-e8f0-e774-6bed6d83fdfb",
+					"headers": "token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis\n",
+					"url": "127.0.0.1:8080/teams/",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "POST",
+					"data": [
+						{
+							"key": "teamName",
+							"value": "test",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "matchId",
+							"value": "elias",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "playerId",
+							"value": "",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "leaderId",
+							"value": "",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "date",
+							"value": "2015-09-08T12:38:53.941Z",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "urlencoded",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1442413356822,
+					"name": "Create a Team",
+					"description": "Create a team for a Match.\nIf there are already 2 teams, so KO.",
+					"collectionId": "a649ae52-80fb-3dcf-4c6e-fc4558ac674f",
+					"responses": []
+				}
+			]
+		},
+		{
+			"id": "a812479a-0e69-fad1-efc4-e33834063d17",
+			"name": "User",
+			"description": "",
+			"order": [
+				"9832224a-21ab-42e9-7f61-5416487ff7b4",
+				"8ba96890-744c-dd6c-cc66-f4be55df2327"
+			],
+			"folders": [],
+			"timestamp": 1441660912819,
+			"synced": false,
+			"remote_id": 0,
+			"owner": "",
+			"subscribed": false,
+			"remoteLink": "",
+			"public": false,
+			"createdAt": null,
+			"updatedAt": 1441711801866,
+			"write": true,
+			"requests": [
+				{
+					"id": "8ba96890-744c-dd6c-cc66-f4be55df2327",
+					"headers": "",
+					"url": "127.0.0.1:8080/login",
+					"pathVariables": {},
+					"preRequestScript": "",
+					"method": "POST",
+					"collectionId": "a812479a-0e69-fad1-efc4-e33834063d17",
+					"data": [
+						{
+							"key": "login",
+							"value": "elias",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "elias",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "urlencoded",
+					"name": "Login",
+					"description": "Login with email or username",
+					"descriptionFormat": "html",
+					"time": 1441711801853,
+					"version": 2,
+					"responses": [],
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {}
+				},
+				{
+					"id": "9832224a-21ab-42e9-7f61-5416487ff7b4",
+					"headers": "",
+					"url": "127.0.0.1:8080/users",
+					"pathVariables": {},
+					"preRequestScript": "",
+					"method": "POST",
+					"collectionId": "a812479a-0e69-fad1-efc4-e33834063d17",
+					"data": [
+						{
+							"key": "username",
+							"value": "elias",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "elias",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "email",
+							"value": "elias@elias.fr",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "firstname",
+							"value": "Elias",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "lastname",
+							"value": "Chetouani",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "birthday",
+							"value": "1993,07,28",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "urlencoded",
+					"name": "Create a User",
+					"description": "",
+					"descriptionFormat": "html",
+					"time": 1441660912819,
+					"version": 2,
+					"responses": [],
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {}
+				}
+			]
+		},
+		{
+			"id": "d3ecb024-c1c5-511b-70e9-506ec2548e38",
+			"name": "Five",
+			"description": "",
+			"order": [
+				"41e8ced2-5c5d-56dc-93f1-8f733e1dc5ed",
+				"5b9eaea1-2862-5627-b9de-a91725042e3d"
+			],
+			"folders": [],
+			"timestamp": 1441377278395,
+			"synced": false,
+			"remote_id": 0,
+			"owner": 0,
+			"sharedWithTeam": false,
+			"subscribed": false,
+			"remoteLink": "",
+			"public": false,
+			"createdAt": 1441377278395,
+			"updatedAt": 1441633538110,
+			"write": true,
+			"requests": [
+				{
+					"id": "41e8ced2-5c5d-56dc-93f1-8f733e1dc5ed",
+					"headers": "",
+					"url": "127.0.0.1:8080/five",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "POST",
+					"data": [
+						{
+							"key": "name",
+							"value": "My First Five",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "available",
+							"value": "1",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "fiveId",
+							"value": "55e9ac78420b845f2916ae2b",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "urlencoded",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1441663825474,
+					"name": "Create a Five",
+					"description": "",
+					"collectionId": "d3ecb024-c1c5-511b-70e9-506ec2548e38",
+					"responses": []
+				},
+				{
+					"id": "5b9eaea1-2862-5627-b9de-a91725042e3d",
+					"headers": "",
+					"url": "127.0.0.1:8080/five",
+					"pathVariables": {},
+					"preRequestScript": "",
+					"method": "GET",
+					"collectionId": "d3ecb024-c1c5-511b-70e9-506ec2548e38",
+					"data": [],
+					"dataMode": "params",
+					"name": "Get list all Five",
+					"description": "",
+					"descriptionFormat": "html",
+					"time": 1441633538089,
+					"version": 2,
+					"responses": [],
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {}
+				}
+			]
+		},
+		{
+			"id": "e0702cea-864b-4295-7ef8-70e1299ca816",
+			"name": "Matchs",
+			"description": "",
+			"order": [
+				"37daca95-d963-b245-b374-04e35ce9a376",
+				"10d4450d-3e37-d8a1-2c4b-c5d3bed98daa",
+				"e2ae206b-6e57-3c4d-1571-2d2589cc0a13",
+				"abcd1da0-aa04-2dde-982a-eaaa7ae8803f"
+			],
+			"folders": [],
+			"timestamp": 1441379674985,
+			"synced": false,
+			"remote_id": 0,
+			"owner": 0,
+			"sharedWithTeam": false,
+			"subscribed": false,
+			"remoteLink": "",
+			"public": false,
+			"createdAt": 1441379674985,
+			"updatedAt": 1441821456313,
+			"write": true,
+			"requests": [
+				{
+					"id": "10d4450d-3e37-d8a1-2c4b-c5d3bed98daa",
+					"headers": "",
+					"url": "127.0.0.1:8080/matchs/55eed6dd08538bd2ae153095",
+					"pathVariables": {},
+					"preRequestScript": "",
+					"method": "GET",
+					"collectionId": "e0702cea-864b-4295-7ef8-70e1299ca816",
+					"data": [],
+					"dataMode": "params",
+					"name": "Get a Match",
+					"description": "",
+					"descriptionFormat": "html",
+					"time": 1441730463199,
+					"version": 2,
+					"responses": [],
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {}
+				},
+				{
+					"id": "37daca95-d963-b245-b374-04e35ce9a376",
+					"headers": "",
+					"url": "127.0.0.1:8080/matchs",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "POST",
+					"data": [
+						{
+							"key": "status",
+							"value": "waiting",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "start_date",
+							"value": "2015-08-30T10:00:00.756Z",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "end_date",
+							"value": "2015-08-30T12:00:00.756Z",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "fieldId",
+							"value": "55ee0b8ca2dba0466ad5dc13",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "name",
+							"value": "My First Match",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "teamName",
+							"value": "MyTeam",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "urlencoded",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1441711731465,
+					"name": "Create a Match",
+					"description": "",
+					"collectionId": "e0702cea-864b-4295-7ef8-70e1299ca816",
+					"responses": []
+				},
+				{
+					"id": "abcd1da0-aa04-2dde-982a-eaaa7ae8803f",
+					"headers": "token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis\n",
+					"url": "127.0.0.1:8080/matchs/55eed6dd08538bd2ae153095",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "PATCH",
+					"data": [
+						{
+							"key": "login",
+							"value": "elias",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "elias",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "maxPlayers",
+							"value": "10",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "created_by",
+							"value": "55ee0177ea9a57845ff01cbe",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "urlencoded",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1443046442941,
+					"name": "Update  a Match",
+					"description": "Partial ressource",
+					"collectionId": "e0702cea-864b-4295-7ef8-70e1299ca816",
+					"responses": []
+				},
+				{
+					"id": "e2ae206b-6e57-3c4d-1571-2d2589cc0a13",
+					"headers": "token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis\n",
+					"url": "127.0.0.1:8080/matchs/join/55eed6dd08538bd2ae153095",
+					"preRequestScript": "",
+					"pathVariables": {
+						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis"
+					},
+					"method": "PATCH",
+					"data": [
+						{
+							"key": "login",
+							"value": "elias",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "elias",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "urlencoded",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1441821398806,
+					"name": "Join a Match",
+					"description": "",
+					"collectionId": "e0702cea-864b-4295-7ef8-70e1299ca816",
+					"responses": []
+				}
+			]
+		},
+		{
+			"id": "eb40c364-8db0-3761-78a9-1dda90defb9a",
+			"name": "Discussions",
+			"description": "Private Chat and Chat Room",
+			"order": [
+				"5e850fbc-44c9-88b2-7b68-9c4bcc2d3455",
+				"44b7ceda-9093-8a12-6782-2bd8034ab1dc",
+				"32a66a26-0e43-8ffe-5710-f07d9ba95ac7"
+			],
+			"folders": [],
+			"timestamp": 1443862917547,
+			"synced": false,
+			"remote_id": 0,
+			"owner": 0,
+			"sharedWithTeam": false,
+			"subscribed": false,
+			"remoteLink": "",
+			"public": false,
+			"createdAt": 1443862917547,
+			"updatedAt": 1444175584023,
+			"write": true,
+			"requests": [
+				{
+					"id": "32a66a26-0e43-8ffe-5710-f07d9ba95ac7",
+					"headers": "",
+					"url": "127.0.0.1:8080/discussions/me/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "GET",
+					"data": [],
+					"dataMode": "params",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1444303917746,
+					"name": "Get Discussions ",
+					"description": "Get my discussions\nLast Messages + for each discussion: username + photo of the user\n",
+					"collectionId": "eb40c364-8db0-3761-78a9-1dda90defb9a",
+					"responses": []
+				},
+				{
+					"id": "44b7ceda-9093-8a12-6782-2bd8034ab1dc",
+					"headers": "",
+					"url": "127.0.0.1:8080/discussions/5612d31f6321610f091f5b3c?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "GET",
+					"data": [],
+					"dataMode": "params",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1444168705762,
+					"name": "Get Messages of a Discussion",
+					"description": "Get messages of a discussion by id ",
+					"collectionId": "eb40c364-8db0-3761-78a9-1dda90defb9a",
+					"responses": []
+				},
+				{
+					"id": "5e850fbc-44c9-88b2-7b68-9c4bcc2d3455",
+					"headers": "",
+					"url": "127.0.0.1:8080/discussions/user/55ee0177ea9a57845ff01cbf",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "PATCH",
+					"data": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "content",
+							"value": "ceci est un message",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "urlencoded",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1444129726910,
+					"name": "Send a Message ",
+					"description": "Send Message to a Discussion\n",
+					"collectionId": "eb40c364-8db0-3761-78a9-1dda90defb9a",
+					"responses": []
+				}
+			]
 		}
 	],
-	"timestamp": 1433077227459,
-	"owner": 0,
-	"remoteLink": "",
-	"public": false,
-	"createdAt": 1433077227459,
-	"updatedAt": 1433077227459,
-	"synced": false,
-	"requests": [
-		{
-			"id": "2c344782-5205-afd2-0ecc-5407091475b6",
-			"headers": "x-access-token: {{token}}\n",
-			"url": "{{localhost}}/users/jazalizil",
-			"pathVariables": {},
-			"preRequestScript": "",
-			"method": "GET",
-			"collectionId": "a1bba847-e500-944b-793a-1bb85a6add2c",
-			"data": [],
-			"dataMode": "params",
-			"name": "User from username",
-			"description": "",
-			"descriptionFormat": "html",
-			"time": 1433085071131,
-			"version": 2,
-			"responses": [],
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"folder": "216c01f0-7e52-b3c4-f8f8-fc04a6367489",
-			"synced": false
-		},
-		{
-			"id": "5092cbf9-d128-074d-6aa1-d9308ff51506",
-			"headers": "x-access-token: {{token}}\n",
-			"url": "{{localhost}}/users",
-			"pathVariables": {},
-			"preRequestScript": "",
-			"method": "GET",
-			"collectionId": "a1bba847-e500-944b-793a-1bb85a6add2c",
-			"data": [],
-			"dataMode": "params",
-			"name": "List of users",
-			"description": "",
-			"descriptionFormat": "html",
-			"time": 1433085139100,
-			"version": 2,
-			"responses": [],
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"folder": "216c01f0-7e52-b3c4-f8f8-fc04a6367489",
-			"synced": false
-		},
-		{
-			"id": "68bdd307-b3d2-ea4a-1944-b3ad894924cc",
-			"headers": "",
-			"url": "{{localhost}}/login",
-			"pathVariables": {},
-			"preRequestScript": "",
-			"method": "POST",
-			"collectionId": "a1bba847-e500-944b-793a-1bb85a6add2c",
-			"data": [
-				{
-					"key": "login",
-					"value": "jazalizil",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "password",
-					"value": "mypassword",
-					"type": "text",
-					"enabled": true
-				}
-			],
-			"dataMode": "urlencoded",
-			"name": "Login",
-			"description": "",
-			"descriptionFormat": "html",
-			"time": 1433082992417,
-			"version": 2,
-			"responses": [],
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"folder": "216c01f0-7e52-b3c4-f8f8-fc04a6367489",
-			"synced": false
-		},
-		{
-			"id": "9b1841e2-45c7-77a2-c6ce-e16de1871006",
-			"headers": "",
-			"url": "{{localhost}}/users",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "POST",
-			"data": [
-				{
-					"key": "username",
-					"value": "jazalizil",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "password",
-					"value": "mypassword",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "email",
-					"value": "jazalizil@weball.fr",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "firstname",
-					"value": "jalil",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "lastname",
-					"value": "dab",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "age",
-					"value": "42",
-					"type": "text",
-					"enabled": true
-				}
-			],
-			"dataMode": "urlencoded",
-			"version": 2,
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1433082759990,
-			"name": "Register",
-			"description": "",
-			"collectionId": "a1bba847-e500-944b-793a-1bb85a6add2c",
-			"responses": [],
-			"synced": false
-		},
-		{
-			"id": "c1e4c359-7b95-0dc4-a438-e3d96a6b3aa9",
-			"headers": "x-access-token: {{token}}\n",
-			"url": "{{localhost}}/me",
-			"pathVariables": {},
-			"preRequestScript": "",
-			"method": "GET",
-			"collectionId": "a1bba847-e500-944b-793a-1bb85a6add2c",
-			"data": [],
-			"dataMode": "params",
-			"name": "My info",
-			"description": "",
-			"descriptionFormat": "html",
-			"time": 1433083093607,
-			"version": 2,
-			"responses": [],
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"folder": "216c01f0-7e52-b3c4-f8f8-fc04a6367489",
-			"synced": false
-		},
-		{
-			"id": "d025d16b-773d-23d3-3778-af6bb13cc00a",
-			"headers": "x-access-token: {{token}}\n",
-			"url": "{{localhost}}/me",
-			"pathVariables": {},
-			"preRequestScript": "",
-			"method": "POST",
-			"collectionId": "a1bba847-e500-944b-793a-1bb85a6add2c",
-			"data": [
-				{
-					"key": "username",
-					"value": "jazalizil",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "password",
-					"value": "mypassword",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "email",
-					"value": "jazalizil@weball.fr",
-					"type": "text",
-					"enabled": true
-				}
-			],
-			"dataMode": "urlencoded",
-			"name": "Modify my infos",
-			"description": "",
-			"descriptionFormat": "html",
-			"time": 1433084219984,
-			"version": 2,
-			"responses": [],
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"folder": "216c01f0-7e52-b3c4-f8f8-fc04a6367489",
-			"synced": false
-		}
-	]
+	"environments": [],
+	"headerPresets": [],
+	"globals": []
 }

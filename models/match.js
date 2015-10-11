@@ -17,7 +17,9 @@ module.exports = mongoose.model('Match', {
   },
   maxPlayers: {
     type: Number,
-    required: true
+    required: true,
+    min: 8,
+    max: 10
   },
   status: {
     type: String, // waiting, ready, over
@@ -43,5 +45,8 @@ module.exports = mongoose.model('Match', {
   fieldId: {
     type: ObjectId,
     required: true
+  },
+  chatId: {
+    type: ObjectId
   }
 });
