@@ -6,13 +6,13 @@
   ** Functions For Matchs
   */
 
-
  var express = require('express');
  var router = express.Router();
  var Match = require('../models/match');
  var Field = require('../models/field');
  var Team = require('../models/team');
  var User = require('../models/user');
+ var Chat = require('../models/chat');
  var Auth = require('../middlewares/Auth');
  var async = require('async');
  var mongoose = require('mongoose');
@@ -42,18 +42,24 @@
    var ONE_HOUR = 1000 * 60 * 60;
    var duration = (new Date(req.body.end_date)).getTime() - (new Date(req.body.start_date)).getTime()
    duration = (duration / ONE_HOUR);
-   if (duration != 1 && duration != 0.5) {
+   if (duration != 1 && duration != 0.5)
      return next({
        status: 449,
        message: 'Invalid date: 1h or 30min'
      }, null);
-   }
+
+   // max Player need: PAIR
+   if ((req.body.maxPlayers % 2) != 0)
+     return next({
+       status: 449,
+       message: 'Invalid maxPlayers: Need PAIR Number'
+     }, null);
 
    // TO DO: Check if the user there aren't booking in this date in other five.
    /* Step 1: Check if the five is open for this date and Get Amount By Date  
     ** Step 2: Check if this slot is already booked, else create match, create team.
-    ** Step 3: Store Match id in the User.
-    **
+    ** Step 3: Create a chat, join this chat, and add chatId in MatchId .
+    ** Step 4: Store le MatchId in User
     */
    async.series([
 
@@ -123,17 +129,17 @@
                name: req.body.name,
                start_date: req.body.start_date,
                end_date: req.body.end_date,
-               created_at: new Date(),
+               maxPlayers: req.body.maxPlayers,
                status: "waiting",
                fieldId: req.body.fieldId,
                amount: amount,
-               created_at: req.body.created_at,
+               created_at: new Date(),
                created_by: req.user._id
-                 //teams: req.body.team //
              });
              match.save(function(err, match) {
                if (err) return callback(err);
                else {
+                 // Create Team and Join
                  var team = new Team({
                    name: req.body.teamName || "Equipe A",
                    matchId: match._id,
@@ -147,7 +153,6 @@
                  });
                  team.save(function(err, team) {
                    if (err) return callback(err);
-                   // Ajouter les équipes dans le document matchs ?
                    teamB.save(function(err, team) {
                      if (err) return callback(err);
                      matchCreated = match;
@@ -159,8 +164,33 @@
            }
          });
        },
-
-       //Step 3
+       // Step 3
+       function CreateAndJoinChat(callback) {
+         var chat = new Chat({
+           usersId: req.user._id,
+           matchId: matchCreated._id
+         });
+         chat.save(function(err, chat) {
+           if (err)
+             return next(err); // faire: annuler les fonctions en haut
+           else {
+             Match.findByIdAndUpdate(matchCreated._id, {
+               $push: {
+                 chatId: chat._id
+               }
+             }, {
+               new: true
+             }, function(err, match) {
+               if (err) return next();
+               else {
+                 matchCreated = match;
+                 callback();
+               }
+             });
+           }
+         });
+       },
+       //Step 4
        function StoreMatchInUser(callback) {
          User.findOneAndUpdate({
            _id: req.user._id
@@ -170,7 +200,7 @@
            }
          }).exec(function(err, updated) {
            if (err)
-             return next(err);
+             return next(err); // annuler toute les autres fonctions
            callback();
          });
        }
@@ -184,7 +214,7 @@
  });
 
  //Join a Match By Id 
- // Conditions: Au moins une place libre dans les équipes et que le status soit en waiting
+ // Conditions: Au moins une place libre dans les équipes et que le status du match soit en waiting
  router.patch('/join/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
    /*
     ** Step 1: Vérifier le statut du match.
@@ -211,7 +241,7 @@
            } else {
              return callback({
                status: 405,
-               message: 'The match is: ' + match.status
+               message: 'This match is: ' + match.status
              }, null);
            }
          });
@@ -227,10 +257,10 @@
              for (eachTeam of team)
                for (playerId of eachTeam.playersId) // pour chaque joueur d'une équipe
                  if (playerId.toString() == req.user._id)
-                   return (callback({
+                   return callback({
                      status: 405,
                      message: 'You are already registred in the team: ' + eachTeam._id
-                   }, null));
+                   }, null);
              for (var i = 0; i < team.length; i++) {
                if (team[0]._id != req.body.teamId && team[1]._id != req.body.teamId) { // check if teamId doesn't exist
                  return callback({
@@ -262,6 +292,7 @@
                    });
                  }
                }
+               
              }
              //  callback();
            } else {

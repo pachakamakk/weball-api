@@ -7,7 +7,7 @@ var validateEmail = require('../utils/validateEmail');
 var UserSchema = new mongoose.Schema({
   username: {
     type: String,
-    match: /^[a-zA-Z0-9-_.]{3,15}$/,
+    match: /^[a-zA-Z0-9-_.]{4,15}$/,
     required: true,
     lowercase: true,
     index: {
@@ -24,14 +24,14 @@ var UserSchema = new mongoose.Schema({
     index: {
       unique: true
     },
-    validate: [validateEmail, 'adress email invalid']
+    validate: [validateEmail, 'Address email invalid']
   },
-  firstname: {
+  firstName: {
     type: String,
     match: /[a-zA-Z]{2,12}$/,
     required: true
   },
-  lastname: {
+  lastName: {
     type: String,
     match: /[a-zA-Z]{2,12}$/,
     required: true

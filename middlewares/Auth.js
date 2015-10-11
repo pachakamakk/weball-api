@@ -11,12 +11,12 @@ var Token = require('../models/token');
 var User = require('../models/user');
 
 
-/* How to use? 
-**
-** example for 1 route: app.get('/:_id', Auth.validateAccesAPIAndGetUser, function(err, match){});
-** example for group of end point: router.use(Auth.validateAccesAPIAndGetUser;
-**
-*/
+/* How to use it ? 
+ **
+ ** to protect a route: app.get('/:_id', Auth.validateAccesAPIAndGetUser, function(err, match){});
+ ** to protect a group of end point: router.use(Auth.validateAccesAPIAndGetUser;
+ **
+ */
 
 var validateAccessAPIbyToken = function(req, res, next) {
   var token = (req.body && req.body.token) || (req.query && req.query.token) || req.headers['x-access-token'];
@@ -38,8 +38,8 @@ var validateAccessAPIbyToken = function(req, res, next) {
 };
 
 
-var validateAccessAPIAndGetUser = function(req, res, next) {
-  var token = (req.body && req.body.token) || (req.query && req.query.token) || req.headers['x-access-token'];
+var validateAccessAPIAndGetUser = function(req, res, next) { 
+  var token = (req.body && req.body.token) || req.query.token || req.headers['x-access-token'];
   if (!token)
     return next({
       message: 'Unauthorized: Token Required',
@@ -71,14 +71,15 @@ var validateAccessAPIAndGetUser = function(req, res, next) {
       // Error
       if (err) next(err);
       // User not found
-      else if (!user) next({
-        message: 'No such user',
-        status: 404
-      });
+      else if (!user)
+        return next({
+          message: 'No such user',
+          status: 404
+        });
       // Success
       else {
         req.user = user;
-        next();
+        return next();
       }
     });
 };

@@ -239,7 +239,7 @@
       23: -1
     }, 
     ...
-  6: { // dimanche
+  6: { // Saturday
       9: 5, // Begining
       23: -1, // End
     }
@@ -437,8 +437,88 @@ Details: Quitte un match seulement si start_date >= 48h.
 
 
 <br><br><hr>
-<a><b>Get list of terrains</b></a>
-<br><br><b>/terrains GET</b> <br>
+<a><b>Send a message to a user with her id </b></a>
+<br><br><b>PATCH /discussions/user/:_id </b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+"content":"message test"
+</font> </pre>
+<pre> Response
+<font color="green">
+{
+  "_id": "5612d31f6321610f091f5b3c",
+  "__v": 6,
+  "messages": [
+    {
+      "content": "message test",
+      "createdAt": "2015-10-05T19:44:31.870Z",
+      "createdBy": "55ee0177ea9a57845ff01cbe",
+      "_id": "5612d31f6321610f091f5b3d"
+    },
+  "usersId": [
+    "55ee0177ea9a57845ff01cbe",
+    "55ee0177ea9a57845ff01cbf"
+  ]
+}    
+</font> </pre>
+
+
+<br><br><hr>
+<a><b>Get all discussions of me</b></a>
+<br><br><b>GET /discussions/me </b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+</font> </pre>
+<pre> Response
+<font color="green">
+[
+  {
+    "_id": "5612ce606321610f091f5b35",
+    "__v": 1,
+    "messages": [
+      {
+        "content": "ceci",
+        "createdAt": "2015-10-05T19:24:18.669Z",
+        "createdBy": "55ee0177ea9a57845ff01cbe",
+        "_id": "5612ce626321610f091f5b37"
+      }
+    ],
+    "user": {
+      "username": "user_x",
+      "photo": ""
+    },
+    "usersId": [
+      "55ee0177ea9a57845ff01cbd"
+    ]
+  },
+  {
+    "_id": "5612ce676321610f091f5b38",
+    "__v": 3,
+    "messages": [
+      {
+        "content": "C",
+        "createdAt": "2015-10-05T19:44:47.558Z",
+        "createdBy": "55ee0177ea9a57845ff01cbe",
+        "_id": "5612d32f6321610f091f5b3f"
+      }
+    ],
+    "user": {
+      "username": "Utilisateur Introuvable",
+      "photo": ""
+    },
+    "usersId": [
+      "55ee0177ea9a57845ff01c0b"
+    ]
+  }
+]  
+</font> </pre>
+
+
+<br><br><hr>
+<a><b>Get all messages of a discussion </b></a>
+<br><br><b>GET /discussions/:_id</b> <br>
 <pre> Parameters
 <font color="red">
 "token":"42"
@@ -446,38 +526,26 @@ Details: Quitte un match seulement si start_date >= 48h.
 <pre> Response
 <font color="green">
 {
-    TOFILL
-}
-</font> </pre>
-
-
-<br><br><hr>
-<a><b>Find terrain by name</b></a>
-<br><br><b>/terrains/find GET</b> <br>
-<pre> Parameters
-<font color="red">
-"token":"42",
-"name" : "Five Paris"
-</font> </pre>
-<pre> Response
-<font color="green">
-{
-    TOFILL
-}
-</font> </pre>
-
-
-<br><br><hr>
-<a><b>Get list of teams</b></a>
-<br><br><b>/teams GET</b> <br>
-<pre> Parameters
-<font color="red">
-"token":"42"
-</font> </pre>
-<pre> Response
-<font color="green">
-{
-    TOFILL
+  "_id": "5612d31f6321610f091f5b3c",
+  "__v": 6,
+  "messages": [
+    {
+      "content": "first message",
+      "createdAt": "2015-10-05T19:44:31.870Z",
+      "createdBy": "55ee0177ea9a57845ff01cbe",
+      "_id": "5612d31f6321610f091f5b3d"
+    },
+    {
+      "content": "last message",
+      "createdAt": "2015-10-05T19:44:33.079Z",
+      "createdBy": "55ee0177ea9a57845ff01cbe",
+      "_id": "5612d3216321610f091f5b3e"
+    }
+  ],
+  "usersId": [
+    "55ee0177ea9a57845ff01cbe",
+    "55ee0177ea9a57845ff01cbf"
+  ]
 }
 </font> </pre>
 
