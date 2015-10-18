@@ -28,12 +28,12 @@ var UserSchema = new mongoose.Schema({
   },
   firstName: {
     type: String,
-    match: /[a-zA-Z]{2,12}$/,
+    match: /[a-zA-Z]{2,10}$/,
     required: true
   },
   lastName: {
     type: String,
-    match: /[a-zA-Z]{2,12}$/,
+    match: /[a-zA-Z]{2,10}$/,
     required: true
   },
   birthday: {
@@ -72,7 +72,7 @@ var UserSchema = new mongoose.Schema({
     type: ObjectId,
     ref: 'Five'
   },
-  matchsId: {
+  matchs: {
     type: [ObjectId],
     ref: 'Matchs'
   },

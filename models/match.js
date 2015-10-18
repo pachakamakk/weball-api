@@ -2,8 +2,12 @@
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
-function arrayLimit(t) {
-  return t.length <= 2;
+function arrayLimit(val) {
+  return val.length <= 2;
+}
+
+function dateMin(val) {
+ return val >= new Date() + (1000 * 60 * 60 * 48);
 }
 
 module.exports = mongoose.model('Match', {
@@ -13,7 +17,15 @@ module.exports = mongoose.model('Match', {
   },
   amount: {
     type: String,
-    required: true
+    required: true,
+    min: 0,
+    max: 150
+  },
+  currentPlayers: {
+    type: Number,
+    required: true,
+    min: 0,
+    max: 10
   },
   maxPlayers: {
     type: Number,
@@ -27,6 +39,8 @@ module.exports = mongoose.model('Match', {
   },
   start_date: {
     type: Date,
+    min: Date.now() + (1000 * 60 * 60 * 48),
+   // minimum 48h before the match
     required: true
   },
   end_date: {
@@ -46,7 +60,19 @@ module.exports = mongoose.model('Match', {
     type: ObjectId,
     required: true
   },
+  five: {
+    type: ObjectId,
+    required: true
+  },
   chatId: {
     type: ObjectId
+  },
+  teamsId: {
+    type: [{
+      type: ObjectId,
+      ref: 'Team'
+    }],
+    validate: [arrayLimit, 'exceeds the limit of 2 teams']
+      // limit: 2
   }
 });

@@ -2,11 +2,126 @@
 	"version": 1,
 	"collections": [
 		{
+			"id": "29d9884d-aa99-493d-5525-c80c549406a1",
+			"name": "Chat",
+			"description": "",
+			"order": [
+				"6867103b-3813-4ea1-de9b-1e3b5c9861a1",
+				"523e5a9c-ada8-a71d-ec3c-17c13bec4df1",
+				"73aa7231-96e0-33aa-d88e-ef3ae27f4e62"
+			],
+			"folders": [],
+			"timestamp": 1444497745829,
+			"synced": false,
+			"remote_id": 0,
+			"owner": 0,
+			"sharedWithTeam": false,
+			"subscribed": false,
+			"remoteLink": "",
+			"public": false,
+			"createdAt": 1444497745829,
+			"updatedAt": 1445199628203,
+			"write": true,
+			"requests": [
+				{
+					"id": "523e5a9c-ada8-a71d-ec3c-17c13bec4df1",
+					"headers": "",
+					"url": "127.0.0.1:8080/chats/561aaa0b9795239e29f38ca1",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "PATCH",
+					"data": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDUwMDk4NTIyNTIsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.wDsRQCfuvharqur2iFiOacL_GxImnW_xzjC4Xbym_fM",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "content",
+							"value": "A",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "urlencoded",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1445199687680,
+					"name": "Post Messages",
+					"description": "",
+					"collectionId": "29d9884d-aa99-493d-5525-c80c549406a1",
+					"responses": []
+				},
+				{
+					"id": "6867103b-3813-4ea1-de9b-1e3b5c9861a1",
+					"headers": "",
+					"url": "127.0.0.1:8080/chats/561aaa0b9795239e29f38ca1?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "GET",
+					"data": [
+						{
+							"key": "content",
+							"value": "test",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "params",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1444588122625,
+					"name": "Get Messages",
+					"description": "",
+					"collectionId": "29d9884d-aa99-493d-5525-c80c549406a1",
+					"responses": []
+				},
+				{
+					"id": "73aa7231-96e0-33aa-d88e-ef3ae27f4e62",
+					"headers": "",
+					"url": "127.0.0.1:8080/chats/join/5623df2d4584ad0a7c606245",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "PATCH",
+					"data": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "teamId",
+							"value": "561b7c691d558a602c059b3c",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "urlencoded",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1445199669023,
+					"name": "Join a Chat",
+					"description": "",
+					"collectionId": "29d9884d-aa99-493d-5525-c80c549406a1",
+					"responses": []
+				}
+			]
+		},
+		{
 			"id": "8928f65f-fc8d-565d-cf71-2050fb723fdf",
 			"name": "Field",
 			"description": "",
 			"order": [
-				"4857ec8e-8cea-c9a0-8984-66302e751063"
+				"4857ec8e-8cea-c9a0-8984-66302e751063",
+				"6b77f59a-c1bc-ea59-3d8a-6dc5199493cb"
 			],
 			"folders": [],
 			"timestamp": 1441378335837,
@@ -18,7 +133,7 @@
 			"remoteLink": "",
 			"public": false,
 			"createdAt": 1441378335837,
-			"updatedAt": 1441379507970,
+			"updatedAt": 1444392392988,
 			"write": true,
 			"requests": [
 				{
@@ -37,6 +152,50 @@
 					"time": 1441716366179,
 					"name": "Get a Field",
 					"description": "",
+					"collectionId": "8928f65f-fc8d-565d-cf71-2050fb723fdf",
+					"responses": []
+				},
+				{
+					"id": "6b77f59a-c1bc-ea59-3d8a-6dc5199493cb",
+					"headers": "",
+					"url": "127.0.0.1:8080/fields/",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "POST",
+					"data": [
+						{
+							"key": "name",
+							"value": "My First Field 2",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "available",
+							"value": "1",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "fiveId",
+							"value": "55e9ac3d5dcf1c93217b0045",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "picture",
+							"value": "http://www.test.com/picture.png",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "urlencoded",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1445166189737,
+					"name": "Create a Field",
+					"description": " Create a Field For a Five",
 					"collectionId": "8928f65f-fc8d-565d-cf71-2050fb723fdf",
 					"responses": []
 				}
@@ -141,7 +300,8 @@
 			"description": "",
 			"order": [
 				"9832224a-21ab-42e9-7f61-5416487ff7b4",
-				"8ba96890-744c-dd6c-cc66-f4be55df2327"
+				"8ba96890-744c-dd6c-cc66-f4be55df2327",
+				"ceec9bd6-b2e1-8d8d-91cc-9499d7da848d"
 			],
 			"folders": [],
 			"timestamp": 1441660912819,
@@ -152,7 +312,7 @@
 			"remoteLink": "",
 			"public": false,
 			"createdAt": null,
-			"updatedAt": 1441711801866,
+			"updatedAt": 1444587863537,
 			"write": true,
 			"requests": [
 				{
@@ -239,6 +399,51 @@
 					"description": "",
 					"descriptionFormat": "html",
 					"time": 1441660912819,
+					"version": 2,
+					"responses": [],
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {}
+				},
+				{
+					"id": "ceec9bd6-b2e1-8d8d-91cc-9499d7da848d",
+					"headers": "",
+					"url": "127.0.0.1:8080/users/55ee0177ea9a57845ff01cbe?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis",
+					"pathVariables": {},
+					"preRequestScript": "",
+					"method": "PATCH",
+					"collectionId": "a812479a-0e69-fad1-efc4-e33834063d17",
+					"data": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDUwMDk4NTIyNTIsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.wDsRQCfuvharqur2iFiOacL_GxImnW_xzjC4Xbym_fM",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "content",
+							"value": "test A",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "firstname",
+							"value": "eli",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "lastname",
+							"value": "chet",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "urlencoded",
+					"name": "Update a User",
+					"description": "",
+					"descriptionFormat": "html",
+					"time": 1444587863518,
 					"version": 2,
 					"responses": [],
 					"tests": "",
@@ -336,7 +541,10 @@
 				"37daca95-d963-b245-b374-04e35ce9a376",
 				"10d4450d-3e37-d8a1-2c4b-c5d3bed98daa",
 				"e2ae206b-6e57-3c4d-1571-2d2589cc0a13",
-				"abcd1da0-aa04-2dde-982a-eaaa7ae8803f"
+				"abcd1da0-aa04-2dde-982a-eaaa7ae8803f",
+				"5c80e31c-577a-30e7-4553-891e31f6e16d",
+				"4353d5eb-3f7f-3d6c-fde0-6725b5be2804",
+				"9388b151-7f64-45c0-9b8c-31586e9bf62d"
 			],
 			"folders": [],
 			"timestamp": 1441379674985,
@@ -348,28 +556,34 @@
 			"remoteLink": "",
 			"public": false,
 			"createdAt": 1441379674985,
-			"updatedAt": 1441821456313,
+			"updatedAt": 1445124917583,
 			"write": true,
 			"requests": [
 				{
 					"id": "10d4450d-3e37-d8a1-2c4b-c5d3bed98daa",
 					"headers": "",
-					"url": "127.0.0.1:8080/matchs/55eed6dd08538bd2ae153095",
-					"pathVariables": {},
+					"url": "127.0.0.1:8080/matchs/561aaa0b9795239e29f38c9e",
 					"preRequestScript": "",
+					"pathVariables": {},
 					"method": "GET",
-					"collectionId": "e0702cea-864b-4295-7ef8-70e1299ca816",
-					"data": [],
+					"data": [
+						{
+							"key": "content",
+							"value": "test",
+							"type": "text",
+							"enabled": true
+						}
+					],
 					"dataMode": "params",
-					"name": "Get a Match",
-					"description": "",
-					"descriptionFormat": "html",
-					"time": 1441730463199,
 					"version": 2,
-					"responses": [],
 					"tests": "",
 					"currentHelper": "normal",
-					"helperAttributes": {}
+					"helperAttributes": {},
+					"time": 1444632917979,
+					"name": "Get a Match",
+					"description": "",
+					"collectionId": "e0702cea-864b-4295-7ef8-70e1299ca816",
+					"responses": []
 				},
 				{
 					"id": "37daca95-d963-b245-b374-04e35ce9a376",
@@ -387,7 +601,7 @@
 						},
 						{
 							"key": "start_date",
-							"value": "2015-08-30T10:00:00.756Z",
+							"value": "2015-08-30T11:00:00.756Z",
 							"type": "text",
 							"enabled": true
 						},
@@ -414,6 +628,24 @@
 							"value": "MyTeam",
 							"type": "text",
 							"enabled": true
+						},
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDUwMDk4NTIyNTIsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.wDsRQCfuvharqur2iFiOacL_GxImnW_xzjC4Xbym_fM",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "maxPlayers",
+							"value": "10",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "five",
+							"value": "55e9abd35dcf1c93217b0044",
+							"type": "text",
+							"enabled": true
 						}
 					],
 					"dataMode": "urlencoded",
@@ -421,9 +653,92 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1441711731465,
+					"time": 1445124605195,
 					"name": "Create a Match",
 					"description": "",
+					"collectionId": "e0702cea-864b-4295-7ef8-70e1299ca816",
+					"responses": []
+				},
+				{
+					"id": "4353d5eb-3f7f-3d6c-fde0-6725b5be2804",
+					"headers": "token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis\n",
+					"url": "127.0.0.1:8080/matchs/me?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis&sort=-start_date&status=waiting",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "GET",
+					"data": [],
+					"dataMode": "params",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1445186040026,
+					"name": "Get my Matchs",
+					"description": "",
+					"collectionId": "e0702cea-864b-4295-7ef8-70e1299ca816",
+					"responses": []
+				},
+				{
+					"id": "5c80e31c-577a-30e7-4553-891e31f6e16d",
+					"headers": "token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis\n",
+					"url": "127.0.0.1:8080/matchs/leave/561b7c691d558a602c059b3e",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "PATCH",
+					"data": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "teamId",
+							"value": "561b7c691d558a602c059b3c",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "newLeader",
+							"value": null,
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "urlencoded",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1445010020782,
+					"name": "Leave a Match",
+					"description": "",
+					"collectionId": "e0702cea-864b-4295-7ef8-70e1299ca816",
+					"responses": []
+				},
+				{
+					"id": "9388b151-7f64-45c0-9b8c-31586e9bf62d",
+					"headers": "",
+					"url": "127.0.0.1:8080/matchs/five/55e9abd35dcf1c93217b0044?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDUwMDk4NTIyNTIsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.wDsRQCfuvharqur2iFiOacL_GxImnW_xzjC4Xbym_fM&sort=-start_date",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "GET",
+					"data": [
+						{
+							"key": "content",
+							"value": "test",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "params",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1445125147467,
+					"name": "Get matchs By Five",
+					"description": "req.params.sort: '-amount' // descending\nreq.params.sort: 'amount' // ascending\n\nIt's available for all: start_date, end_date, currentPlayers..",
 					"collectionId": "e0702cea-864b-4295-7ef8-70e1299ca816",
 					"responses": []
 				},
@@ -480,28 +795,20 @@
 				{
 					"id": "e2ae206b-6e57-3c4d-1571-2d2589cc0a13",
 					"headers": "token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis\n",
-					"url": "127.0.0.1:8080/matchs/join/55eed6dd08538bd2ae153095",
+					"url": "127.0.0.1:8080/matchs/join/561b7c691d558a602c059b3e",
 					"preRequestScript": "",
-					"pathVariables": {
-						"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis"
-					},
+					"pathVariables": {},
 					"method": "PATCH",
 					"data": [
 						{
-							"key": "login",
-							"value": "elias",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "password",
-							"value": "elias",
-							"type": "text",
-							"enabled": true
-						},
-						{
 							"key": "token",
 							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "teamId",
+							"value": "561b7c691d558a602c059b3c",
 							"type": "text",
 							"enabled": true
 						}
@@ -511,7 +818,7 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1441821398806,
+					"time": 1444832996931,
 					"name": "Join a Match",
 					"description": "",
 					"collectionId": "e0702cea-864b-4295-7ef8-70e1299ca816",
@@ -526,7 +833,8 @@
 			"order": [
 				"5e850fbc-44c9-88b2-7b68-9c4bcc2d3455",
 				"44b7ceda-9093-8a12-6782-2bd8034ab1dc",
-				"32a66a26-0e43-8ffe-5710-f07d9ba95ac7"
+				"32a66a26-0e43-8ffe-5710-f07d9ba95ac7",
+				"e07b2a94-015a-3c63-04e9-e2bb8fb3ef4a"
 			],
 			"folders": [],
 			"timestamp": 1443862917547,
@@ -538,13 +846,13 @@
 			"remoteLink": "",
 			"public": false,
 			"createdAt": 1443862917547,
-			"updatedAt": 1444175584023,
+			"updatedAt": 1444392401221,
 			"write": true,
 			"requests": [
 				{
 					"id": "32a66a26-0e43-8ffe-5710-f07d9ba95ac7",
 					"headers": "",
-					"url": "127.0.0.1:8080/discussions/me/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis",
+					"url": "127.0.0.1:8080/discussions/me/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis&limit=5&skip=1",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "GET",
@@ -554,7 +862,7 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1444303917746,
+					"time": 1445205212130,
 					"name": "Get Discussions ",
 					"description": "Get my discussions\nLast Messages + for each discussion: username + photo of the user\n",
 					"collectionId": "eb40c364-8db0-3761-78a9-1dda90defb9a",
@@ -608,6 +916,44 @@
 					"time": 1444129726910,
 					"name": "Send a Message ",
 					"description": "Send Message to a Discussion\n",
+					"collectionId": "eb40c364-8db0-3761-78a9-1dda90defb9a",
+					"responses": []
+				},
+				{
+					"id": "e07b2a94-015a-3c63-04e9-e2bb8fb3ef4a",
+					"headers": "",
+					"url": "127.0.0.1:8080/discussions/",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "POST",
+					"data": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "content",
+							"value": "ceci est un message",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "usersId",
+							"value": "55ee0177ea9a57845ff01cbe, 55ee0177ea9a57845ff01cba, 55ee0177ea9a57845ff01cbf",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "urlencoded",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1445199699744,
+					"name": "Create a discussion",
+					"description": "Create a discussion with n usersId\n\n",
 					"collectionId": "eb40c364-8db0-3761-78a9-1dda90defb9a",
 					"responses": []
 				}

@@ -7,11 +7,6 @@ var TeamSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  matchId: {
-    type: ObjectId,
-    ref: 'Match',
-    default: null
-  },
   registerDate: {
     type: Date
   },

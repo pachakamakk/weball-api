@@ -65,7 +65,9 @@ var validateAccessAPIAndGetUser = function(req, res, next) {
       'lastname': 1,
       'fav_fields': 1,
       'points': 1,
-      'friends': 1
+      'friends': 1,
+      'matchs': 1,
+      'role': 1
     })
     .exec(function(err, user) {
       // Error

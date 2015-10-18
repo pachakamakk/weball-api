@@ -76,8 +76,7 @@ router.get('/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
               'username': 1,
               'firstName': 1,
               'lastName': 1,
-              'photo': 1
-            })
+              'photo': 1 })
             .exec(function(err, user) {
               if (err) callback(err);
               else if (!user) // user not found or deleted..
@@ -85,14 +84,13 @@ router.get('/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
                 message.infoUser.photo = "";
                 message.infoUser.username = "Utilisateur Introuvable";
                 message.infoUser.firstName = "Utilisateur Introuvable";
-                callback(null, chat);
+                callback(null, message);
               } else {
-                console.log(user)
                 message.infoUser.photo = user.photo;
                 message.infoUser.username = user.username;
                 message.infoUser.firstName = user.firstName;
                 message.infoUser.lastName = user.lastName;
-                callback(null, chat);
+                callback(null, message);
               }
             });
         });

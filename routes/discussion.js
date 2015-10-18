@@ -57,7 +57,8 @@ router.get('/me', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
       messages: {
         $slice: -1 //get last message
       }
-    })
+    }).skip(req.query.skip)
+    .limit(req.query.limit)
     .exec(function(err, discussions) {
       if (err) {
         return next(err);
@@ -69,6 +70,8 @@ router.get('/me', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
           discussionsWithUserInfo.push(function(callback) {
             User.findById(discussion.usersId).select({ //Get info of each user
                 'username': 1,
+                'firstName': 1,
+                'lastName': 1,
                 'photo': 1
               })
               .exec(function(err, user) {

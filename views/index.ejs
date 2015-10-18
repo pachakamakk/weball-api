@@ -323,17 +323,30 @@
 "end_date": "2015-08-30T19:00:00.756Z"
 "fieldId": "55e9b4198893e4a933a1a4a9"
 "teamName": "myTeam"
+"maxPlayers": 10
+"five": "55e9b4198893e4a933a1a4a9"
 </font> </pre>
 <pre><br> Response
 <font color="green">
 {
-  "__v": 0,
+  "_id": "56237b35102914fd783ddb5b",
   "name": "My First Match",
-  "start_date": "2015-08-30T18:00:00.756Z",
-  "end_date": "2015-08-30T19:00:00.756Z",
-  "fieldId": "55e9b4198893e4a933a1a4a9",
-  "_id": "55e9b7b904e7c357407e4f83",
-  "status": "waiting"
+  "start_date": "2015-08-30T15:00:00.756Z",
+  "end_date": "2015-08-30T16:00:00.756Z",
+  "maxPlayers": 10,
+  "status": "waiting",
+  "fieldId": "55ee0b8ca2dba0466ad5dc13",
+  "five": "55e9abd35dcf1c93217b0044",
+  "amount": "15",
+  "created_at": "2015-10-18T10:57:57.535Z",
+  "created_by": "55ee0177ea9a57845ff01cbe",
+  "currentPlayers": 1,
+  "__v": 0,
+  "chatId": "56237b35102914fd783ddb5c",
+  "teamsId": [
+    "56237b35102914fd783ddb59",
+    "56237b35102914fd783ddb5a"
+  ]
 } </font> </pre>
 
 <br><br><hr>
@@ -346,22 +359,32 @@
 <pre><br> Response
 <font color="green">
 {
-  "_id": "55eed6dd08538bd2ae153095",
+  "_id": "56237b35102914fd783ddb5b",
   "name": "My First Match",
-  "start_date": "2015-08-30T16:30:00.756Z",
-  "end_date": "2015-08-30T17:00:00.756Z",
-  "fieldId": "55ee0b8ca2dba0466ad5dc13",
-  "amount": "10",
+  "start_date": "2015-08-30T15:00:00.756Z",
+  "end_date": "2015-08-30T16:00:00.756Z",
+  "maxPlayers": 10,
   "status": "waiting",
+  "fieldId": "55ee0b8ca2dba0466ad5dc13",
+  "five": "55e9abd35dcf1c93217b0044",
+  "amount": "15",
+  "created_at": "2015-10-18T10:57:57.535Z",
+  "created_by": "55ee0177ea9a57845ff01cbe",
+  "currentPlayers": 1,
   "__v": 0,
-  "teamsId": []
+  "chatId": "56237b35102914fd783ddb5c",
+  "teamsId": [
+    "56237b35102914fd783ddb59",
+    "56237b35102914fd783ddb5a"
+  ]
 }
 </font> </pre>
 
 <br><br><hr>
 <a><b>Join a match by id</b></a>
 <br><br><b>PATCH /matchs/join/:_id </b> <br> <br>
-Details: Rejoins une équipe seulement si une place est dispo.
+Note: - Rejoins une équipe seulement si une place est dispo.
+- Rejoins un match seulement si un match avec la meme horaire n'existe pas déja.
 <pre> Parameters
 <font color="red">
 "token":"42"
@@ -378,37 +401,18 @@ Details: Rejoins une équipe seulement si une place est dispo.
   "amount": "10",
   "status": "waiting",
   "__v": 0,
-  "teamsId": []
-}
-</font> </pre>
-
-
-<br><br><hr>
-<a><b>Leave a match by id</b></a>
-<br><br><b>PATCH /matchs/leave/:_id </b> <br> <br>
-Details: Quitte un match seulement si start_date >= 48h.
-<pre> Parameters
-<font color="red">
-"token":"42"
-</font> </pre>
-<pre><br> Response
-<font color="green">
-{
-  "_id": "55eed6dd08538bd2ae153095",
-  "name": "My First Match",
-  "start_date": "2015-08-30T16:30:00.756Z",
-  "end_date": "2015-08-30T17:00:00.756Z",
-  "fieldId": "55ee0b8ca2dba0466ad5dc13",
-  "amount": "10",
-  "status": "waiting",
-  "__v": 0,
-  "teamsId": []
+  "chatId": "561b7c691d558a602c059b3f",
+  "teamsId": [
+    "561b7c691d558a602c059b3c",
+    "561b7c691d558a602c059b3d"
+  ]
 }
 </font> </pre>
 
 <br><br><hr>
-<a><b>Update a Match. Only creator can update</b></a>
-<br><br><b>PATCH /matchs/:_id </b> <br>
+<a><b>Update a Match. </b></a> 
+<br><br><b>PATCH /matchs/:_id </b> <br> <br>
+Note: Only creator can update 
 <pre> Parameters
 <font color="red">
 "token":"42"
@@ -423,18 +427,107 @@ Details: Quitte un match seulement si start_date >= 48h.
 </font> </pre>
 
 <br><br><hr>
-<a><b>Get list of matchs(waiting, ready, over) per field </b></a>
-<br><br><b>GET /matchs/fields/:_id </b> <br>
+<a><b>Leave a match by id</b></a>
+<br><br><b>PATCH /matchs/leave/:_id </b> <br> <br>
+Note: Quitte un match seulement si start_date >= 48h
+Si leader, remplir newLeader sinon leader random.
 <pre> Parameters
 <font color="red">
 "token":"42"
+"teamId": "561b7c691d558a602c059b3c"
+"newLeader":"55eed6dd08538bd2ae153095"
 </font> </pre>
 <pre><br> Response
 <font color="green">
 {
-    
-} </font> </pre>
+  "_id": "55eed6dd08538bd2ae153095",
+  "name": "My First Match",
+  "start_date": "2015-08-30T16:30:00.756Z",
+  "end_date": "2015-08-30T17:00:00.756Z",
+  "fieldId": "55ee0b8ca2dba0466ad5dc13",
+  "amount": "10",
+  "status": "waiting",
+  "__v": 0,
+  "chatId": "561b7c691d558a602c059b3f",
+  "teamsId": [
+    "561b7c691d558a602c059b3c",
+    "561b7c691d558a602c059b3d"
+  ]
+}
+</font> </pre>
 
+
+<br><br><hr>
+<a><b>Get my matchs and sort</b></a>
+<br><br><b>GET /matchs/me </b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+"status": "waiting"
+</font>
+"sort": "-start_date" // descending or 'start_date' for ascending
+</pre>
+<pre><br> Response
+<font color="green">
+[
+  {
+    "_id": "5623df2d4584ad0a7c606244",
+    "name": "My First Match",
+    "start_date": "2015-10-20T22:00:00.756Z",
+    "end_date": "2015-10-20T22:30:00.756Z",
+    "maxPlayers": 10,
+    "status": "waiting",
+    "fieldId": "55ee0b8ca2dba0466ad5dc13",
+    "five": "55e9abd35dcf1c93217b0044",
+    "amount": "10",
+    "created_at": "2015-10-18T18:04:29.504Z",
+    "created_by": "55ee0177ea9a57845ff01cbe",
+    "currentPlayers": 1,
+    "__v": 0,
+    "chatId": "5623df2d4584ad0a7c606245",
+    "teamsId": [
+      "5623df2d4584ad0a7c606242",
+      "5623df2d4584ad0a7c606243"
+    ]
+  },
+  ...
+]</font> </pre>
+
+<br><br><hr>
+<a><b>Get matchs by five and sort</b></a>
+<br><br><b>GET /matchs/five/:_id </b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+"status": "waiting"
+</font>
+"sort": "-start_date" // descending or 'start_date' for ascending
+</pre>
+<pre><br> Response
+<font color="green">
+[
+  {
+    "_id": "5623df2d4584ad0a7c606244",
+    "name": "My First Match",
+    "start_date": "2015-10-20T22:00:00.756Z",
+    "end_date": "2015-10-20T22:30:00.756Z",
+    "maxPlayers": 10,
+    "status": "waiting",
+    "fieldId": "55ee0b8ca2dba0466ad5dc13",
+    "five": "55e9abd35dcf1c93217b0044",
+    "amount": "10",
+    "created_at": "2015-10-18T18:04:29.504Z",
+    "created_by": "55ee0177ea9a57845ff01cbe",
+    "currentPlayers": 1,
+    "__v": 0,
+    "chatId": "5623df2d4584ad0a7c606245",
+    "teamsId": [
+      "5623df2d4584ad0a7c606242",
+      "5623df2d4584ad0a7c606243"
+    ]
+  },
+  ...
+]</font> </pre>
 
 <br><br><hr>
 <a><b>Send a message to a user with her id </b></a>
@@ -470,7 +563,9 @@ Details: Quitte un match seulement si start_date >= 48h.
 <pre> Parameters
 <font color="red">
 "token":"42"
-</font> </pre>
+</font>
+"limit": 5
+"skip": 5 </pre>
 <pre> Response
 <font color="green">
 [
@@ -485,7 +580,7 @@ Details: Quitte un match seulement si start_date >= 48h.
         "_id": "5612ce626321610f091f5b37"
       }
     ],
-    "user": {
+    "lastUser": {
       "username": "user_x",
       "photo": ""
     },
@@ -504,7 +599,7 @@ Details: Quitte un match seulement si start_date >= 48h.
         "_id": "5612d32f6321610f091f5b3f"
       }
     ],
-    "user": {
+    "lastUser": {
       "username": "Utilisateur Introuvable",
       "photo": ""
     },
@@ -537,7 +632,7 @@ Details: Quitte un match seulement si start_date >= 48h.
     },
     {
       "content": "last message",
-      "createdAt": "2015-10-05T19:44:33.079Z",
+      "createdAt": "2015-10-05T19:54:33.079Z",
       "createdBy": "55ee0177ea9a57845ff01cbe",
       "_id": "5612d3216321610f091f5b3e"
     }
@@ -551,20 +646,111 @@ Details: Quitte un match seulement si start_date >= 48h.
 
 
 <br><br><hr>
-<a><b>Find a team by id</b></a>
-<br><br><b>/teams/find GET</b> <br>
+<a><b>Join a chat by id</b></a>
+<br><br><b>PATCH /chats/join/:_id</b> <br>
 <pre> Parameters
 <font color="red">
-"token":"42",
-"id":"42"
+"token":"42"
 </font> </pre>
 <pre> Response
 <font color="green">
 {
-    TOFILL
+  "_id": "561aaa0b9795239e29f38ca1",
+  "matchId": "561aaa0b9795239e29f38c9e",
+  "__v": 2,
+  "messages": [
+    {
+      "content": "A",
+      "createdAt": "2015-10-11T18:28:24.341Z",
+      "createdBy": "55ee0177ea9a57845ff01cbe",
+      "_id": "561aaa489795239e29f38ca3"
+    },
+    {
+      "content": "B",
+      "createdAt": "2015-10-18T20:22:11.812Z",
+      "createdBy": "55ee0177ea9a57845ff01cbe",
+      "_id": "5623ff73cdecf8cf7ccd3c39"
+    }
+  ],
+  "usersId": [
+    "55ee0177ea9a57845ff01cbe"
+  ]
 }
 </font> </pre>
 
+<br><br><hr>
+<a><b>Post a message in chat</b></a>
+<br><br><b>PATCH /chats/:_id</b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+</font> </pre>
+<pre> Response
+<font color="green">
+{
+  "_id": "561aaa0b9795239e29f38ca1",
+  "matchId": "561aaa0b9795239e29f38c9e",
+  "__v": 2,
+  "messages": [
+     {
+      "content": "A",
+      "createdAt": "2015-10-11T17:29:14.341Z",
+      "createdBy": "55ee0177ea9a57845ff01cbe",
+      "_id": "561aaa489795239e29f38ca3"
+    },
+    {
+      "content": "B",
+      "createdAt": "2015-10-11T18:28:24.341Z",
+      "createdBy": "55ee0177ea9a57845ff01cbe",
+      "_id": "561aaa489795239e29f38ca3"
+    },
+    {
+      "content": "C",
+      "createdAt": "2015-10-18T20:22:11.812Z",
+      "createdBy": "55ee0177ea9a57845ff01cbe",
+      "_id": "5623ff73cdecf8cf7ccd3c39"
+    }
+  ],
+  "usersId": [
+    "55ee0177ea9a57845ff01cbe"
+  ]
+}
+</font> </pre>
+
+<br><br><hr>
+<a><b>Get a messages of a chat </b></a>
+<br><br><b>PATCH /chats/:_id</b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+</font> </pre>
+<pre> Response
+<font color="green">
+[
+  {
+    "content": "A",
+    "createdAt": "2015-10-11T18:28:24.341Z",
+    "createdBy": "55ee0177ea9a57845ff01cbe",
+    "_id": "561aaa489795239e29f38ca3",
+    "infoUser": {
+      "lastName": "chet",
+      "firstName": "eli",
+      "username": "elias"
+    }
+  },
+  {
+    "content": "A",
+    "createdAt": "2015-10-18T20:22:11.812Z",
+    "createdBy": "55ee0177ea9a57845ff01cbe",
+    "_id": "5623ff73cdecf8cf7ccd3c39",
+    "infoUser": {
+      "lastName": "chet",
+      "firstName": "eli",
+      "username": "elias"
+    }
+  }
+]
+</font> </pre>
 
 <br><br><hr>
 <a><b>Add Credit Card (Commentaire: Stock dans api Paypal et la CardId dans la DB User)</b></a>
