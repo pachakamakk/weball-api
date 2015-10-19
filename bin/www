@@ -28,7 +28,6 @@ var port = (process.argv[2] || process.env.PORT || 8080);
  */
 
 http = http.createServer(app);
-
 http.listen(port, function(){
 console.log("Express server listening on port " + port)})
 http.on('error', onError);
