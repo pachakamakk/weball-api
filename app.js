@@ -1,5 +1,4 @@
 var express = require('express');
-var socket_io = require("socket.io");
 //var ssl = require('express-ssl');
 //app.use(ssl());
 

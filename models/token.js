@@ -15,6 +15,13 @@ var TokenSchema = new mongoose.Schema({
   expire: {
     type: Date,
     required: true
+  },
+  application: {
+    appId: String,
+    deviceToken: String,
+    deviceType: String, // 'ios'
+    createdAt: Date,
+    status: String //'active'
   }
 });
 // Export the Mongoose model
