@@ -54,16 +54,6 @@
    });
  });
 
- // Get invitations of matchs
- router.get('/invit/', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
-   Invitation.findOne({
-     'invited.user': req.user._id
-   }).populate('match').exec(function(err, invitations) {
-     if (err) return callback(err.errors[Object.keys(err.errors)[0]]);
-     res.json(invitations)
-   });
- });
-
  // Get 1 match by Id
  router.get('/:_id', Auth.validateAccessAPIbyToken, function(req, res, next) {
    Match.findById(req.params._id, function(err, match) {
@@ -422,8 +412,6 @@
      });
  });
 
-
-
  // Update Partial Ressource of a match
  router.patch('/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
    Match.findById(req.params._id).exec(function(err, match) {
@@ -527,111 +515,6 @@
          res.json(_match)
        }
      });
- });
-
- // Invit a user to a Match
- router.patch('/invit/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
-   var _invitation = {};
-   var double = false;
-
-   async.series([
-       function pushInvitation(callback) {
-         var str = req.body.usersId;
-         var usersId = str.split(",").map(function(val) {
-           return ObjectId(val);
-         });
-         Invitation.findOne({
-           match: req.params._id
-         }).exec(function(err, invitation) {
-           if (err) return callback(err.errors[Object.keys(err.errors)[0]]);
-           else if (invitation) {
-             usersId.forEach(function(user) {
-               for (invit of invitation.invited)
-               // cant invit yourself + cant invit a user already invited
-                 if ((invit.by.equals(req.user._id) && invit.user.equals(user)) || invit.user.equals(req.user._id))
-                   double = true;
-               if (!double) {
-                 invitation.invited.push({
-                   by: req.user._id,
-                   user: user,
-                   date: new Date()
-                 });
-               }
-             });
-             invitation.save(function(err, invitation) {
-               if (err) return callback(err.errors[Object.keys(err.errors)[0]]);
-               _invitation = invitation;
-               callback();
-             });
-           } else {
-             var invitation = new Invitation({
-               match: req.params._id,
-               date: new Date(),
-             });
-             usersId.forEach(function(user) {
-               for (invit of invitation.invited)
-                 if ((invit.by.equals(req.user._id) && invit.user.equals(user)) || invit.user.equals(req.user._id))
-                   double = true;
-               if (!double) {
-                 invitation.invited.push({
-                   by: req.user._id,
-                   user: user,
-                   date: new Date()
-                 });
-               }
-             });
-             invitation.save(function(err, invitation) {
-               if (err) return callback(err.errors[Object.keys(err.errors)[0]]);
-               _invitation = invitation;
-               callback();
-             });
-           }
-         });
-       },
-       function pushNotification(callback) {
-         callback();
-       },
-     ], //5626af199ae8c8b68b97dcdd
-
-     function allFinish(err, result) {
-       if (err) return next(err);
-       res.json(_invitation);
-     });
- })
-
- // Invit a user to a Match
- router.delete('/invit/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
-   var _invitation = {};
-   var double = false;
-   var str = req.body.usersId;
-   var usersId = str.split(",").map(function(val) {
-     return ObjectId(val);
-   });
-
-   Invitation.findOneAndUpdate({
-     match: req.params._id
-   }, {
-     "$pull": { // search user in array of invited
-       "invited": {
-         "by": req.user._id,
-         "user": {
-           "$in": usersId
-         }
-       },
-     }
-   }, {
-     "new": true // return doc updated
-   }).exec(function(err, invitation) {
-     if (err) return callback(err.errors[Object.keys(err.errors)[0]]);
-     else if (invitation) {
-       res.json(invitation)
-     } else {
-       return callback({
-         status: 404,
-         message: 'Invitation is not found'
-       }, null);
-     }
-   });
  });
 
  module.exports = router;

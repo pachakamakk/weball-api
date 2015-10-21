@@ -22,6 +22,7 @@ var fields = require('./routes/fields');
 var teams = require('./routes/teams');
 var five = require('./routes/five');
 var discussions = require('./routes/discussion');
+var invitations = require('./routes/invitations');
 
 // UBER
 // var UBER_ID = 'zURMqUhzvDsPcZidFT11IU9sdDmZvd56';
@@ -84,6 +85,7 @@ app.use('/matchs', matchs);
 app.use('/fields', fields);
 app.use('/teams', teams);
 app.use('/discussions', discussions);
+app.use('/invitations', invitations);
 //app.use('/paypal', paypalRoute);
 
 // catch 404 and forward to error handler
