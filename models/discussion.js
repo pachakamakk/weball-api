@@ -3,15 +3,10 @@ var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
 module.exports = mongoose.model('Discussion', {
-  usersId: {
-    type: [ObjectId]
-  },
-  lastUser: { // for get information for viewListMessages
-    photo: String,
-    firstName: String,
-    lastName: String,
-    username: String
-  },
+  users: [{
+    type: ObjectId,
+    ref: 'User'
+  }],
   messages: [{
     content: {
       type: String,
@@ -23,6 +18,7 @@ module.exports = mongoose.model('Discussion', {
     },
     createdBy: {
       type: ObjectId,
+      ref: 'User',
       required: true
     }
   }]

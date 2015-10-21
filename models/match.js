@@ -61,14 +61,17 @@ module.exports = mongoose.model('Match', {
   },
   fieldId: {
     type: ObjectId,
+    ref: 'Field',
     required: true
   },
   five: {
     type: ObjectId,
+    ref: 'Five',
     required: true
   },
   chatId: {
-    type: ObjectId
+    type: ObjectId,
+    ref: 'Chat'
   },
   teamsId: {
     type: [{

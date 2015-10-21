@@ -21,7 +21,7 @@
       'invited.user': req.user._id
     }).populate('match').exec(function(err, invitations) {
       if (err) return callback(err.errors[Object.keys(err.errors)[0]]);
-      res.json(invitations)
+      res.json(invitations);
     });
   });
 
@@ -42,7 +42,7 @@
             if (err) return callback(err.errors[Object.keys(err.errors)[0]]);
             else if (invitation) {
               usersId.forEach(function(user) {
-                if (!user.equals(req.user._id)) { // cannot invit yourself
+              //  if (!user.equals(req.user._id)) { // cannot invit yourself
                   for (invit of invitation.invited)
                   // cant invit a user already invited
                     if (invit.by.equals(req.user._id) && invit.user.equals(user))
@@ -53,7 +53,7 @@
                       user: user,
                       date: new Date()
                     });
-                }
+            //    }
               });
               invitation.save(function(err, invitation) {
                 if (err) return callback(err.errors[Object.keys(err.errors)[0]]);
@@ -63,10 +63,10 @@
             } else {
               var invitation = new Invitation({
                 match: req.params._id,
-                date: new Date(),
+                date: new Date()
               });
               usersId.forEach(function(user) {
-                if (!user.equals(req.user._id)) { // cannot invit yourself
+           //     if (!user.equals(req.user._id)) { // cannot invit yourself
                   for (invit of invitation.invited)
                   // cant invit a user already invited
                     if (invit.by.equals(req.user._id) && invit.user.equals(user))
@@ -77,7 +77,7 @@
                       user: user,
                       date: new Date()
                     });
-                }
+             //   }
               });
               invitation.save(function(err, invitation) {
                 if (err) return callback(err.errors[Object.keys(err.errors)[0]]);
@@ -124,12 +124,11 @@
       if (err) return callback(err.errors[Object.keys(err.errors)[0]]);
       else if (invitation) {
         res.json(invitation)
-      } else {
-        return callback({
+      } else
+        return next({
           status: 404,
           message: 'Invitation is not found'
         }, null);
-      }
     });
   });
 

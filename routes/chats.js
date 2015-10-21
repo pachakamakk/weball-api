@@ -18,14 +18,15 @@ router.patch('/join/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, 
     if (err)
       return next(err);
     else if (chat) {
-      for (user of chat.usersId) {
+      for (user of chat.users) {
         if (user.equals(req.user._id))
           return next({
             status: 405,
             message: 'Already Joined'
           }, null);
       }
-      chat.usersId.push(req.user._id);
+      chat.users.push(req.user._id);
+
       chat.save(function(err, chat) {
         if (err)
           next(err);
@@ -41,14 +42,14 @@ router.patch('/join/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, 
 });
 
 // Leave a chat
-router.patch('/leave/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
-  Chat.findById(req.params._id).exec(function(err, chat) {
+router.delete('/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
+  Chat.findById(req.params._id).select('users').exec(function(err, chat) {
     if (err)
       return next(err);
     else if (chat) {
-      var index = chat.usersId.indexOf(req.user._id);
+      var index = chat.users.indexOf(req.user._id);
       if (index > -1)
-        chat.usersId.splice(index, 1);
+        chat.users.splice(index, 1);
       chat.save(function(err, chat) {
         if (err)
           next(err);
@@ -65,57 +66,28 @@ router.patch('/leave/:_id', Auth.validateAccessAPIAndGetUser, function(req, res,
 
 // Get Messages of a chat
 router.get('/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
-  var chatWithUserInfo = [];
-  Chat.findById(req.params._id).exec(function(err, chat) {
-    if (err) {
-      return next(err);
-    } else if (chat) {
-      chat.messages.forEach(function(message) {
-        chatWithUserInfo.push(function(callback) {
-          User.findById(message.createdBy).select({ //Get info of each user
-              'username': 1,
-              'firstName': 1,
-              'lastName': 1,
-              'photo': 1 })
-            .exec(function(err, user) {
-              if (err) callback(err);
-              else if (!user) // user not found or deleted..
-              {
-                message.infoUser.photo = "";
-                message.infoUser.username = "Utilisateur Introuvable";
-                message.infoUser.firstName = "Utilisateur Introuvable";
-                callback(null, message);
-              } else {
-                message.infoUser.photo = user.photo;
-                message.infoUser.username = user.username;
-                message.infoUser.firstName = user.firstName;
-                message.infoUser.lastName = user.lastName;
-                callback(null, message);
-              }
-            });
-        });
-      });
-      async.parallel(chatWithUserInfo, function(err, result) {
-        // this code will run after all get informations each user
-        if (err)
-          console.log(err);
-        res.json(result);
-      });
-    } else
-      return next({
-        status: 404,
-        message: 'Chat Not Found'
-      }, null);
-  });
+  Chat.findById(req.params._id).populate('messages.createdBy', 'username firstName lastName photo')
+    .select('messages')
+    .exec(function(err, chat) {
+      if (err) {
+        return next(err);
+      } else if (chat) {
+        res.json(chat);
+      } else
+        return next({
+          status: 404,
+          message: 'Chat Not Found'
+        }, null);
+    });
 });
 
 // Send a message to a chat
 router.patch('/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
-  Chat.findById(req.params._id, function(err, chat) {
+  Chat.findById(req.params._id).exec(function(err, chat) {
     if (err)
       return next(err);
     else if (chat) { // Add Message 
-      var index = chat.usersId.indexOf(req.user._id);
+      var index = chat.users.indexOf(req.user._id);
       if (index == -1) {
         return next({
           status: 405,

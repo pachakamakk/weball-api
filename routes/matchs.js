@@ -230,8 +230,7 @@
        // Step 3
        function CreateAndJoinChat(callback) {
          var chat = new Chat({
-           usersId: req.user._id,
-           matchId: matchCreated._id
+           users: req.user._id
          });
          chat.save(function(err, chat) {
            if (err)
@@ -348,13 +347,13 @@
          Team.findById(_teamsId, function(err, team) {
            if (err) return callback(err);
            else if (team) {
-             // for (playerId of team.playersId) // pour chaque joueur d'une équipe
-             //   if (playerId.toString() == req.user._id) {
-             //     return callback({
-             //       status: 405,
-             //       message: 'You are already registred in the averse team: ' + team._id
-             //     }, null);
-             //   }
+             for (playerId of team.playersId) // pour chaque joueur d'une équipe
+               if (playerId.toString() == req.user._id) {
+                 return callback({
+                   status: 405,
+                   message: 'You are already registred in the averse team: ' + team._id
+                 }, null);
+               }
              callback();
            } else {
              return callback({
@@ -369,12 +368,12 @@
          Team.findById(req.body.teamId, function(err, team) {
            if (err) return callback(err);
            else if (team) {
-             //  for (playerId of team.playersId) // pour chaque joueur d'une équipe
-             // if (playerId.toString() == req.user._id)
-             //   return callback({
-             //     status: 405,
-             //     message: 'You are already registred in this team: ' + team._id
-             //   }, null);
+              for (playerId of team.playersId) // pour chaque joueur d'une équipe
+             if (playerId.toString() == req.user._id)
+               return callback({
+                 status: 405,
+                 message: 'You are already registred in this team: ' + team._id
+               }, null);
              team.playersId.push(req.user._id);
              _team = team;
              callback();

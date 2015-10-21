@@ -531,7 +531,7 @@ Si leader, remplir newLeader sinon leader random.
 
 <br><br><hr>
 <a><b>Invit a user in a match</b></a>
-<br><br><b>PATCH /matchs/invit/:_id </b> <br>
+<br><br><b>PATCH /invitations/matches/:_id </b> <br>
 <pre> Parameters
 <font color="red">
 "token":"42"
@@ -571,8 +571,8 @@ Si leader, remplir newLeader sinon leader random.
 }</font> </pre>
 
 <br><br><hr>
-<a><b>Cancel a invitation </b></a>
-<br><br><b>DELETE /matchs/invit/:_id </b> <br>
+<a><b>Cancel a invitation</b></a>
+<br><br><b>DELETE /invitations/matches/:_id </b> <br>
 <pre> Parameters
 <font color="red">
 "token":"42"
@@ -605,6 +605,41 @@ Si leader, remplir newLeader sinon leader random.
 }</font> </pre>
 
 <br><br><hr>
+<a><b>Get my invitations</b></a>
+<br><br><b>GET /invitations/matches/ </b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+"usersId": "id1"
+</font>
+</pre>
+<pre><br> Response
+<font color="green">
+{
+  "_id": "56268aa402668cba899ccf70",
+  "match": "55eed6dd08538bd2ae153095",
+  "date": "2015-10-20T18:40:36.415Z",
+  "__v": 5,
+  "invited": [
+    {
+      "by": "55ee0177ea9a57845ff01cbe",
+      "user": "55eed6dd08538bd2ae153092",
+      "date": "2015-10-21T09:45:30.364Z",
+      "_id": "56275eba533f41398f74bbdf",
+      "status": false
+    },
+    {
+      "by": "55ee0177ea9a57845ff01cbe",
+      "user": "55eed6dd08538bd2ae153093",
+      "date": "2015-10-21T09:45:30.364Z",
+      "_id": "56275eba533f41398f74bbe0",
+      "status": false
+    }
+  ]
+}</font> </pre>
+
+
+<br><br><hr>
 <a><b>Send a message to a user with her id </b></a>
 <br><br><b>PATCH /discussions/user/:_id </b> <br>
 <pre> Parameters
@@ -624,7 +659,7 @@ Si leader, remplir newLeader sinon leader random.
       "createdBy": "55ee0177ea9a57845ff01cbe",
       "_id": "5612d31f6321610f091f5b3d"
     },
-  "usersId": [
+  "users": [
     "55ee0177ea9a57845ff01cbe",
     "55ee0177ea9a57845ff01cbf"
   ]
@@ -645,28 +680,9 @@ Si leader, remplir newLeader sinon leader random.
 <font color="green">
 [
   {
-    "_id": "5612ce606321610f091f5b35",
-    "__v": 1,
-    "messages": [
-      {
-        "content": "ceci",
-        "createdAt": "2015-10-05T19:24:18.669Z",
-        "createdBy": "55ee0177ea9a57845ff01cbe",
-        "_id": "5612ce626321610f091f5b37"
-      }
-    ],
-    "lastUser": {
-      "username": "user_x",
-      "photo": ""
-    },
-    "usersId": [
-      "55ee0177ea9a57845ff01cbd"
-    ]
-  },
-  {
     "_id": "5612ce676321610f091f5b38",
     "__v": 3,
-    "messages": [
+    "messages": [ // LAST MESSAGE ONLY
       {
         "content": "C",
         "createdAt": "2015-10-05T19:44:47.558Z",
@@ -674,17 +690,26 @@ Si leader, remplir newLeader sinon leader random.
         "_id": "5612d32f6321610f091f5b3f"
       }
     ],
-    "lastUser": {
-      "username": "Utilisateur Introuvable",
-      "photo": ""
-    },
-    "usersId": [
-      "55ee0177ea9a57845ff01c0b"
+    "users": [
+      {
+        "_id": "55ee0177ea9a57845ff01cbe",
+        "username": "jaja",
+        "lastName": "toto",
+        "firstName": "eli"
+      },
+         {
+        "_id": "55ee0177ea9a57845ff01cbe",
+        "username": "baba",
+        "lastName": "james",
+        "firstName": "eli",
+        "photo": "http://dkfjslfkdj.com/photo.png"
+      },
+
     ]
-  }
+  },
+  ...
 ]  
 </font> </pre>
-
 
 <br><br><hr>
 <a><b>Get all messages of a discussion </b></a>
@@ -712,13 +737,16 @@ Si leader, remplir newLeader sinon leader random.
       "_id": "5612d3216321610f091f5b3e"
     }
   ],
-  "usersId": [
-    "55ee0177ea9a57845ff01cbe",
-    "55ee0177ea9a57845ff01cbf"
+ "users": [
+    {
+      "_id": "55ee0177ea9a57845ff01cbe",
+      "username": "elias",
+      "lastName": "chet",
+      "firstName": "eli"
+    }
   ]
 }
 </font> </pre>
-
 
 <br><br><hr>
 <a><b>Join a chat by id</b></a>
@@ -747,14 +775,35 @@ Si leader, remplir newLeader sinon leader random.
       "_id": "5623ff73cdecf8cf7ccd3c39"
     }
   ],
-  "usersId": [
+  "users": [
+    "55ee0177ea9a57845ff01cbe"
+  ]
+}
+</font> </pre>
+
+
+<br><br><hr>
+<a><b>Leave a chat </b></a>
+<br><br><b>DELETE /chats/:_id</b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+</font> </pre>
+<pre> Response
+<font color="green">
+{
+  "_id": "5623df2d4584ad0a7c606245",
+  "matchId": "5623df2d4584ad0a7c606244",
+  "__v": 4,
+  "messages": [],
+  "users": [
     "55ee0177ea9a57845ff01cbe"
   ]
 }
 </font> </pre>
 
 <br><br><hr>
-<a><b>Post a message in chat</b></a>
+<a><b>Send a message to chat</b></a>
 <br><br><b>PATCH /chats/:_id</b> <br>
 <pre> Parameters
 <font color="red">
@@ -764,7 +813,6 @@ Si leader, remplir newLeader sinon leader random.
 <font color="green">
 {
   "_id": "561aaa0b9795239e29f38ca1",
-  "matchId": "561aaa0b9795239e29f38c9e",
   "__v": 2,
   "messages": [
      {
@@ -778,193 +826,55 @@ Si leader, remplir newLeader sinon leader random.
       "createdAt": "2015-10-11T18:28:24.341Z",
       "createdBy": "55ee0177ea9a57845ff01cbe",
       "_id": "561aaa489795239e29f38ca3"
-    },
-    {
-      "content": "C",
-      "createdAt": "2015-10-18T20:22:11.812Z",
-      "createdBy": "55ee0177ea9a57845ff01cbe",
-      "_id": "5623ff73cdecf8cf7ccd3c39"
     }
   ],
-  "usersId": [
+  "users": [
     "55ee0177ea9a57845ff01cbe"
   ]
 }
 </font> </pre>
 
 <br><br><hr>
-<a><b>Get a messages of a chat </b></a>
-<br><br><b>PATCH /chats/:_id</b> <br>
+<a><b>Get messages of a chat </b></a>
+<br><br><b>GET /chats/:_id</b> <br>
 <pre> Parameters
 <font color="red">
 "token":"42"
 </font> </pre>
 <pre> Response
 <font color="green">
-[
-  {
-    "content": "A",
-    "createdAt": "2015-10-11T18:28:24.341Z",
-    "createdBy": "55ee0177ea9a57845ff01cbe",
-    "_id": "561aaa489795239e29f38ca3",
-    "infoUser": {
-      "lastName": "chet",
-      "firstName": "eli",
-      "username": "elias"
-    }
-  },
-  {
-    "content": "A",
-    "createdAt": "2015-10-18T20:22:11.812Z",
-    "createdBy": "55ee0177ea9a57845ff01cbe",
-    "_id": "5623ff73cdecf8cf7ccd3c39",
-    "infoUser": {
-      "lastName": "chet",
-      "firstName": "eli",
-      "username": "elias"
-    }
-  }
-]
-</font> </pre>
-
-<br><br><hr>
-<a><b>Add Credit Card (Commentaire: Stock dans api Paypal et la CardId dans la DB User)</b></a>
-<br><br><b>/paypal/credit-card/create POST</b> <br>
-<pre> Parameters
-<font color="red">
-"type": "visa",
-"number": "4417119669820331",
-"expire_month": "11",
-"expire_year": "2018",
-"cvv2": "123",
-"first_name": "Joe",
-"last_name": "Shopper"
-</font> </pre>
-<pre><br> Response
-<font color="green">
-{status: '200', message: 'Created'}
-</font> </pre>
-
-<br><br><hr>
-<a><b>Get Credit Card </b></a>
-<br><br><b>/paypal/credit-card/get POST</b> <br>
-<pre> Parameters
-<font color="red">
-"token":"42"
-</font> </pre>
-<pre><br> Response
-<font color="green">
-{ 
-  state: 'ok',
-  type: 'visa',
-  number: 'xxxxxxxxxxxx0331',
-  expire_month: '11',
-  expire_year: '2018',
-  first_name: 'Joe',
-  last_name: 'Shopper',
-  valid_until: '2018-04-10T00:00:00Z',
-  create_time: '2015-04-11T13:07:17Z',
-  update_time: '2015-04-11T13:07:17Z'
-}
-</font> </pre>
-
-
-<br><br><hr>
-<a><b>Delete Credit Card </b></a>
-<br><br><b>/paypal/credit-card/delete DELETE</b> <br>
-<pre> Parameters
-<font color="red">
-"token":"42"
-</font> </pre>
-<pre><br> Response
-<font color="green">
-{status: '200', message: 'Deleted'}
-</font> </pre>
-
-
-<br><br><hr>
-<a><b>Create a Payment with CC Saved </b></a>
-<br><br><b>/paypal/payment/create-cc-saved POST</b> <br>
-<pre> Parameters
-<font color="red">
-"token":"42"
-</font> </pre>
-<pre><br> Response
-<font color="green">
 {
-    "id": "PAY-7LV19186FE7690736KUVMTXQ",
-    "create_time": "2015-04-12T19:39:10Z",
-    "update_time": "2015-04-12T19:39:36Z",
-    "state": "approved",
-    "intent": "sale",
-    "payer": {
-        "payment_method": "credit_card",
-        "funding_instruments": [
-            {
-                "credit_card_token": {
-                    "credit_card_id": "CARD-71379790Y3841240WKUVK4BY",
-                    "last4": "0331",
-                    "type": "visa",
-                    "expire_month": "11",
-                    "expire_year": "2018"
-                }
-            }
-        ]
+  "_id": "561aaa0b9795239e29f38ca1",
+  "messages": [
+    {
+      "content": "A",
+      "createdAt": "2015-10-11T18:28:24.341Z",
+      "createdBy": {
+        "_id": "55ee0177ea9a57845ff01cbe",
+        "username": "elias",
+        "lastName": "chet",
+        "firstName": "eli"
+      },
+      "_id": "561aaa489795239e29f38ca3"
     },
-    "transactions": [
-        {
-            "amount": {
-                "total": "1.00",
-                "currency": "EUR",
-                "details": {
-                    "subtotal": "1.00"
-                }
-            },
-            "description": "Paiement à weBall SAS.",
-            "related_resources": [
-                {
-                    "sale": {
-                        "id": "1Y15049942881315U",
-                        "create_time": "2015-04-12T19:39:10Z",
-                        "update_time": "2015-04-12T19:39:36Z",
-                        "amount": {
-                            "total": "1.00",
-                            "currency": "EUR"
-                        },
-                        "state": "pending",
-                        "parent_payment": "PAY-7LV19186FE7690736KUVMTXQ",
-                        "links": [
-                            {
-                                "href": "https://api.sandbox.paypal.com/v1/payments/sale/1Y15049942881315U",
-                                "rel": "self",
-                                "method": "GET"
-                            },
-                            {
-                                "href": "https://api.sandbox.paypal.com/v1/payments/sale/1Y15049942881315U/refund",
-                                "rel": "refund",
-                                "method": "POST"
-                            },
-                            {
-                                "href": "https://api.sandbox.paypal.com/v1/payments/payment/PAY-7LV19186FE7690736KUVMTXQ",
-                                "rel": "parent_payment",
-                                "method": "GET"
-                            }
-                        ]
-                    }
-                }
-            ]
-        }
-    ],
-    "links": [
-        {
-            "href": "https://api.sandbox.paypal.com/v1/payments/payment/PAY-7LV19186FE7690736KUVMTXQ",
-            "rel": "self",
-            "method": "GET"
-        }
-    ],
-    "httpStatusCode": 201
+    {
+      "content": "A",
+      "createdAt": "2015-10-18T20:22:11.812Z",
+      "createdBy": {
+        "_id": "55ee0177ea9a57845ff01cbe",
+        "username": "elias",
+        "lastName": "chet",
+        "firstName": "eli"
+      },
+      "_id": "5623ff73cdecf8cf7ccd3c39"
+    }
+  ]
 }
 </font> </pre>
+
+
+
+
 
   </body>
 </html>

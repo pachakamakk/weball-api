@@ -1,3 +1,11 @@
+  /*
+   ** Header
+   **
+   ** Created By Elias CHETOUANI
+   ** Created At 15/09/15
+   ** Functions For Private Discussions
+   */
+
 var express = require('express');
 var router = express.Router();
 var Discussion = require('../models/discussion');
@@ -7,14 +15,13 @@ var async = require('async');
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Types.ObjectId;
 
-
 // Send message to a user (by id of user)
 router.patch('/user/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
   Discussion.findOne({
-    usersId: {
+    users: {
       $all: [req.user._id, ObjectId(req.params._id)]
     }
-  }, function(err, discussion) {
+  }).select('messages').exec(function(err, discussion) {
     if (err)
       return next(err);
     else if (discussion) { // Add Message 
@@ -31,14 +38,14 @@ router.patch('/user/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, 
       });
     } else { // Create Discussion + Store Message
       var discussion = new Discussion({
-        usersId: req.user._id,
+        users: req.user._id,
         messages: {
           content: req.body.content,
           createdAt: new Date(),
           createdBy: req.user._id
         }
       });
-      discussion.usersId.push(req.params._id);
+      discussion.users.push(req.params._id);
       discussion.save(function(err, discussion) {
         if (err) return next(err);
         else
@@ -50,65 +57,32 @@ router.patch('/user/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, 
 
 // List Discussions with infos users
 router.get('/me', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
-  var discussionsWithUserInfo = [];
   Discussion.find({
-      "usersId": req.user._id
+      "users": req.user._id
     }, {
       messages: {
-        $slice: -1 //get last message
+        $slice: -1 // only last message
       }
-    }).skip(req.query.skip)
+    }).populate('users', 'username firstName lastName photo')
+    .skip(req.query.skip)
     .limit(req.query.limit)
     .exec(function(err, discussions) {
       if (err) {
         return next(err);
       } else if (discussions[0]) {
-        discussions.forEach(function(discussion) {
-          var index = discussion.usersId.indexOf(req.user._id)
-          if (index > -1) // delete my userId to get only userTo
-            discussion.usersId.splice(index, 1);
-          discussionsWithUserInfo.push(function(callback) {
-            User.findById(discussion.usersId).select({ //Get info of each user
-                'username': 1,
-                'firstName': 1,
-                'lastName': 1,
-                'photo': 1
-              })
-              .exec(function(err, user) {
-                if (err) callback(err);
-                else if (!user) // user not found or deleted..
-                {
-                  discussion.lastUser.photo = "";
-                  discussion.lastUser.username = "Utilisateur Introuvable";
-                  discussion.lastUser.firstname = "Utilisateur Introuvable";
-                  callback(null, discussion);
-                } else {
-                  discussion.lastUser.photo = user.photo;
-                  discussion.lastUser.username = user.username;
-                  discussion.lastUser.firstname = user.firstname;
-                  discussion.lastUser.lastname = user.lastname;
-                  callback(null, discussion);
-                }
-              });
-          });
-        });
-        async.parallel(discussionsWithUserInfo, function(err, result) {
-          /* this code will run after all get informations each user */
-          if (err)
-            console.log(err);
-          res.json(result);
-        });
+        res.json(discussions);
       } else
         return next({
           status: 404,
-          message: 'Discussion Not Found'
+          message: 'Discussions Not Found'
         }, null);
     });
 });
 
 // Get messages of a discussion by Id
 router.get('/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
-  Discussion.findById(req.params._id).exec(function(err, discussion) {
+  Discussion.findById(req.params._id).populate('users', 'username firstName lastName photo')
+  .exec(function(err, discussion) {
     if (err) {
       return next(err);
     } else if (discussion) {
@@ -121,23 +95,21 @@ router.get('/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
   });
 });
 
-// Create a Discussion with n users
+// Create a Discussion with n users (POUR LAVENIR)
 router.post('/', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
   var str = req.body.usersId;
   var usersId = str.split(",").map(function(val) {
     return ObjectId(val);
   });
-
   var discussion = new Discussion({
-    usersId: usersId
+    users: usersId
   });
-  discussion.usersId.push(req.user._id);
+  discussion.users.push(req.user._id);
   discussion.save(function(err, discussion) {
     if (err)
       next(err);
-    else {
+    else
       res.json(discussion);
-    }
   });
 });
 

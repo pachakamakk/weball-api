@@ -4,9 +4,10 @@ var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
 module.exports = mongoose.model('Chat', {
-  usersId: {
-    type: [ObjectId]
-  },
+  users: [{
+    type: ObjectId,
+    ref: 'User'
+  }],
   messages: [{
     content: {
       type: String,
@@ -18,14 +19,8 @@ module.exports = mongoose.model('Chat', {
     },
     createdBy: {
       type: ObjectId,
+      ref: 'User',
       required: true
-    },
-    infoUser: {
-      username: String,
-      firstName: String,
-      lastName: String,
-      photo: String
     }
-  }],
-  matchId: ObjectId // for a Chat
+  }]
 });
