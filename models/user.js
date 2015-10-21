@@ -52,7 +52,7 @@ var UserSchema = new mongoose.Schema({
     type: String,
     // required: false
   },
-  friends: {
+  friendsList: {
     type: [ObjectId],
     ref: 'User',
     default: null

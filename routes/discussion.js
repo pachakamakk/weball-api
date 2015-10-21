@@ -42,7 +42,7 @@ router.patch('/user/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, 
       discussion.save(function(err, discussion) {
         if (err) return next(err);
         else
-          res.json(discussion)
+          res.json(discussion);
       });
     }
   });

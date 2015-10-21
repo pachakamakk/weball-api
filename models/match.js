@@ -7,7 +7,7 @@ function arrayLimit(val) {
 }
 
 function dateMin(val) {
- return val >= new Date() + (1000 * 60 * 60 * 48);
+  return val >= new Date() + (1000 * 60 * 60 * 48);
 }
 
 module.exports = mongoose.model('Match', {
@@ -39,8 +39,7 @@ module.exports = mongoose.model('Match', {
   },
   start_date: {
     type: Date,
-    min: Date.now() + (1000 * 60 * 60 * 48),
-   // minimum 48h before the match
+    min: Date.now() + (1000 * 60 * 60 * 48), // minimum 48h before the match
     required: true
   },
   end_date: {
@@ -50,6 +49,10 @@ module.exports = mongoose.model('Match', {
   created_at: {
     type: Date,
     required: true
+  },
+  private: {
+    type: Boolean,
+    default: false
   },
   created_by: {
     type: ObjectId,
