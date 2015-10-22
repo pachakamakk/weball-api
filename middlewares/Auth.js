@@ -60,14 +60,16 @@ var validateAccessAPIAndGetUser = function(req, res, next) {
     }).select({
       'username': 1,
       'email': 1,
-      'firstname': 1,
+      'firstName': 1,
       'age': 1,
-      'lastname': 1,
-      'fav_fields': 1,
+      'location': 1,
+      'lastName': 1,
+      'favFields': 1,
       'points': 1,
       'friends': 1,
+      'photo': 1,
       'matchs': 1,
-      'role': 1
+      'roles': 1
     })
     .exec(function(err, user) {
       // Error

@@ -4,22 +4,25 @@
    ** Created By Elias CHETOUANI
    ** Created At 21/09/15
    ** Functions For Invitations Matches
+   ** Dependances Module: MONGOOSE DEEP POPULATE
    */
 
   var express = require('express');
+  var mongoose = require('mongoose');
   var router = express.Router();
+
   var Match = require('../models/match');
   var Invitation = require('../models/invitation');
   var Auth = require('../middlewares/Auth');
   var async = require('async');
-  var mongoose = require('mongoose');
+
   var ObjectId = mongoose.Types.ObjectId;
 
   // Get invitations of matchs
   router.get('/matches', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
     Invitation.find({
       'invited.user': req.user._id
-    }).populate('match').exec(function(err, invitations) {
+    }).deepPopulate('match match.created_by').exec(function(err, invitations) {
       if (err) return callback(err.errors[Object.keys(err.errors)[0]]);
       res.json(invitations);
     });
@@ -42,7 +45,8 @@
             if (err) return callback(err.errors[Object.keys(err.errors)[0]]);
             else if (invitation) {
               usersId.forEach(function(user) {
-              //  if (!user.equals(req.user._id)) { // cannot invit yourself
+
+                if (!user.equals(req.user._id)) { // cannot invit yourself
                   for (invit of invitation.invited)
                   // cant invit a user already invited
                     if (invit.by.equals(req.user._id) && invit.user.equals(user))
@@ -53,7 +57,7 @@
                       user: user,
                       date: new Date()
                     });
-            //    }
+                }
               });
               invitation.save(function(err, invitation) {
                 if (err) return callback(err.errors[Object.keys(err.errors)[0]]);
@@ -66,7 +70,7 @@
                 date: new Date()
               });
               usersId.forEach(function(user) {
-           //     if (!user.equals(req.user._id)) { // cannot invit yourself
+                if (!user.equals(req.user._id)) { // cannot invit yourself
                   for (invit of invitation.invited)
                   // cant invit a user already invited
                     if (invit.by.equals(req.user._id) && invit.user.equals(user))
@@ -77,7 +81,7 @@
                       user: user,
                       date: new Date()
                     });
-             //   }
+                }
               });
               invitation.save(function(err, invitation) {
                 if (err) return callback(err.errors[Object.keys(err.errors)[0]]);
@@ -90,8 +94,7 @@
         function pushNotification(callback) {
           callback();
         },
-      ], //5626af199ae8c8b68b97dcdd
-
+      ],
       function allFinish(err, result) {
         if (err) return next(err);
         res.json(_invitation);

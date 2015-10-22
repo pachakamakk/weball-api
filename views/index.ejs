@@ -27,16 +27,16 @@
 
 <br><br><hr>
 
-<a><b>Register as a simple user</b></a>
+<a><b>Register as user</b></a>
 <br><br><b>/users POST</b> <br>
 <pre> Parameters
 <font color="red">
-"username":"yourusername",
+"username":"yourusername", 
 "password":"password42"
 "email":"yourmail@example.com",
-"firstname":"zlatan",
-"lastname":"ibrahimovic",
-"birthday":"1942-08-30T23:42:00.756Z"
+"firstName":"zlatan",
+"lastName":"ibrahimovic",
+"birthday":"1942-08-30T23:42:00.756Z" or "1942,01,30"
 </font></pre>
 <pre><br> Response
 <font color="green">
@@ -44,11 +44,11 @@
   "username":"yourusername",
   "password":"password42"
   "email":"yourmail@example.com",
-  "firstname":"zlatan",
-  "lastname":"ibrahimovic",
+  "firstName":"zlatan",
+  "lastName":"ibrahimovic",
   "birthday":"1942-08-30T23:42:00.756Z"
   "_id": "55ead53641548544e3fa2c20",
-  "registerDate": "2015-09-05T11:42:46.780Z",
+  "date": "2015-09-05T11:42:46.780Z",
   "points": 0,
   "favFields": [
     null
@@ -56,7 +56,7 @@
   "friends": [
     null
   ],
-  "role": []
+  "roles": []
 }</font> </pre>
 
 
@@ -98,11 +98,12 @@
 
 <br><br><hr>
 <a><b>Modify partial information about (current) user</b></a>
-<br><br><b>PATCH /me or /:_id </b> <br>
+<br><br><b>PATCH /me</b> <br>
 <pre> Parameters
 <font color="red">
-"token":"42",</font><font>
-"username":"newName",
+"token":"42"
+</font><font>
+"username":"newName"
 "email":"new@weball.fr"
 </font></pre><br>
 <pre> Response
@@ -141,7 +142,7 @@
 <br><br><b>POST /five </b> <br>
 <pre> Parameters
 <font color="red">
-"token":"42"
+"token":"42" // roles: "adminfive"
 </font> </pre>
 <pre><br> Response
 <font color="green">
@@ -160,6 +161,49 @@
   },
   admins: [],
   fields: []
+}
+</font> </pre>
+
+<br><br><hr>
+<a><b>Get a Five company</b></a>
+<br><br><b>GET /five/:_id </b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+</font> </pre>
+<pre><br> Response
+<font color="green">
+{
+  "_id": "562899781241436c9fb59a6e",
+  "siren": 123456789,
+  "name": "My First Five",
+  "zipCode": 75000,
+  "city": "Paris",
+  "country": "France",
+  "address": "1 RUE DES OK",
+  "phone": "+33122334455",
+  "date": "2015-10-22T08:08:24.223Z",
+  "__v": 2,
+  "admins": [
+    "562897e7257149489f5ffa6a"
+  ],
+  "fields": [
+    {
+      "_id": "55e9ac3d5dcf1c93217b0045",
+      "siren": 12345678,
+      "name": "My First Five",
+      "zipCode": 93600,
+      "country": "France",
+      "phone": "+33661713886",
+      "__v": 0,
+      "admins": [],
+      "gps": {
+        "longitude": "3.1323434",
+        "latitude": "2.12233443434"
+      },
+      "fields": []
+    }
+  ]
 }
 </font> </pre>
 
@@ -198,7 +242,7 @@
 <br><br><b>PATCH /five/:_id </b> <br>
 <pre> Parameters
 <font color="red">
-"token":"42",</font>
+"token":"42" // roles: "adminfive" </font> 
 "siren": 2</pre>
 <pre><br> Response
 <font color="green">

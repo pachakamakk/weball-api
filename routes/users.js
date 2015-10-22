@@ -9,7 +9,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
-var auth = require('../middlewares/auth');
+var Auth = require('../middlewares/Auth');
 
 
 // List users
@@ -41,32 +41,29 @@ router.post('/', function(req, res, next) {
     username: req.body.username,
     password: req.body.password,
     email: req.body.email,
-    firstname: req.body.firstname,
+    firstName: req.body.firstName,
     age: req.body.age,
     birthday: req.body.birthday,
-    lastname: req.body.lastname
+    lastName: req.body.lastName,
+    date: new Date
   });
   user.save(function(err, user) {
     if (err) {
       return next(err);
-    }
-    else
+    } else
       res.json(user);
   });
 })
 
 
-// Update Partial Ressource of user
-.patch('/:_id', function(req, res, next) {
+// Update my informations
+.patch('/me', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
   var query = {
-    _id: req.params._id
+    _id: req.user._id
   };
-
+  //req.body.roles = "user";
   User.findOneAndUpdate(query, req.body, {
-    'new': true // get user after has been updated
-  }).select({
-    'password': 0,
-    '_id': 0
+    'new': true
   }).exec(function(err, updated) {
     if (err)
       next(err);

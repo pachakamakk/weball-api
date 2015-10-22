@@ -44,9 +44,8 @@ var UserSchema = new mongoose.Schema({
     type: String,
     // required: false,
   },
-  role: {
-    type: [String],
-    //required: false
+  roles: {
+    type: [String]
   },
   photo: {
     type: String,
@@ -76,9 +75,9 @@ var UserSchema = new mongoose.Schema({
     type: [ObjectId],
     ref: 'Matchs'
   },
-  registerDate: {
+  date: {
     type: Date,
-    default: Date.now
+    required: true
   }
 });
 

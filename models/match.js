@@ -6,10 +6,6 @@ function arrayLimit(val) {
   return val.length <= 2;
 }
 
-function dateMin(val) {
-  return val >= new Date() + (1000 * 60 * 60 * 48);
-}
-
 module.exports = mongoose.model('Match', {
   name: {
     type: String,
@@ -82,3 +78,4 @@ module.exports = mongoose.model('Match', {
       // limit: 2
   }
 });
+

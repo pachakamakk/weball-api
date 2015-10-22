@@ -44,9 +44,9 @@
 
   NotificationProvider.prototype.create = function(query, fields, options, callback) {
   	var notification = new Notification({
-  		user:,
-  		type:
-  		content:
+  		user: Ahmed,
+  		type: match
+  		content: 
   		read: false
   	});
   }

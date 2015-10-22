@@ -447,8 +447,7 @@
          Match.findById(req.params._id)
            .populate('teamsId').exec(function(err, match) {
              if (err) callback(err);
-             else if (match.teamsId) {
-               var now = new Date();
+             else if (match) {
                // if ((match.start_date - now) < (1000 * 60 * 60 * 48))
                //   return next({
                //     status: 405,
@@ -457,7 +456,6 @@
                for (team of match.teamsId) {
                  var index = team.playersId.toString().indexOf(req.user._id);
                  if (req.user._id.equals(team.leaderId)) {
-
                    if (req.body.newLeader) // if there are a body.newLeader put it
                      team.leaderId = req.body.newLeader;
                    else { //put a random leader
@@ -498,7 +496,7 @@
              } else
                return callback({
                  status: 404,
-                 message: 'Team is not found'
+                 message: 'Match is not found'
                }, null);
            });
        },

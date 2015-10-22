@@ -11,19 +11,31 @@ var mongoose = require('mongoose');
 var ObjectId = mongoose.Types.ObjectId;
 var router = express.Router();
 var Five = require('../models/five');
+var Auth = require('../middlewares/Auth');
 
-// Route for Create a Five, RIGHT: AdminFive
-router.post('/', function(req, res, next) {
+// Route for Create a Five, RIGHT: AdminFive 
+router.post('/', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
+  if (req.user.roles.indexOf('adminfive') === -1)
+    return next({
+      status: 403,
+      message: 'Only Five Admin'
+    }, null);
+  if (req.body.fieldsId)
+    var fieldsId = req.body.fieldsId.split(",").map(function(val) {
+      return ObjectId(val);
+    });
+
   var five = new Five({
     siren: req.body.siren,
-    fields: req.body.fieldId,
+    photo: req.body.photo,
+    fields: fieldsId,
     name: req.body.name,
     zipCode: req.body.zipCode,
     city: req.body.city,
     country: req.body.country,
     address: req.body.address,
     phone: req.body.phone,
-    registerDate: req.body.registerDate,
+    date: new Date(),
     gps: {
       longitude: req.body.longitude,
       latitude: req.body.latitude
@@ -31,17 +43,15 @@ router.post('/', function(req, res, next) {
     admins: req.body.admins
   });
   five.save(function(err, field) {
-    if (err) {
-      console.log(err);
-      next(err);
-    } else res.json(field);
+    if (err) next(err.errors[Object.keys(err.errors)[0]]);
+    else res.json(field);
   });
 })
 
 
 // Get a Five By Id
 .get('/:_id', function(req, res, next) {
-  Five.findById(req.params._id).exec(function(err, five) {
+  Five.findById(req.params._id).populate('fields').exec(function(err, five) {
     if (err)
       next(err);
     else {
@@ -65,8 +75,13 @@ router.post('/', function(req, res, next) {
 
 
 // Update partial ressource of a Five by Id
-.patch('/:_id', function(req, res, next) {
-  var exist = false;
+.patch('/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
+    if (req.user.roles.indexOf('adminfive') === -1)
+    return next({
+      status: 403,
+      message: 'Only Five Admin'
+    }, null);
+
   Five.findById(req.params._id).exec(function(err, five) {
     five.siren = req.body.siren;
     five.name = req.body.name;
@@ -81,24 +96,39 @@ router.post('/', function(req, res, next) {
       latitude: req.body.latitude
     };
 
-    // Test if variable exist pour empecher de push un null, puis check tab pour éviter les doublons
-    if (req.body.admins) {
-      five.admins.forEach(function(admin) {
-        if (admin == req.body.admins)
-          exist = true;
-      })
-      if (!exist)
-        five.admins.push(ObjectId(req.body.admins));
+    // avoid double admin
+    if (req.body.adminsId) {
+      var doubleAdmin = false;
+      var adminsId = req.body.adminsId.split(",").map(function(val) {
+        return ObjectId(val);
+      });
+      adminsId.forEach(function(user) {
+        for (admin of five.admins) {
+        // cant invit a user already invited
+          if (admin.equals(user))
+            doubleAdmin = true;
+        }
+        if (!doubleAdmin)
+          five.admins.push(user);
+      });
     }
-    if (req.body.fieldId) {
-      exist = false;
-      five.fields.forEach(function(field) {
-        if (field == req.body.fieldId)
-          exist = true;
-      })
-      if (!exist)
-        five.fields.push(ObjectId(req.body.fieldId));
+
+    // avoid double field
+    if (req.body.fieldsId) {
+      var doubleField = false;
+      var fieldsId = req.body.fieldsId.split(",").map(function(val) {
+        return ObjectId(val);
+      });
+      fieldsId.forEach(function(_field) {
+        for (field of five.fields)
+        // cant push a field already invited
+          if (field.equals(_field))
+            doubleField = true;
+        if (!doubleField)
+          five.fields.push(_field);
+      });
     }
+
     five.save(function(err, five) {
       if (err) {
         next(err);

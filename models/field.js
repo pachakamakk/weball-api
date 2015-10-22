@@ -13,10 +13,13 @@ module.exports = mongoose.model('Field', {
     type: String,
     required: true
   },
-  fiveId: {
+  five: {
     type: ObjectId,
     ref: 'Five',
     required: true
+  },
+  photo: {
+    type: String
   },
   pricesPerHour: {
     0: Mixed, // Dimanche

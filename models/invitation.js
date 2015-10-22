@@ -1,13 +1,16 @@
 // Team schema
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 var InvitationSchema = new mongoose.Schema({
   match: {
     type: ObjectId,
     ref: 'Match',
-    unique: true,
-    required: true
+    required: true,
+    index: {
+      unique: true
+    }
   },
   date: {
     type: Date,
@@ -16,7 +19,7 @@ var InvitationSchema = new mongoose.Schema({
   invited: [{
     by: {
       type: ObjectId,
-      ref: 'User', //
+      ref: 'User',
       required: true
     },
     user: {
@@ -35,4 +38,13 @@ var InvitationSchema = new mongoose.Schema({
   }],
 });
 
+var options = {
+  populate: {
+    'match.created_by': {
+      select: 'firstName lastName photo username',
+    }
+  }
+}
+
+InvitationSchema.plugin(deepPopulate, options);
 module.exports = mongoose.model('Invitation', InvitationSchema);

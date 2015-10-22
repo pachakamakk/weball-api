@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var Field = require('../models/field');
+var Five = require('../models/five');
+var async = require('async');
 
 
 /**
@@ -9,7 +11,7 @@ var Field = require('../models/field');
  ** POST ajouter field
  ** DELETE supprimer field
  **/
- 
+
 // List fields by Five Id
 router.get('/five/:_id', function(req, res, next) {
   Field.find({
@@ -30,81 +32,105 @@ router.get('/five/:_id', function(req, res, next) {
 // '/'
 .post('/', function(req, res, next) {
   // Calcul the duration of the slot
-  var field = new Field({
-    available: req.body.available,
-    name: req.body.name,
-    fiveId: req.body.fiveId,
-    picture: req.body.picture,
-    pricesPerHour: {
-      0: {
-        9: 10,
-        12: -1,
-        14: 15,
-        23: -1
+  var _field = {};
+  async.series([
+      function createField(callback) {
+        var field = new Field({
+          available: req.body.available,
+          name: req.body.name,
+          five: req.body.fiveId,
+          picture: req.body.picture,
+          pricesPerHour: {
+            0: {
+              9: 10,
+              12: -1,
+              14: 15,
+              23: -1
+            },
+            1: {
+              9: 10,
+              23: -1
+            },
+            2: {
+              9: 10,
+              23: -1
+            },
+            3: {
+              9: 10,
+              23: -1
+            },
+            4: {
+              9: 10,
+              23: -1
+            },
+            5: {
+              9: 10,
+              23: -1
+            },
+            6: {
+              9: 10,
+              23: -1
+            }
+          },
+          pricesPerHalf: {
+            0: {
+              9: 5,
+              12: -1,
+              14: 10,
+              23: -1
+            },
+            1: {
+              9: 10,
+              23: -1
+            },
+            2: {
+              9: 10,
+              23: -1
+            },
+            3: {
+              9: 10,
+              23: -1
+            },
+            4: {
+              9: 10,
+              23: -1
+            },
+            5: {
+              9: 10,
+              23: -1
+            },
+            6: {
+              9: 10,
+              23: -1
+            }
+          }
+        });
+        field.save(function(err, field) {
+          if (err) return callback(err);
+          _field = field;
+          callback();
+        });
       },
-      1: {
-        9: 10,
-        23: -1
+      function updateFive(callback) {
+        Five.update({
+          _id: req.body.fiveId
+        }, {
+          '$push': {
+            fields: _field._id
+          }
+        }, callback);
       },
-      2: {
-        9: 10,
-        23: -1
-      },
-      3: {
-        9: 10,
-        23: -1
-      },
-      4: {
-        9: 10,
-        23: -1
-      },
-      5: {
-        9: 10,
-        23: -1
-      },
-      6: {
-        9: 10,
-        23: -1
+    ],
+    function okOrCancel(err1, result) {
+      if (err1) {
+        field.remove({
+          _id: _field._id
+        }, function(err2, field) {
+         return next(err1);
+        });
       }
-    },
-    pricesPerHalf: {
-      0: {
-        9: 5,
-        12: -1,
-        14: 10,
-        23: -1
-      },
-      1: {
-        9: 10,
-        23: -1
-      },
-      2: {
-        9: 10,
-        23: -1
-      },
-      3: {
-        9: 10,
-        23: -1
-      },
-      4: {
-        9: 10,
-        23: -1
-      },
-      5: {
-        9: 10,
-        23: -1
-      },
-      6: {
-        9: 10,
-        23: -1
-      }
-    }
-  });
-  field.save(function(err, field) {
-    if (err) {
-      next(err);
-    } else res.json(field);
-  });
+      res.json(_field);
+    });
 })
 
 // Update field (to add a slot)
