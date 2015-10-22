@@ -36,7 +36,7 @@
 "email":"yourmail@example.com",
 "firstName":"zlatan",
 "lastName":"ibrahimovic",
-"birthday":"1942-08-30T23:42:00.756Z" or "1942,01,30"
+"birthday":"1942-08-30T23:42:00.756Z" or "1942,08,30"
 </font></pre>
 <pre><br> Response
 <font color="green">
@@ -85,10 +85,10 @@
 {
   "username": "elias",
   "email": "elias@weball.fr",
-  "firstname": "elias",
+  "firstName": "elias",
   "birthday":"1942-08-30T23:42:00.756Z",
-  "lastname": "elias",
-  "register_date": "2015-04-06T17:14:41.808Z",
+  "lastName": "elias",
+  "date": "2015-04-06T17:14:41.808Z",
   "points": 0,
   "hasTeam": false,
   "terrainsFavs": [],
@@ -379,6 +379,36 @@
   "end_date": "2015-08-30T16:00:00.756Z",
   "maxPlayers": 10,
   "status": "waiting",
+  "fieldId": "55ee0b8ca2dba0466ad5dc13",
+  "five": "55e9abd35dcf1c93217b0044",
+  "amount": "15",
+  "created_at": "2015-10-18T10:57:57.535Z",
+  "created_by": "55ee0177ea9a57845ff01cbe",
+  "currentPlayers": 1,
+  "__v": 0,
+  "chatId": "56237b35102914fd783ddb5c",
+  "teamsId": [
+    "56237b35102914fd783ddb59",
+    "56237b35102914fd783ddb5a"
+  ]
+} </font> </pre>
+
+<br><br><hr>
+<a><b>Cancel a Match</b></a>
+<br><br><b>POST /matchs</b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+</font> </pre>
+<pre><br> Response
+<font color="green">
+{
+  "_id": "56237b35102914fd783ddb5b",
+  "name": "My First Match",
+  "start_date": "2015-08-30T15:00:00.756Z",
+  "end_date": "2015-08-30T16:00:00.756Z",
+  "maxPlayers": 10,
+  "status": "canceled",
   "fieldId": "55ee0b8ca2dba0466ad5dc13",
   "five": "55e9abd35dcf1c93217b0044",
   "amount": "15",

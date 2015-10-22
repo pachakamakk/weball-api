@@ -52,12 +52,12 @@ var UserSchema = new mongoose.Schema({
     // required: false
   },
   friendsList: {
-    type: [ObjectId],
+    type: [ObjectId], // SYNTAX NOT OK
     ref: 'User',
     default: null
   },
   favFields: {
-    type: [ObjectId],
+    type: [ObjectId], // SYNTAX NOT OK 
     ref: 'Field',
     default: null
   },

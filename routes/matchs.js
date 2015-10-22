@@ -17,6 +17,8 @@
  var Auth = require('../middlewares/Auth');
  var async = require('async');
  var mongoose = require('mongoose');
+ var CronJob = require('cron').CronJob;
+
  var ObjectId = mongoose.Types.ObjectId;
 
  /**
@@ -131,9 +133,6 @@
          });
        },
        function registredInOtherMatch(callback) {
-         console.log(req.user.matchs)
-         console.log(req.body.start_date)
-         console.log(req.body.end_date)
          Match.findOne({
            _id: {
              '$in': req.user.matchs
@@ -206,7 +205,7 @@
                    maxPlayers: req.body.maxPlayers,
                    status: "waiting",
                    fieldId: req.body.fieldId,
-                   five: req.body.five,
+                   five: req.body.fiveId,
                    amount: amount,
                    created_at: new Date(),
                    created_by: req.user._id,
@@ -261,10 +260,8 @@
            $push: {
              matchs: matchCreated._id
            }
-         }).exec(function(err, updated) {
-           if (err)
-             return next(err); // annuler toute les autres fonctions
-           console.log(updated);
+         }).exec(function(err) {
+           if (err) return callback(err); // annuler toute les autres fonctions
            callback();
          });
        }
@@ -368,12 +365,12 @@
          Team.findById(req.body.teamId, function(err, team) {
            if (err) return callback(err);
            else if (team) {
-              for (playerId of team.playersId) // pour chaque joueur d'une équipe
-             if (playerId.toString() == req.user._id)
-               return callback({
-                 status: 405,
-                 message: 'You are already registred in this team: ' + team._id
-               }, null);
+             for (playerId of team.playersId) // pour chaque joueur d'une équipe
+               if (playerId.toString() == req.user._id)
+                 return callback({
+                   status: 405,
+                   message: 'You are already registred in this team: ' + team._id
+                 }, null);
              team.playersId.push(req.user._id);
              _team = team;
              callback();
@@ -437,10 +434,9 @@
    });
  });
 
- // Leave Match
+ // Leave Match 
  router.patch('/leave/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
    var _match;
-
    async.series([
        // Step 1
        function removeUser(callback) {
@@ -448,11 +444,12 @@
            .populate('teamsId').exec(function(err, match) {
              if (err) callback(err);
              else if (match) {
-               // if ((match.start_date - now) < (1000 * 60 * 60 * 48))
-               //   return next({
-               //     status: 405,
-               //     message: 'Leave a match before: 48h'
-               //   }, null);
+               var now = new Date();
+               if ((match.start_date - now) < (1000 * 60 * 60 * 48))
+                 return next({
+                   status: 405,
+                   message: 'Leave a match before: 48h'
+                 }, null);
                for (team of match.teamsId) {
                  var index = team.playersId.toString().indexOf(req.user._id);
                  if (req.user._id.equals(team.leaderId)) {
@@ -513,5 +510,122 @@
        }
      });
  });
+
+ // Cancel Match 
+ router.delete('/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
+   var _match = {};
+   var usersId = [];
+
+   async.series([
+
+       // Step 1: Switch status to: cancel
+       function removeMatch(callback) {
+         Match.findById(req.params._id).populate('teamsId').exec(function(err, match) {
+           if (err) return callback(err);
+           else if (match) {
+             var now = new Date();
+             if ((match.start_date - now) < (1000 * 60 * 60 * 48))
+               return next({
+                 status: 405,
+                 message: "Vous ne pouvez annuler un match 48h avant"
+               }, null);
+             _match = match;
+             _match.status = "canceled"
+             _match.remove(function(err, match) {
+               if (err) return callback(err);
+               callback();
+             });
+           } else
+             return callback({
+               status: 404,
+               message: 'Match is not found'
+             }, null);
+
+         });
+       },
+
+       // Step 2:
+       function removeIDFromUsers(callback) {
+         if (_match.teamsId[0] && _match.teamsId[1])
+           usersId = _match.teamsId[0].playersId.concat(_match.teamsId[1].playersId)
+         User.update({
+           _id: {
+             $in: usersId
+           }
+         }, {
+           $pull: {
+             matchs: _match._id
+           }
+         }, {
+           multi: true
+         }).exec(function(err) {
+           if (err) return callback(err);
+           callback();
+         });
+       },
+
+       // Step 3:  
+       function removeInvitations(callback) {
+         Invitation.remove({
+           match: _match._id
+         }, function(err) {
+           if (err) return callback(err);
+           callback();
+         });
+
+       },
+
+       // Step 4:
+       function removeTeams(callback) {
+         if (_match.teamsId[0] && _match.teamsId[1]) {
+           var teamsId = [];
+           teamsId.push(_match.teamsId[0]._id)
+           teamsId.push(_match.teamsId[1]._id)
+         }
+         Team.remove({
+           _id: {
+             $in: teamsId
+           }
+         }, function(err) {
+           if (err) return callback(err);
+           callback();
+         });
+       },
+
+       // Step 5: Inform users of match cancelling
+       function sendNotifications(callback) {
+
+         callback();
+       }
+     ],
+
+     function saveAll(err, result) {
+       if (err) return next(err);
+       else {
+         res.json(_match);
+       }
+     });
+ });
+
+
+ /** Vérifier chaque matchs à une heure creuse, exemple: 5:30H AM
+  **  Si status cancelled > start_date + 72h => delete ALL 
+  ** Task Job: each 24h
+  */
+ var job = new CronJob('00 25 14 * * 0-6', function() {
+     console.log("execting");
+     /*
+      * Runs every weekday (Monday through Friday)
+      * at 11:30:00 AM. It does not run on Saturday
+      * or Sunday.
+      */
+   }, function() {
+     console.log("exected");
+     /* This function is executed when the job stops */
+   },
+   true
+   /*, /* Start the job right now
+      timeZone Time zone of this job. */
+ );
 
  module.exports = router;

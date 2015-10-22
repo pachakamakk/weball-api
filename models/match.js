@@ -30,7 +30,7 @@ module.exports = mongoose.model('Match', {
     max: 10
   },
   status: {
-    type: String, // waiting, ready, over
+    type: String, // waiting, ready, over, canceled
     required: true
   },
   start_date: {

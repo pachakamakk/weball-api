@@ -81,12 +81,14 @@ app.use('/me', me);
 app.use('/photo', photo);
 app.use('/chats', chats);
 app.use('/five', five);
-app.use('/matchs', matchs);
+app.use('/matches', matchs);
 app.use('/fields', fields);
 app.use('/teams', teams);
 app.use('/discussions', discussions);
 app.use('/invitations', invitations);
 //app.use('/paypal', paypalRoute);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -13,7 +13,7 @@ var router = express.Router();
 var Five = require('../models/five');
 var Auth = require('../middlewares/Auth');
 
-// Route for Create a Five, RIGHT: AdminFive 
+// Route for Create a Five Company, RIGHTS: adminfive 
 router.post('/', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
   if (req.user.roles.indexOf('adminfive') === -1)
     return next({
@@ -43,7 +43,7 @@ router.post('/', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
     admins: req.body.admins
   });
   five.save(function(err, field) {
-    if (err) next(err.errors[Object.keys(err.errors)[0]]);
+    if (err) next(err);
     else res.json(field);
   });
 })
@@ -64,8 +64,10 @@ router.post('/', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
 .get('/', function(req, res, next) {
   Five.find({})
     .select({
-      'registerDate': 0,
-      'admins': 0
+      'date': 0,
+      'admins': 0,
+      'siren': 0,
+      'address': 0
     })
     .exec(function(err, five) {
       if (err) next(err);
