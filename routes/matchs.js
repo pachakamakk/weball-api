@@ -17,8 +17,6 @@
  var Auth = require('../middlewares/Auth');
  var async = require('async');
  var mongoose = require('mongoose');
- var CronJob = require('cron').CronJob;
-
  var ObjectId = mongoose.Types.ObjectId;
 
  /**
@@ -35,7 +33,7 @@
     ** req.query.status: 'waiting'
     **/
 
-   Match.find(req.user.matchs).sort(req.query.sort).where('status', req.query.status).exec(function(err, matchs) {
+   Match.find(req.user.matchs).populate('teamsId').sort(req.query.sort).where('status', req.query.status).exec(function(err, matchs) {
      if (err) next(err.errors[Object.keys(err.errors)[0]]);
      else res.json(matchs);
    });
@@ -58,7 +56,7 @@
 
  // Get 1 match by Id
  router.get('/:_id', Auth.validateAccessAPIbyToken, function(req, res, next) {
-   Match.findById(req.params._id, function(err, match) {
+   Match.findById(req.params._id).populate('teamsId').exec(function(err, match) {
      if (err) next(err);
      else res.json(match);
    });
@@ -68,7 +66,7 @@
  router.post('/', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
    var matchCreated = {};
    var amount = 0;
-
+   var _fiveId;
    // If Date exist and correct: Need 1h or 30min.
    var ONE_HOUR = 1000 * 60 * 60;
    var duration = (new Date(req.body.end_date)).getTime() - (new Date(req.body.start_date)).getTime()
@@ -98,11 +96,7 @@
        function getAmountByDate(callback) {
          var dayStart = new Date(req.body.start_date).getDay();
          var hourStart = new Date(req.body.start_date).getUTCHours(); // use UTC sinon décalage GMT+2
-         Field.findById(req.body.fieldId).select({
-           pricesPerHour: 1,
-           pricesPerHalf: 1,
-           _id: 0
-         }).exec(function(err, field) {
+         Field.findById(req.body.fieldId).exec(function(err, field) {
            if (err) return next(err);
            else if (field) {
              if (field.pricesPerHour[dayStart] && duration == 1) {
@@ -118,9 +112,10 @@
                    amount = field.pricesPerHalf[dayStart][keysbyindex[i]];
                  }
              }
-             if (amount > 0)
+             if (amount > 0) {
+               _fiveId = field.five;
                callback();
-             else {
+             } else {
                var err = new Error('Invalid Date: this five is closed at this date');
                err.status = 449;
                return next(err);
@@ -148,7 +143,6 @@
                "$lte": req.body.end_date
              }
            }]
-
          }).exec(function(err, match) {
            if (err) return callback(err.errors[Object.keys(err.errors)[0]]);
            else if (match) {
@@ -184,6 +178,7 @@
              }, null);
            } else {
              // Create Team, Join and Store Id in the MatchSchema
+             // if error new match delete team
              var team = new Team({
                name: req.body.teamNameA || "Equipe A",
                playersId: req.user._id,
@@ -205,7 +200,7 @@
                    maxPlayers: req.body.maxPlayers,
                    status: "waiting",
                    fieldId: req.body.fieldId,
-                   five: req.body.fiveId,
+                   five: _fiveId,
                    amount: amount,
                    created_at: new Date(),
                    created_by: req.user._id,
@@ -214,9 +209,11 @@
                  });
                  match.teamsId.push(teamB._id);
                  match.save(function(err, match) {
-                   if (err)
+                   if (err) {
+                     team.remove();
+                     teamB.remove();
                      return callback(err.errors[Object.keys(err.errors)[0]]);
-                   else {
+                   } else {
                      matchCreated = match;
                      callback();
                    }
@@ -232,20 +229,15 @@
            users: req.user._id
          });
          chat.save(function(err, chat) {
-           if (err)
+           if (err) {
+             matchCreated.remove();
              return next(err); // faire: annuler les fonctions en haut
-           else {
-             Match.findByIdAndUpdate(matchCreated._id, {
-               $push: {
-                 chatId: chat._id
-               }
-             }, {
-               new: true
-             }, function(err, match) {
+           } else {
+             matchCreated.chatId = chat._id;
+             matchCreated.save(function(err) {
                if (err) {
                  return callback(err);
                } else {
-                 matchCreated = match;
                  callback();
                }
              });
@@ -254,13 +246,8 @@
        },
        //Step 4
        function StoreMatchInUser(callback) {
-         User.findOneAndUpdate({
-           _id: req.user._id
-         }, {
-           $push: {
-             matchs: matchCreated._id
-           }
-         }).exec(function(err) {
+         req.user.matchs.push(matchCreated._id);
+         req.user.save(function(err, match) {
            if (err) return callback(err); // annuler toute les autres fonctions
            callback();
          });
@@ -290,9 +277,19 @@
    async.series([
        // Step 1
        function matchIsAvailableToJoin(callback) {
-         Match.findById(req.params._id, function(err, match) {
+         Match.findById(req.params._id).populate('teamsId').exec(function(err, match) {
            if (err) return callback(err);
            if (match) {
+
+             for (team of match.teamsId) {
+               var index = team.playersId.indexOf(req.user._id)
+               if (index > -1) {
+                 return callback({
+                   status: 405,
+                   message: 'You are already registred in this team: ' + team._id
+                 }, null);
+               }
+             }
              if (match.status != "waiting")
                return callback({
                  status: 405,
@@ -308,7 +305,7 @@
                if (match.currentPlayers == match.maxPlayers)
                  match.status = "ready";
                _match = match;
-               _teamsId = JSON.parse(JSON.stringify(match.teamsId));
+               //_teamsId = JSON.parse(JSON.stringify(match.teamsId));
                callback();
              }
            } else {
@@ -324,63 +321,42 @@
            _id: {
              '$in': req.user.matchs
            },
-           start_date: req.body.start_date
+           $or: [{
+             "start_date": {
+               "$gte": _match.start_date,
+               "$lt": _match.end_date
+             }
+           }, {
+             "end_date": {
+               "$gt": _match.start_date,
+               "$lte": _match.end_date
+             }
+           }]
          }).exec(function(err, match) {
            if (err) return callback(err);
            else if (match) {
              return callback({
                status: 405,
-               message: 'You participate an match at same date'
+               message: 'You participate an match at same date: ' + match._id.toString()
              }, null);
-           }
-           callback();
-         });
-       },
-       // Step 3
-       function checkTeamVs(callback) {
-         var index = _teamsId.indexOf(req.body.teamId)
-         if (index > -1) // delete my teamId in order to get the Team Vs
-           _teamsId.splice(index, 1);
-         Team.findById(_teamsId, function(err, team) {
-           if (err) return callback(err);
-           else if (team) {
-             for (playerId of team.playersId) // pour chaque joueur d'une équipe
-               if (playerId.toString() == req.user._id) {
-                 return callback({
-                   status: 405,
-                   message: 'You are already registred in the averse team: ' + team._id
-                 }, null);
-               }
+           } else
              callback();
-           } else {
-             return callback({
-               status: 404,
-               message: 'Match Not Found'
-             }, null);
-           }
          });
        },
+
        // Step 2
        function joinTeam(callback) {
-         Team.findById(req.body.teamId, function(err, team) {
-           if (err) return callback(err);
-           else if (team) {
-             for (playerId of team.playersId) // pour chaque joueur d'une équipe
-               if (playerId.toString() == req.user._id)
-                 return callback({
-                   status: 405,
-                   message: 'You are already registred in this team: ' + team._id
-                 }, null);
+         for (team of _match.teamsId) {
+           if (team._id.equals(req.body.teamId)) {
              team.playersId.push(req.user._id);
              _team = team;
-             callback();
-           } else {
-             return callback({
-               status: 404,
-               message: 'Team is not found'
-             }, null);
+             return callback();
            }
-         });
+         }
+         return callback({
+           status: 405,
+           message: 'Team id wrong'
+         }, null);
        }
      ],
 
@@ -389,19 +365,13 @@
        else {
          _team.save(function(err, team) {
            if (err) return next(err);
-           console.log(_match);
            _match.save(function(err, match) {
              if (err) return next(err);
-             User.update({
-               _id: req.user._id
-             }, {
-               $push: {
-                 matchs: match._id
-               }
-             }, function(err, result) {
-               if (err) return next(err);
+             req.user.matchs.push(match._id)
+             req.user.save(function(err, user) {
+               if (err) return next(err.errors);
                res.json(team);
-             });
+             })
            });
          });
        }
@@ -410,33 +380,215 @@
 
  // Update Partial Ressource of a match
  router.patch('/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
-   Match.findById(req.params._id).exec(function(err, match) {
-     if (err)
-       next(err);
-     else if (match) {
-       if (match.created_by.toString() != req.user._id.toString())
-         return next({
-           status: 405,
-           message: 'Only Creator can modify the match'
-         }, null);
-       else
-         Match.update({
-           _id: req.params._id
-         }, req.body, function(err, savedMatch) {
-           if (err) return next(err);
-           res.json(savedMatch);
-         });
-     } else
+   var amount = 0;
+   var _match = {};
+   var matchsId = [];
+   var _users = []
+
+   // If Date exist and correct: Need 1h or 30min.
+   if (req.body.start_date && req.body.end_date) {
+     var ONE_HOUR = 1000 * 60 * 60;
+     var duration = (new Date(req.body.end_date)).getTime() - (new Date(req.body.start_date)).getTime()
+     duration = (duration / ONE_HOUR);
+     if (duration != 1 && duration != 0.5)
        return next({
-         status: 404,
-         message: 'Match is not found'
+         status: 449,
+         message: 'Invalid date: 1h or 30min'
        }, null);
-   });
+   }
+
+   async.series([
+       function getMatchAndValidations(callback) {
+         Match.findById(req.params._id).populate('teamsId').exec(function(err, match) {
+           if (err) return callback(err);
+           else if (match) {
+             _match = match;
+             // maxPlayer need: PAIR
+             var now = new Date();
+             if ((match.start_date - now) < (1000 * 60 * 60 * 48))
+               return next({
+                 status: 405,
+                 message: "Vous ne pouvez modifier un match 48h avant"
+               }, null);
+             if (req.body.maxPlayers && (req.body.maxPlayers && (req.body.maxPlayers % 2) != 0))
+               return callback({
+                 status: 449,
+                 message: 'Invalid maxPlayers: Need PAIR Number'
+               }, null);
+             if (req.body.maxPlayers && (req.body.maxPlayers < _match.currentPlayers))
+               return callback({
+                 status: 449,
+                 message: 'maxPlayers < currentPlayers'
+               }, null);
+             callback();
+           } else
+             return callback({
+               status: 404,
+               message: 'Match not found'
+             }, null);
+         });
+       },
+
+       // Get Ids of matchs for check if users arent registred in others matchs at the same date
+       function getMatchsIdFromUser(callback) {
+         var usersId = _match.teamsId[0].playersId.concat(_match.teamsId[1].playersId)
+         User.find(usersId).select('matchs').exec(function(err, users) {
+           if (err) return callback(err);
+           else if (users) {
+             _users = users;
+             users.forEach(function(user) {
+               var ids = user.matchs.filter(function(val) {
+                 if (!val.equals(_match._id))
+                   return val;
+               });
+               matchsId = matchsId.concat(ids);
+             });
+             callback();
+           } else
+             return callback({
+               status: 404,
+               message: 'Users not found'
+             }, null);
+         });
+       },
+
+       // Step: anti overlap booking others Users
+       function overLapBooking(callback) {
+         Match.findOne({
+           _id: {
+             '$in': matchsId
+           },
+           $or: [{
+             "start_date": {
+               "$gte": req.body.start_date,
+               "$lt": req.body.end_date
+             }
+           }, {
+             "end_date": {
+               "$gt": req.body.start_date,
+               "$lte": req.body.end_date
+             }
+           }]
+         }).exec(function(err, match) {
+           if (err) return callback(err);
+           else if (match) {
+             for (user of _users) {
+               for (userMatch of user.matchs) {
+                 if (userMatch.equals(match._id))
+                   return callback({
+                     status: 405,
+                     message: 'This user: ' + user._id.toString() + ' is registred in this match: ' + match._id.toString() + 'at the same date'
+                   }, null);
+               }
+             }
+           } else {
+             callback();
+           }
+         });
+       },
+
+       // Step: 4
+       function getAmountByDate(callback) {
+         if (req.body.fieldId && req.body.start_date && req.body.end_date) {
+           var dayStart = new Date(req.body.start_date).getDay();
+           var hourStart = new Date(req.body.start_date).getUTCHours(); // use UTC sinon décalage GMT+2
+           Field.findById(req.body.fieldId).select({
+             pricesPerHour: 1,
+             pricesPerHalf: 1,
+             _id: 0
+           }).exec(function(err, field) {
+             if (err) return next(err);
+             else if (field) {
+               if (field.pricesPerHour[dayStart] && duration == 1) {
+                 var keysbyindex = Object.keys(field.pricesPerHour[dayStart]);
+                 for (var i = 0; i < keysbyindex.length; i++)
+                   if (hourStart >= keysbyindex[i] && hourStart < keysbyindex[i + 1]) {
+                     amount = field.pricesPerHour[dayStart][keysbyindex[i]];
+                   }
+               } else if (field.pricesPerHalf[dayStart] && duration == 0.5) {
+                 var keysbyindex = Object.keys(field.pricesPerHalf[dayStart]);
+                 for (var i = 0; i < keysbyindex.length; i++)
+                   if (hourStart >= keysbyindex[i] && hourStart < keysbyindex[i + 1]) {
+                     amount = field.pricesPerHalf[dayStart][keysbyindex[i]];
+                   }
+               }
+               if (amount > 0) {
+                 _match.amount = amount;
+                 _match.fieldId = req.body.fieldId;
+                 callback();
+               } else {
+                 var err = new Error('This five is closed at this date');
+                 err.status = 449;
+                 return callback(err);
+               }
+             } else {
+               var err = new Error('No such Field');
+               err.status = 401;
+               return callback(err);
+             }
+           });
+         }
+         callback();
+       },
+
+       // Step 2
+       function newSlotIsAlreadyBooked(callback) {
+         if (req.body.fieldId && req.body.start_date && req.body.end_date) {
+           Match.findOne({
+             fieldId: req.body.fieldId,
+             $or: [{
+               "start_date": {
+                 "$gte": req.body.start_date,
+                 "$lt": req.body.end_date
+               }
+             }, {
+               "end_date": {
+                 "$gt": req.body.start_date,
+                 "$lte": req.body.end_date
+               }
+             }]
+           }).exec(function(err, match) {
+             if (err) return callback(err);
+             else if (match) {
+               return callback({
+                 status: 449,
+                 message: 'Slot is already booked: ' + match._id
+               }, null);
+             } else {
+               _match.start_date = req.body.start_date;
+               _match.end_date = req.body.end_date;
+               callback();
+             }
+           });
+         } else
+           callback();
+       },
+
+       // Step 3
+       function saveMatch(callback) {
+         _match.name = req.body.name || _match.name;
+         _match.maxPlayers = req.body.maxPlayers || _match.maxPlayers;
+         _match.private = req.body.private || _match.private;
+         _match.save(function(err, match) {
+           if (err) next(err.errors[Object.keys(err.errors)[0]]);
+           else
+             callback();
+         });
+       }
+     ],
+     function(err, result) {
+       if (err) // if a function series fail 
+         return next(err);
+       else
+         res.json(_match);
+     });
  });
+
 
  // Leave Match 
  router.patch('/leave/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
-   var _match;
+   var _match = {};
+
    async.series([
        // Step 1
        function removeUser(callback) {
@@ -446,7 +598,7 @@
              else if (match) {
                var now = new Date();
                if ((match.start_date - now) < (1000 * 60 * 60 * 48))
-                 return next({
+                 return callback({
                    status: 405,
                    message: 'Leave a match before: 48h'
                  }, null);
@@ -460,28 +612,21 @@
                      team.leaderId = randomLeader;
                    }
                  }
-                 if (index > -1) { // delete my userId
+                 if (index > -1) { // delete my userId of the team, decrement currentPlayer, save my matchsId 
                    team.playersId.splice(index, 1);
-                   Team.update({
-                     _id: team._id
-                   }, team, function(err, teamSaved) {
+                   team.save(function(err, teamS) {
                      if (err) return callback(err);
                      match.currentPlayers = match.currentPlayers - 1;
-                     match.save(function(err, match) { // decremente currentPlayers
+                     match.save(function(err, match) {
                        if (err) return callback(err);
-                       User.update({
-                         _id: req.user._id
-                       }, {
-                         $pull: {
-                           matchs: match._id
-                         }
-                       }, function(err, result) {
+                       _match = match;
+                       req.user.matchs.pull(_match._id)
+                       req.user.save(function(err, user) {
                          if (err) return callback(err);
-                         _match = match;
-                         return callback();
-                       })
-
+                         callback();
+                       });
                      });
+
                    });
                    return;
                  }
@@ -530,7 +675,6 @@
                  message: "Vous ne pouvez annuler un match 48h avant"
                }, null);
              _match = match;
-             _match.status = "canceled"
              _match.remove(function(err, match) {
                if (err) return callback(err);
                callback();
@@ -564,7 +708,7 @@
          });
        },
 
-       // Step 3:  
+       // Step 3:
        function removeInvitations(callback) {
          Invitation.remove({
            match: _match._id
@@ -594,7 +738,6 @@
 
        // Step 5: Inform users of match cancelling
        function sendNotifications(callback) {
-
          callback();
        }
      ],
@@ -606,26 +749,5 @@
        }
      });
  });
-
-
- /** Vérifier chaque matchs à une heure creuse, exemple: 5:30H AM
-  **  Si status cancelled > start_date + 72h => delete ALL 
-  ** Task Job: each 24h
-  */
- var job = new CronJob('00 25 14 * * 0-6', function() {
-     console.log("execting");
-     /*
-      * Runs every weekday (Monday through Friday)
-      * at 11:30:00 AM. It does not run on Saturday
-      * or Sunday.
-      */
-   }, function() {
-     console.log("exected");
-     /* This function is executed when the job stops */
-   },
-   true
-   /*, /* Start the job right now
-      timeZone Time zone of this job. */
- );
 
  module.exports = router;

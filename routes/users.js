@@ -35,40 +35,41 @@ router.get('/', function(req, res, next) {
 
 // Register user 
 router.post('/', function(req, res, next) {
-  console.log(new Date(req.body.birthday));
-
   var user = new User({
     username: req.body.username,
     password: req.body.password,
     email: req.body.email,
+    matchs: [],
     firstName: req.body.firstName,
     age: req.body.age,
     birthday: req.body.birthday,
     lastName: req.body.lastName,
-    date: new Date
+    date: new Date()
   });
   user.save(function(err, user) {
     if (err) {
-      return next(err);
+      console.log(err.errors[Object.keys(err.errors)[0]]);
+      return next(err.errors[Object.keys(err.errors)[0]]);
     } else
       res.json(user);
   });
 })
 
-
 // Update my informations
 .patch('/me', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
-  var query = {
-    _id: req.user._id
-  };
-  //req.body.roles = "user";
-  User.findOneAndUpdate(query, req.body, {
-    'new': true
-  }).exec(function(err, updated) {
-    if (err)
-      next(err);
+  var user = req.user;
+
+  user.username = req.body.username || user.username;
+  user.email = req.body.email || user.email;
+  user.firstName = req.body.firstName || user.firstName;
+  user.lastName = req.body.lastName || user.lastName;
+  user.birthday = req.body.birthday || user.birthday;
+  user.location = req.body.location || user.location;
+  user.photo = req.body.photo || user.photo;
+  user.save(function(err, user) {
+    if (err) return next(err.errors[Object.keys(err.errors)[0]]);
     else
-      res.json(updated);
+      res.json(user);
   });
 })
 
@@ -80,13 +81,13 @@ router.post('/', function(req, res, next) {
     }).select({
       'username': 1,
       'email': 1,
-      'firstname': 1,
-      'age': 1,
-      'lastname': 1,
-      'has_team': 1,
+      'firstName': 1,
+      'birthday': 1,
+      'lastName': 1,
       'fav_fields': 1,
       'points': 1,
-      'friends': 1
+      'matchs': 1,
+      'roles': 1
     })
     .exec(function(err, user) {
       // Error

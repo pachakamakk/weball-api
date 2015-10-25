@@ -32,7 +32,7 @@
 <pre> Parameters
 <font color="red">
 "username":"yourusername", 
-"password":"password42"
+"password":"password42",
 "email":"yourmail@example.com",
 "firstName":"zlatan",
 "lastName":"ibrahimovic",
@@ -357,7 +357,7 @@
 
 <br><br><hr>
 <a><b>Create a Match by Field id </b></a>
-<br><br><b>POST /matchs</b> <br>
+<br><br><b>POST /matches</b> <br>
 <pre> Parameters
 <font color="red">
 "token":"42"
@@ -395,7 +395,7 @@
 
 <br><br><hr>
 <a><b>Cancel a Match</b></a>
-<br><br><b>POST /matchs</b> <br>
+<br><br><b>DELETE /matches/:_id</b> <br>
 <pre> Parameters
 <font color="red">
 "token":"42"
@@ -408,7 +408,7 @@
   "start_date": "2015-08-30T15:00:00.756Z",
   "end_date": "2015-08-30T16:00:00.756Z",
   "maxPlayers": 10,
-  "status": "canceled",
+  "status": "waiting",
   "fieldId": "55ee0b8ca2dba0466ad5dc13",
   "five": "55e9abd35dcf1c93217b0044",
   "amount": "15",
@@ -425,7 +425,7 @@
 
 <br><br><hr>
 <a><b>Get match by id</b></a>
-<br><br><b>GET /matchs/:_id </b> <br>
+<br><br><b>GET /matches/:_id </b> <br>
 <pre> Parameters
 <font color="red">
 "token":"42"
@@ -456,7 +456,7 @@
 
 <br><br><hr>
 <a><b>Join a match by id</b></a>
-<br><br><b>PATCH /matchs/join/:_id </b> <br> <br>
+<br><br><b>PATCH /matches/join/:_id </b> <br> <br>
 Note: - Rejoins une équipe seulement si une place est dispo.
 - Rejoins un match seulement si un match avec la meme horaire n'existe pas déja.
 <pre> Parameters
@@ -485,7 +485,7 @@ Note: - Rejoins une équipe seulement si une place est dispo.
 
 <br><br><hr>
 <a><b>Update a Match. </b></a> 
-<br><br><b>PATCH /matchs/:_id </b> <br> <br>
+<br><br><b>PATCH /matches/:_id </b> <br> <br>
 Note: Only creator can update 
 <pre> Parameters
 <font color="red">
@@ -502,7 +502,7 @@ Note: Only creator can update
 
 <br><br><hr>
 <a><b>Leave a match by id</b></a>
-<br><br><b>PATCH /matchs/leave/:_id </b> <br> <br>
+<br><br><b>PATCH /matches/leave/:_id </b> <br> <br>
 Note: Quitte un match seulement si start_date >= 48h
 Si leader, remplir newLeader sinon leader random.
 <pre> Parameters
@@ -533,7 +533,7 @@ Si leader, remplir newLeader sinon leader random.
 
 <br><br><hr>
 <a><b>Get my matchs and sort</b></a>
-<br><br><b>GET /matchs/me </b> <br>
+<br><br><b>GET /matches/me </b> <br>
 <pre> Parameters
 <font color="red">
 "token":"42"
@@ -569,7 +569,7 @@ Si leader, remplir newLeader sinon leader random.
 
 <br><br><hr>
 <a><b>Get matchs by five and sort</b></a>
-<br><br><b>GET /matchs/five/:_id </b> <br>
+<br><br><b>GET /matches/five/:_id </b> <br>
 <pre> Parameters
 <font color="red">
 "token":"42"

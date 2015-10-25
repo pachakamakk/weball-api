@@ -7,7 +7,7 @@ var validateEmail = require('../utils/validateEmail');
 var UserSchema = new mongoose.Schema({
   username: {
     type: String,
-    match: /^[a-zA-Z0-9-_.]{4,15}$/,
+    match: /^[a-zA-Z0-9-_.]{4,16}$/,
     required: true,
     lowercase: true,
     index: {
@@ -24,57 +24,57 @@ var UserSchema = new mongoose.Schema({
     index: {
       unique: true
     },
-    validate: [validateEmail, 'Address email invalid']
+    validate: [validateEmail, 'Veuillez saisir une adresse mail valide']
   },
   firstName: {
     type: String,
-    match: /[a-zA-Z]{2,10}$/,
-    required: true
+    match: /^[a-z A-Z]{2,12}$/,
+  //  required: true
   },
   lastName: {
     type: String,
-    match: /[a-zA-Z]{2,10}$/,
-    required: true
+    match: /^[a-z A-Z]{2,12}$/,
+   // required: true
   },
   birthday: {
     type: Date,
-    //  required: false, //After set true 
+    //  required: true, //After set true 
   },
   location: {
     type: String,
-    // required: false,
+    match: /^[a-z A-Z.-]{2,20}$/,
+    // required: true,
   },
   roles: {
     type: [String]
   },
   photo: {
     type: String,
-    // required: false
+    match: /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,20})([\/\w \.-]*)*\/?$/
+      // required: false
   },
-  friendsList: {
-    type: [ObjectId], // SYNTAX NOT OK
-    ref: 'User',
-    default: null
-  },
-  favFields: {
-    type: [ObjectId], // SYNTAX NOT OK 
-    ref: 'Field',
-    default: null
-  },
+  friendsList: [{
+    type: ObjectId,
+    ref: 'User'
+  }],
+  favFields: [{
+    type: ObjectId,
+    ref: 'Field'
+  }],
   points: {
     type: Number,
     default: 0,
     min: 0,
     max: 100
   },
-  five: {
+  five: [{
     type: ObjectId,
     ref: 'Five'
-  },
-  matchs: {
-    type: [ObjectId],
-    ref: 'Matchs'
-  },
+  }],
+  matchs: [{
+    type: ObjectId,
+    ref: 'Match'
+  }],
   date: {
     type: Date,
     required: true

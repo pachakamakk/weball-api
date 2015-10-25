@@ -9,7 +9,8 @@ function arrayLimit(val) {
 module.exports = mongoose.model('Match', {
   name: {
     type: String,
-    required: true
+    required: true,
+    match: /^[a-z0-9 A-Z-_.]{1,20}$/
   },
   amount: {
     type: String,
@@ -78,4 +79,3 @@ module.exports = mongoose.model('Match', {
       // limit: 2
   }
 });
-

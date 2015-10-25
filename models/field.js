@@ -11,6 +11,7 @@ module.exports = mongoose.model('Field', {
   },
   name: {
     type: String,
+    match: /^[a-z0-9 A-Z-_.]{1,20}$/,
     required: true
   },
   five: {
@@ -19,7 +20,8 @@ module.exports = mongoose.model('Field', {
     required: true
   },
   photo: {
-    type: String
+    type: String,
+    match: /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,20})([\/\w \.-]*)*\/?$/
   },
   pricesPerHour: {
     0: Mixed, // Dimanche

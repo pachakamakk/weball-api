@@ -24,5 +24,6 @@ var TokenSchema = new mongoose.Schema({
     status: String //'active'
   }
 });
+
 // Export the Mongoose model
 module.exports = mongoose.model('Token', TokenSchema);
