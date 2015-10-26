@@ -271,7 +271,6 @@
     */
 
    var _match = {};
-   var _teamIds = [];
    var _team = {};
 
    async.series([
@@ -305,7 +304,6 @@
                if (match.currentPlayers == match.maxPlayers)
                  match.status = "ready";
                _match = match;
-               //_teamsId = JSON.parse(JSON.stringify(match.teamsId));
                callback();
              }
            } else {

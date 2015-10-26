@@ -18,9 +18,7 @@
   // Send message to a user (by id of user)
   router.patch('/user/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
     Discussion.findOne({
-      users: {
-        $all: [req.user._id, ObjectId(req.params._id)]
-      }
+      users: [req.user._id, ObjectId(req.params._id)]
     }).select('messages').exec(function(err, discussion) {
       if (err)
         return next(err);
@@ -63,7 +61,8 @@
         messages: {
           $slice: -1 // only last message
         }
-      }).populate('users', 'username firstName lastName photo')
+      }).populate('messages.createdBy', 'username firstName lastName photo')
+      .populate('users', 'username firstName lastName photo')
       .skip(req.query.skip)
       .limit(req.query.limit)
       .exec(function(err, discussions) {

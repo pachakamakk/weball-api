@@ -186,7 +186,7 @@
 					"data": [
 						{
 							"key": "name",
-							"value": "My First Field 2",
+							"value": "My First Field 1",
 							"type": "text",
 							"enabled": true
 						},
@@ -198,7 +198,7 @@
 						},
 						{
 							"key": "fiveId",
-							"value": "56291892b00aa94707d434c3",
+							"value": "562c142f36b98380226dc69d",
 							"type": "text",
 							"enabled": true
 						},
@@ -214,7 +214,7 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1445533866954,
+					"time": 1445729342138,
 					"name": "Create a Field",
 					"description": " Create a Field For a Five \n The fieldId is auto added in FiveSchema",
 					"collectionId": "8928f65f-fc8d-565d-cf71-2050fb723fdf",
@@ -322,7 +322,8 @@
 			"order": [
 				"9832224a-21ab-42e9-7f61-5416487ff7b4",
 				"8ba96890-744c-dd6c-cc66-f4be55df2327",
-				"ceec9bd6-b2e1-8d8d-91cc-9499d7da848d"
+				"ceec9bd6-b2e1-8d8d-91cc-9499d7da848d",
+				"9ea986c0-9226-5566-be09-355c49d0a60e"
 			],
 			"folders": [],
 			"timestamp": 1441660912819,
@@ -333,21 +334,20 @@
 			"remoteLink": "",
 			"public": false,
 			"createdAt": null,
-			"updatedAt": 1444587863537,
+			"updatedAt": 1445727819082,
 			"write": true,
 			"requests": [
 				{
 					"id": "8ba96890-744c-dd6c-cc66-f4be55df2327",
 					"headers": "",
 					"url": "127.0.0.1:8080/login",
-					"pathVariables": {},
 					"preRequestScript": "",
+					"pathVariables": {},
 					"method": "POST",
-					"collectionId": "a812479a-0e69-fad1-efc4-e33834063d17",
 					"data": [
 						{
 							"key": "login",
-							"value": "elias",
+							"value": "elias2",
 							"type": "text",
 							"enabled": true
 						},
@@ -359,15 +359,15 @@
 						}
 					],
 					"dataMode": "urlencoded",
-					"name": "Login",
-					"description": "Login with email or username",
-					"descriptionFormat": "html",
-					"time": 1441711801853,
 					"version": 2,
-					"responses": [],
 					"tests": "",
 					"currentHelper": "normal",
-					"helperAttributes": {}
+					"helperAttributes": {},
+					"time": 1445846165783,
+					"name": "Login",
+					"description": "Login with email or username",
+					"collectionId": "a812479a-0e69-fad1-efc4-e33834063d17",
+					"responses": []
 				},
 				{
 					"id": "9832224a-21ab-42e9-7f61-5416487ff7b4",
@@ -426,6 +426,25 @@
 					"responses": []
 				},
 				{
+					"id": "9ea986c0-9226-5566-be09-355c49d0a60e",
+					"headers": "",
+					"url": "127.0.0.1:8080/users/elias2",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "GET",
+					"data": [],
+					"dataMode": "params",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1445763938662,
+					"name": "Get a User",
+					"description": "",
+					"collectionId": "a812479a-0e69-fad1-efc4-e33834063d17",
+					"responses": []
+				},
+				{
 					"id": "ceec9bd6-b2e1-8d8d-91cc-9499d7da848d",
 					"headers": "",
 					"url": "127.0.0.1:8080/users/me",
@@ -435,13 +454,7 @@
 					"data": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDYxMzgzODUwMjIsInVpZCI6IjU2MjkxNzdmYjAwYWE5NDcwN2Q0MzRiYyJ9.xDEQIDiVdFiT2XIHv4uMb7pwtsv_gj1WOOk1BoHguIA",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "content",
-							"value": "test A",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDYzMzI4NjQ4NjEsInVpZCI6IjU2MmMwZjNhOGFlMWViZTUyMWUzNjNiYyJ9.qAJM1k1gYM2HXlt7n1PHEr8IQcppUxPjN4AORXdmUn4",
 							"type": "text",
 							"enabled": true
 						},
@@ -469,7 +482,7 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1445533612304,
+					"time": 1445731878591,
 					"name": "Update a User",
 					"description": "",
 					"collectionId": "a812479a-0e69-fad1-efc4-e33834063d17",
@@ -529,7 +542,7 @@
 					"data": [
 						{
 							"key": "name",
-							"value": "My First Five",
+							"value": "My First Five 2",
 							"type": "text",
 							"enabled": true
 						},
@@ -541,7 +554,7 @@
 						},
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDYxMzgzODUwMjIsInVpZCI6IjU2MjkxNzdmYjAwYWE5NDcwN2Q0MzRiYyJ9.xDEQIDiVdFiT2XIHv4uMb7pwtsv_gj1WOOk1BoHguIA",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDYzMzI4NjQ4NjEsInVpZCI6IjU2MmMwZjNhOGFlMWViZTUyMWUzNjNiYyJ9.qAJM1k1gYM2HXlt7n1PHEr8IQcppUxPjN4AORXdmUn4",
 							"type": "text",
 							"enabled": true
 						},
@@ -577,7 +590,7 @@
 						},
 						{
 							"key": "siren",
-							"value": "1",
+							"value": "2",
 							"type": "text",
 							"enabled": true
 						}
@@ -587,7 +600,7 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1445533848326,
+					"time": 1445728370070,
 					"name": "Create a Five",
 					"description": "",
 					"collectionId": "d3ecb024-c1c5-511b-70e9-506ec2548e38",
@@ -677,21 +690,20 @@
 					"id": "5b9eaea1-2862-5627-b9de-a91725042e3d",
 					"headers": "",
 					"url": "127.0.0.1:8080/five",
-					"pathVariables": {},
 					"preRequestScript": "",
+					"pathVariables": {},
 					"method": "GET",
-					"collectionId": "d3ecb024-c1c5-511b-70e9-506ec2548e38",
 					"data": [],
 					"dataMode": "params",
-					"name": "Get list all Five",
-					"description": "",
-					"descriptionFormat": "html",
-					"time": 1441633538089,
 					"version": 2,
-					"responses": [],
 					"tests": "",
 					"currentHelper": "normal",
-					"helperAttributes": {}
+					"helperAttributes": {},
+					"time": 1445763707550,
+					"name": "Get list all Five",
+					"description": "",
+					"collectionId": "d3ecb024-c1c5-511b-70e9-506ec2548e38",
+					"responses": []
 				}
 			]
 		},
@@ -725,7 +737,7 @@
 				{
 					"id": "10d4450d-3e37-d8a1-2c4b-c5d3bed98daa",
 					"headers": "",
-					"url": "127.0.0.1:8080/matches/561aaa0b9795239e29f38c9e?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis",
+					"url": "127.0.0.1:8080/matches/562c154fe35e1ba92270e7de?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "GET",
@@ -735,7 +747,7 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1445511453463,
+					"time": 1445730119002,
 					"name": "Get a Match",
 					"description": "",
 					"collectionId": "e0702cea-864b-4295-7ef8-70e1299ca816",
@@ -751,19 +763,19 @@
 					"data": [
 						{
 							"key": "start_date",
-							"value": "2015-10-30T11:00:00.756Z",
+							"value": "2015-10-30T19:00:00.756Z",
 							"type": "text",
 							"enabled": true
 						},
 						{
 							"key": "end_date",
-							"value": "2015-10-30T12:00:00.756Z",
+							"value": "2015-10-30T20:00:00.756Z",
 							"type": "text",
 							"enabled": true
 						},
 						{
 							"key": "fieldId",
-							"value": "562918b1b00aa94707d434c5",
+							"value": "562c143a36b98380226dc69f",
 							"type": "text",
 							"enabled": true
 						},
@@ -781,7 +793,7 @@
 						},
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDYxMzgzODUwMjIsInVpZCI6IjU2MjkxNzdmYjAwYWE5NDcwN2Q0MzRiYyJ9.xDEQIDiVdFiT2XIHv4uMb7pwtsv_gj1WOOk1BoHguIA",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDYzMzI4NjQ4NjEsInVpZCI6IjU2MmMwZjNhOGFlMWViZTUyMWUzNjNiYyJ9.qAJM1k1gYM2HXlt7n1PHEr8IQcppUxPjN4AORXdmUn4",
 							"type": "text",
 							"enabled": true
 						},
@@ -790,12 +802,6 @@
 							"value": "10",
 							"type": "text",
 							"enabled": true
-						},
-						{
-							"key": "fiveId",
-							"value": "55e9abd35dcf1c93217b0044",
-							"type": "text",
-							"enabled": true
 						}
 					],
 					"dataMode": "urlencoded",
@@ -803,7 +809,7 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1445557656085,
+					"time": 1445731018597,
 					"name": "Create a Match",
 					"description": "",
 					"collectionId": "e0702cea-864b-4295-7ef8-70e1299ca816",
@@ -812,7 +818,7 @@
 				{
 					"id": "4353d5eb-3f7f-3d6c-fde0-6725b5be2804",
 					"headers": "token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis\n",
-					"url": "127.0.0.1:8080/matches/me?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis&sort=-start_date&status=waiting",
+					"url": "127.0.0.1:8080/matches/me?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDYzMzI4NjQ4NjEsInVpZCI6IjU2MmMwZjNhOGFlMWViZTUyMWUzNjNiYyJ9.qAJM1k1gYM2HXlt7n1PHEr8IQcppUxPjN4AORXdmUn4&sort=-start_date&status=waiting",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "GET",
@@ -822,7 +828,7 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1445511434190,
+					"time": 1445730973774,
 					"name": "Get my Matchs",
 					"description": "",
 					"collectionId": "e0702cea-864b-4295-7ef8-70e1299ca816",
@@ -831,26 +837,14 @@
 				{
 					"id": "5c80e31c-577a-30e7-4553-891e31f6e16d",
 					"headers": "token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis\n",
-					"url": "127.0.0.1:8080/matches/leave/5627bfd27fb7d442938d295f",
+					"url": "127.0.0.1:8080/matches/leave/562c154fe35e1ba92270e7de",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "PATCH",
 					"data": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "teamId",
-							"value": "561b7c691d558a602c059b3c",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "newLeader",
-							"value": null,
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDYzMzI4NjQ4NjEsInVpZCI6IjU2MmMwZjNhOGFlMWViZTUyMWUzNjNiYyJ9.qAJM1k1gYM2HXlt7n1PHEr8IQcppUxPjN4AORXdmUn4",
 							"type": "text",
 							"enabled": true
 						}
@@ -860,7 +854,7 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1445511438606,
+					"time": 1445730214353,
 					"name": "Leave a Match",
 					"description": "",
 					"collectionId": "e0702cea-864b-4295-7ef8-70e1299ca816",
@@ -869,14 +863,14 @@
 				{
 					"id": "937b396c-5cfb-a5a6-aae8-0d42ed618953",
 					"headers": "token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis\n",
-					"url": "127.0.0.1:8080/matches/56297550553e9e760b6820e5",
+					"url": "127.0.0.1:8080/matches/562c154fe35e1ba92270e7de",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "DELETE",
 					"data": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDYxMzgzODUwMjIsInVpZCI6IjU2MjkxNzdmYjAwYWE5NDcwN2Q0MzRiYyJ9.xDEQIDiVdFiT2XIHv4uMb7pwtsv_gj1WOOk1BoHguIA",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDYzMzI4NjQ4NjEsInVpZCI6IjU2MmMwZjNhOGFlMWViZTUyMWUzNjNiYyJ9.qAJM1k1gYM2HXlt7n1PHEr8IQcppUxPjN4AORXdmUn4",
 							"type": "text",
 							"enabled": true
 						}
@@ -886,7 +880,7 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1445557601800,
+					"time": 1445732059239,
 					"name": "Cancel a Match",
 					"description": "Cancel a Match",
 					"collectionId": "e0702cea-864b-4295-7ef8-70e1299ca816",
@@ -895,7 +889,7 @@
 				{
 					"id": "9388b151-7f64-45c0-9b8c-31586e9bf62d",
 					"headers": "",
-					"url": "127.0.0.1:8080/matches/five/55e9abd35dcf1c93217b0044?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDUwMDk4NTIyNTIsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.wDsRQCfuvharqur2iFiOacL_GxImnW_xzjC4Xbym_fM&sort=-start_date",
+					"url": "127.0.0.1:8080/matches/five/562c142f36b98380226dc69d?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDUwMDk4NTIyNTIsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.wDsRQCfuvharqur2iFiOacL_GxImnW_xzjC4Xbym_fM&sort=-start_date&status=waiting",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "GET",
@@ -905,7 +899,7 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1445511429929,
+					"time": 1445733076740,
 					"name": "Get matchs By Five",
 					"description": "req.params.sort: '-amount' // descending\nreq.params.sort: 'amount' // ascending\n\nIt's available for all: start_date, end_date, currentPlayers..",
 					"collectionId": "e0702cea-864b-4295-7ef8-70e1299ca816",
@@ -913,27 +907,15 @@
 				},
 				{
 					"id": "abcd1da0-aa04-2dde-982a-eaaa7ae8803f",
-					"headers": "token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis\n",
-					"url": "127.0.0.1:8080/matches/55eed6dd08538bd2ae153095",
+					"headers": "",
+					"url": "127.0.0.1:8080/matches/562b492d48a961c916086c36",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "PATCH",
 					"data": [
 						{
-							"key": "login",
-							"value": "elias",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "password",
-							"value": "elias",
-							"type": "text",
-							"enabled": true
-						},
-						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDYyMDU3NzAwODksInVpZCI6IjU2MjkxNzdmYjAwYWE5NDcwN2Q0MzRiYyJ9.6vCBX5Qu5yxcbS0K6z9cTT8eU--Oe1jiJ3TLIQ2xt4U",
 							"type": "text",
 							"enabled": true
 						},
@@ -948,6 +930,24 @@
 							"value": "55ee0177ea9a57845ff01cbe",
 							"type": "text",
 							"enabled": true
+						},
+						{
+							"key": "start_date",
+							"value": "2015-10-30T13:00:00.756Z",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "end_date",
+							"value": "2015-10-30T14:00:00.756Z",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "name",
+							"value": "My Match du turfu",
+							"type": "text",
+							"enabled": true
 						}
 					],
 					"dataMode": "urlencoded",
@@ -955,7 +955,7 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1445511444180,
+					"time": 1445678980530,
 					"name": "Update  a Match",
 					"description": "Partial ressource",
 					"collectionId": "e0702cea-864b-4295-7ef8-70e1299ca816",
@@ -964,20 +964,20 @@
 				{
 					"id": "e2ae206b-6e57-3c4d-1571-2d2589cc0a13",
 					"headers": "",
-					"url": "127.0.0.1:8080/matches/join/562930bbf005758608cf366c",
+					"url": "127.0.0.1:8080/matches/join/562c154fe35e1ba92270e7de",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "PATCH",
 					"data": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDYxNDU5ODY0MTgsInVpZCI6IjU2MjkzNTJjZjkwMDViMTgwOWJkN2E0MCJ9.qmxBU45u6spSIS0tS6kyiIiWcSdphqcv6-jspNFbwJY",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDYzMzI4NjQ4NjEsInVpZCI6IjU2MmMwZjNhOGFlMWViZTUyMWUzNjNiYyJ9.qAJM1k1gYM2HXlt7n1PHEr8IQcppUxPjN4AORXdmUn4",
 							"type": "text",
 							"enabled": true
 						},
 						{
 							"key": "teamId",
-							"value": "562930bbf005758608cf366a",
+							"value": "562c154fe35e1ba92270e7dc",
 							"type": "text",
 							"enabled": true
 						}
@@ -987,7 +987,7 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1445541525451,
+					"time": 1445730168482,
 					"name": "Join a Match",
 					"description": "",
 					"collectionId": "e0702cea-864b-4295-7ef8-70e1299ca816",
@@ -1021,7 +1021,7 @@
 				{
 					"id": "32a66a26-0e43-8ffe-5710-f07d9ba95ac7",
 					"headers": "",
-					"url": "127.0.0.1:8080/discussions/me/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis&limit=&skip=",
+					"url": "127.0.0.1:8080/discussions/me/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDYzNzMyOTA2OTQsInVpZCI6IjU2MmMwZjNhOGFlMWViZTUyMWUzNjNiYyJ9.I1wV9XSiaJG8RzbjgqiwOUSIuE5mTFamKwlU3diIgfk&limit=&skip=",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "GET",
@@ -1031,7 +1031,7 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1445453779127,
+					"time": 1445768765386,
 					"name": "List my Discussions ",
 					"description": "Get my discussions\nLast Messages + for each discussion: username + photo of the user\n",
 					"collectionId": "eb40c364-8db0-3761-78a9-1dda90defb9a",
@@ -1040,7 +1040,7 @@
 				{
 					"id": "44b7ceda-9093-8a12-6782-2bd8034ab1dc",
 					"headers": "",
-					"url": "127.0.0.1:8080/discussions/5627e39684580bc197f759ad?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis",
+					"url": "127.0.0.1:8080/discussions/562c9b7ce299ea83025a18f0?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDYzNjkxNDgyMDMsInVpZCI6IjU2MmMxZGNlYjIyYmQ2OTEyMzJhYzI4OSJ9.Lul-KJMe6RHgKgsVGeh3V5TZrNX_c7Lev_KAOWK7zz8",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "GET",
@@ -1050,7 +1050,7 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1445454759965,
+					"time": 1445764365965,
 					"name": "Get Messages of a Discussion",
 					"description": "Get messages of a discussion by id ",
 					"collectionId": "eb40c364-8db0-3761-78a9-1dda90defb9a",
@@ -1059,20 +1059,20 @@
 				{
 					"id": "5e850fbc-44c9-88b2-7b68-9c4bcc2d3455",
 					"headers": "",
-					"url": "127.0.0.1:8080/discussions/user/55ee0177ea9a57845ff01cbb",
+					"url": "127.0.0.1:8080/discussions/user/562c0f3a8ae1ebe521e363bc",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "PATCH",
 					"data": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDYzNjk2MTc4NDksInVpZCI6IjU2MmMwZjNhOGFlMWViZTUyMWUzNjNiYyJ9.93uA9rSQH05xueD9V8trlomKfEsdnhMjAy-DVtokqp0",
 							"type": "text",
 							"enabled": true
 						},
 						{
 							"key": "content",
-							"value": "ceci est un message",
+							"value": "HelloWorld3",
 							"type": "text",
 							"enabled": true
 						}
@@ -1082,7 +1082,7 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1445454748913,
+					"time": 1445764885617,
 					"name": "Send a Message ",
 					"description": "Send Message to a Discussion\n",
 					"collectionId": "eb40c364-8db0-3761-78a9-1dda90defb9a",
@@ -1129,6 +1129,168 @@
 			]
 		},
 		{
+			"id": "f4f6bfe7-e2a6-fc1f-0dac-2d4555697592",
+			"name": "Friends",
+			"description": "friends-of-friends makes it nearly painless to develop custom social-networking applications by allowing you\nsend/accept/deny friend requests, and search for friends, pending friends, friends of friends, and non-friends from a Model or Document.",
+			"order": [
+				"42eae87d-261e-d4da-1c28-43bf5dd18871",
+				"8bd158fa-bde3-c204-a9f5-3aa6c6163196",
+				"7c3e75c1-811c-426d-7c5b-63601576980b",
+				"21eec5d4-026d-0f43-e175-e2785d9678c2",
+				"56662a7b-fa9f-3601-bf61-d08945843017",
+				"fcda73a7-a152-dd0d-b5f7-f6f27a0bb6aa"
+			],
+			"folders": [],
+			"timestamp": 1445769788327,
+			"synced": false,
+			"remote_id": 0,
+			"owner": 0,
+			"sharedWithTeam": false,
+			"subscribed": false,
+			"remoteLink": "",
+			"public": false,
+			"createdAt": 1445769788327,
+			"updatedAt": 1445856342674,
+			"write": true,
+			"requests": [
+				{
+					"id": "21eec5d4-026d-0f43-e175-e2785d9678c2",
+					"headers": "",
+					"url": "127.0.0.1:8080/friends/requests/my/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDY0MjI1OTM0OTcsInVpZCI6IjU2MmMxZGNlYjIyYmQ2OTEyMzJhYzI4OSJ9.B7XP9bdkZY1HECvj4SE4M-OcE4kJnzo2MAJgiFJiEDg",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "GET",
+					"data": [],
+					"dataMode": "params",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1445856010754,
+					"name": "Get Friend Requests",
+					"description": "// RESULT SUCCESS\n\n[\n  {\n    \"_id\": \"562e0220ac50f69f10c7c310\",\n    \"to\": \"562c1dceb22bd691232ac289\",\n    \"date\": \"2015-10-26T10:36:16.404Z\",\n    \"from\": {\n      \"_id\": \"562c0f3a8ae1ebe521e363bc\",\n      \"username\": \"elias\",\n      \"firstName\": \"eli\",\n      \"lastName\": \"chet\"\n    },\n    \"status\": \"pending\",\n    \"__v\": 0\n  }\n]\n\nIf No Request:\n[]  //Empty Array",
+					"collectionId": "f4f6bfe7-e2a6-fc1f-0dac-2d4555697592",
+					"responses": []
+				},
+				{
+					"id": "42eae87d-261e-d4da-1c28-43bf5dd18871",
+					"headers": "",
+					"url": "127.0.0.1:8080/friends/request/562c1dceb22bd691232ac289",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "POST",
+					"data": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDY0MjE4MTM3NzgsInVpZCI6IjU2MmMwZjNhOGFlMWViZTUyMWUzNjNiYyJ9.9eKJbxF_va_QNQaFmY8C5hXiElCMNcCJlpKR0T7k_VM",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "urlencoded",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1445848050684,
+					"name": "Send Friend Requests",
+					"description": "// RETURN SUCCESS\n{\n  \"__v\": 0,\n  \"to\": \"562c0f3a8ae1ebe521e363bc\",\n  \"date\": \"2015-10-25T23:26:05.477Z\",\n  \"from\": \"562c1dceb22bd691232ac289\",\n  \"status\": \"pending\",\n  \"_id\": \"562d650d0690dcb1098819dd\"\n}\n\n// Doesn't work: \n\n- User Not Found\n- Already Request sent\n- User is Already in FriendList",
+					"collectionId": "f4f6bfe7-e2a6-fc1f-0dac-2d4555697592",
+					"responses": []
+				},
+				{
+					"id": "56662a7b-fa9f-3601-bf61-d08945843017",
+					"headers": "",
+					"url": "127.0.0.1:8080/friends/users/562c0f3a8ae1ebe521e363bc?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDY0MjI1OTM0OTcsInVpZCI6IjU2MmMxZGNlYjIyYmQ2OTEyMzJhYzI4OSJ9.B7XP9bdkZY1HECvj4SE4M-OcE4kJnzo2MAJgiFJiEDg",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "GET",
+					"data": [],
+					"dataMode": "params",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1445856589274,
+					"name": "Get Friends",
+					"description": "// RESULT SUCCESS\n\n{\n  \"_id\": \"562e019982ae4fd648676080\",\n  \"user\": \"562c0f3a8ae1ebe521e363bc\",\n  \"nbFriends\": 1,\n  \"list\": [\n    {\n      \"user\": {\n        \"_id\": \"562c1dceb22bd691232ac289\",\n        \"username\": \"elias2\",\n        \"firstName\": \"eli\",\n        \"lastName\": \"chet\"\n      },\n      \"date\": \"2015-10-26T10:34:01.063Z\",\n      \"requester\": \"562c0f3a8ae1ebe521e363bc\",\n      \"_id\": \"562e0199ac50f69f10c7c30f\"\n    }\n  ]\n}\n\nIt doesn't work if:\n\n- No Friends",
+					"collectionId": "f4f6bfe7-e2a6-fc1f-0dac-2d4555697592",
+					"responses": []
+				},
+				{
+					"id": "7c3e75c1-811c-426d-7c5b-63601576980b",
+					"headers": "",
+					"url": "127.0.0.1:8080/friends/request/562c0f3a8ae1ebe521e363bc",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "PATCH",
+					"data": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDY0MjI1OTM0OTcsInVpZCI6IjU2MmMxZGNlYjIyYmQ2OTEyMzJhYzI4OSJ9.B7XP9bdkZY1HECvj4SE4M-OcE4kJnzo2MAJgiFJiEDg",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "urlencoded",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1445848076615,
+					"name": "Accept Friend Requests",
+					"description": "// RESULT SUCCESS \n{\n  \"ok\": 1,\n  \"nModified\": 1,\n  \"n\": 1\n}\n\nIt doesn't work if:\n\n- Request Already accepted\n\nBecause after Accept/Deny, the request is removed of the DB.",
+					"collectionId": "f4f6bfe7-e2a6-fc1f-0dac-2d4555697592",
+					"responses": []
+				},
+				{
+					"id": "8bd158fa-bde3-c204-a9f5-3aa6c6163196",
+					"headers": "",
+					"url": "127.0.0.1:8080/friends/request/562c1dceb22bd691232ac289",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "DELETE",
+					"data": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDY0MjE4MTM3NzgsInVpZCI6IjU2MmMwZjNhOGFlMWViZTUyMWUzNjNiYyJ9.9eKJbxF_va_QNQaFmY8C5hXiElCMNcCJlpKR0T7k_VM",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "urlencoded",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1445848196433,
+					"name": "Deny Friend Requests",
+					"description": "RESULT EXAMPLE:\n{\n  \"_id\": \"562d650d0690dcb1098819dd\",\n  \"to\": \"562c0f3a8ae1ebe521e363bc\",\n  \"date\": \"2015-10-25T23:26:05.477Z\",\n  \"from\": \"562c1dceb22bd691232ac289\",\n  \"status\": \"pending\",\n  \"__v\": 0\n}\n\nIt doesn't work if:\n\n- the request have been already Accept/Deny\n\nBecause after Accept/Deny, the request is removed of the DB.\n",
+					"collectionId": "f4f6bfe7-e2a6-fc1f-0dac-2d4555697592",
+					"responses": []
+				},
+				{
+					"id": "fcda73a7-a152-dd0d-b5f7-f6f27a0bb6aa",
+					"headers": "",
+					"url": "127.0.0.1:8080/friends/562c0f3a8ae1ebe521e363bc/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDY0NTA5NjY0NTMsInVpZCI6IjU2MmMxZGNlYjIyYmQ2OTEyMzJhYzI4OSJ9.T2aAT52o_aw9TOcgbmuxqm3WeN-z_s8IkDZWslIk_nE",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "DELETE",
+					"data": [],
+					"dataMode": "params",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1445856006587,
+					"name": "Delete Friend",
+					"description": "// RESULT SUCCESS\n\n{\n  \"_id\": \"562e019982ae4fd64867607f\",\n  \"user\": \"562c1dceb22bd691232ac289\",\n  \"nbFriends\": 0,\n  \"__v\": 1,\n  \"list\": []\n}\n\nIt doesn't work if you:\n\n- delete yourself\n",
+					"collectionId": "f4f6bfe7-e2a6-fc1f-0dac-2d4555697592",
+					"responses": []
+				}
+			]
+		},
+		{
 			"id": "f91d0d79-2487-9fb7-b4ae-62b4d30d58bd",
 			"name": "Invitations",
 			"description": "Invitations user to match",
@@ -1153,20 +1315,20 @@
 				{
 					"id": "94a0b1bf-c2f5-f42c-288a-6a79e125f930",
 					"headers": "",
-					"url": "127.0.0.1:8080/invitations/matches/5626afdf9e2c46dc8bedc850",
+					"url": "127.0.0.1:8080/invitations/matches/562c154fe35e1ba92270e7de",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "DELETE",
 					"data": [
 						{
 							"key": "usersId",
-							"value": "55ee0177ea9a57845ff01cbe,55ee0177ea9a57845ff01cba",
+							"value": "562c1dceb22bd691232ac289,562c1dceb22bd691232ac289",
 							"type": "text",
 							"enabled": true
 						},
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDI0MDU0NDQyMTUsInVpZCI6IjU1ZWUwMTc3ZWE5YTU3ODQ1ZmYwMWNiZSJ9.GcNABCmEVp50qPxruFyYnI3DspzdkMHgiBQXyH8UVis",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDYzMzI4NjQ4NjEsInVpZCI6IjU2MmMwZjNhOGFlMWViZTUyMWUzNjNiYyJ9.qAJM1k1gYM2HXlt7n1PHEr8IQcppUxPjN4AORXdmUn4",
 							"type": "text",
 							"enabled": true
 						}
@@ -1176,7 +1338,7 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1445445207731,
+					"time": 1445731953778,
 					"name": "Pull Invitation user to a Match",
 					"description": "Id of the match, users ID separator: \",\"",
 					"collectionId": "f91d0d79-2487-9fb7-b4ae-62b4d30d58bd",
@@ -1204,20 +1366,20 @@
 				{
 					"id": "e3395e58-d853-bf9e-c567-30f9574d9e8f",
 					"headers": "",
-					"url": "127.0.0.1:8080/invitations/matches/56293d339d1f0eed09151611",
+					"url": "127.0.0.1:8080/invitations/matches/562c154fe35e1ba92270e7de",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "PATCH",
 					"data": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDYxMzgzODUwMjIsInVpZCI6IjU2MjkxNzdmYjAwYWE5NDcwN2Q0MzRiYyJ9.xDEQIDiVdFiT2XIHv4uMb7pwtsv_gj1WOOk1BoHguIA",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDYzMzI4NjQ4NjEsInVpZCI6IjU2MmMwZjNhOGFlMWViZTUyMWUzNjNiYyJ9.qAJM1k1gYM2HXlt7n1PHEr8IQcppUxPjN4AORXdmUn4",
 							"type": "text",
 							"enabled": true
 						},
 						{
 							"key": "usersId",
-							"value": "55ee0177ea9a57845ff01cbe,55ee0177ea9a57845ff01cba",
+							"value": "562c1dceb22bd691232ac289",
 							"type": "text",
 							"enabled": true
 						}
@@ -1227,7 +1389,7 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1445543574003,
+					"time": 1445731897638,
 					"name": "Push Invitation a user to a Match",
 					"description": "Id of the match, users ID separator: \",\"",
 					"collectionId": "f91d0d79-2487-9fb7-b4ae-62b4d30d58bd",

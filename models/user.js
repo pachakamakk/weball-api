@@ -29,12 +29,12 @@ var UserSchema = new mongoose.Schema({
   firstName: {
     type: String,
     match: /^[a-z A-Z]{2,12}$/,
-  //  required: true
+    //  required: true
   },
   lastName: {
     type: String,
     match: /^[a-z A-Z]{2,12}$/,
-   // required: true
+    // required: true
   },
   birthday: {
     type: Date,
@@ -53,10 +53,6 @@ var UserSchema = new mongoose.Schema({
     match: /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,20})([\/\w \.-]*)*\/?$/
       // required: false
   },
-  friendsList: [{
-    type: ObjectId,
-    ref: 'User'
-  }],
   favFields: [{
     type: ObjectId,
     ref: 'Field'
@@ -111,5 +107,15 @@ UserSchema.methods.verifyPassword = function(password, cb) {
   });
 };
 
+// Friend list
+var options = {
+  personModelName: 'User',
+  friendshipModelName: 'FriendRelationships',
+  friendshipCollectionName: 'FriendsRelationships',
+};
+// again, works with or without 'new' 
+var FriendsOfFriends = require('friends-of-friends')(mongoose, options);
+// apply the friends-of-friends mongoose plugin to your User schema 
+UserSchema.plugin(FriendsOfFriends.plugin, options);
 
 module.exports = mongoose.model('User', UserSchema);

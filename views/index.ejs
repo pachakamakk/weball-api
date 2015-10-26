@@ -947,7 +947,116 @@ Si leader, remplir newLeader sinon leader random.
 </font> </pre>
 
 
+<br><br><hr>
+<a><b>Send Friend Requests</b></a>
+<br><br><b>POST /friends/request/:_id</b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+</font> </pre>
+<pre> Response
+<font color="green">
+{
+  "__v": 0,
+  "to": "562c1dceb22bd691232ac289",
+  "date": "2015-10-26T10:42:26.279Z",
+  "from": "562c0f3a8ae1ebe521e363bc",
+  "status": "pending",
+  "_id": "562e0392ac50f69f10c7c311"
+}
+</font> </pre>
 
+<br><br><hr>
+<a><b>Deny/Cancel Friend Requests</b></a>
+<br><br><b>DELETE /friends/request/:_id</b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+</font> </pre>
+<pre> Response
+<font color="green">
+{
+  "__v": 0,
+  "to": "562c1dceb22bd691232ac289",
+  "date": "2015-10-26T10:42:26.279Z",
+  "from": "562c0f3a8ae1ebe521e363bc",
+  "status": "pending",
+  "_id": "562e0392ac50f69f10c7c311"
+}
+</font> </pre>
+
+<br><br><hr>
+<a><b>Accept Friend Requests</b></a>
+<br><br><b>PATCH /friends/request/:_id</b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+</font> </pre>
+<pre> Response
+<font color="green">
+{
+  "ok": 1,
+  "nModified": 1,
+  "n": 1
+}
+</font> </pre>
+
+<br><br><hr>
+<a><b>Get Friend Requests</b></a>
+<br><br><b>GET /friends/request/my</b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+</font> </pre>
+<pre> Response
+<font color="green">
+[
+  {
+    "_id": "562e03feac50f69f10c7c315",
+    "to": "562c1dceb22bd691232ac289",
+    "date": "2015-10-26T10:44:14.864Z",
+    "from": {
+      "_id": "562c0f3a8ae1ebe521e363bc",
+      "username": "TheUser",
+      "firstName": "James",
+      "lastName": "Stan"
+    },
+    "status": "pending",
+    "__v": 0
+  }
+]
+</font> </pre>
+
+
+<br><br><hr>
+<a><b>Get Friends of a user by his _id</b></a>
+<br><br><b>GET /friends/users/:_id</b> <br>
+<pre> Parameters
+<font color="red">
+"token":"42"
+</font> </pre>
+<pre> Response
+<font color="green">
+{
+  "_id": "562e019982ae4fd648676080",
+  "user": "562c0f3a8ae1ebe521e363bc",
+  "nbFriends": 1,
+  "__v": 2,
+  "list": [
+    {
+      "user": {
+        "_id": "562c1dceb22bd691232ac289",
+        "username": "elias2",
+        "firstName": "eli",
+        "lastName": "chet"
+      },
+      "date": "2015-10-26T10:45:49.494Z",
+      "requester": "562c0f3a8ae1ebe521e363bc",
+      "_id": "562e045dac50f69f10c7c317"
+    }
+  ]
+}
+</font> </pre>
 
 
   </body>

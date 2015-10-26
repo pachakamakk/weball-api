@@ -23,6 +23,7 @@ var teams = require('./routes/teams');
 var five = require('./routes/five');
 var discussions = require('./routes/discussion');
 var invitations = require('./routes/invitations');
+var friends = require('./routes/friends');
 
 // UBER
 // var UBER_ID = 'zURMqUhzvDsPcZidFT11IU9sdDmZvd56';
@@ -86,6 +87,7 @@ app.use('/fields', fields);
 app.use('/teams', teams);
 app.use('/discussions', discussions);
 app.use('/invitations', invitations);
+app.use('/friends', friends);
 //app.use('/paypal', paypalRoute);
 
 
