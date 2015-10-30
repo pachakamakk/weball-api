@@ -8,6 +8,7 @@
 
 var User = require('../models/user');
 var Token = require('../models/token');
+var secretKey = require('../config/secret')();
 var jwt = require('jwt-simple');
 
 
@@ -53,7 +54,14 @@ var login = function(req, res, next) {
         }
         // Success
         else {
-          var data = genToken(user);
+          //var data = genToken(user);
+          var expiration = expiresIn(1);
+          console.log(expiration);
+          var token = jwt.sign({
+            expire: expiration,
+            uid: user._id
+          }, secretKey);
+          console.log(expiration);
           Token.findOne({
             user: user._id
           }, function(err, token) {
@@ -61,31 +69,32 @@ var login = function(req, res, next) {
             // Not token find make a new TokenSchema
             else if (!token) {
               var token = new Token({
-                value: data.token,
-                expire: data.expire,
+                value: token,
+                expire: expiration,
                 user: user._id
               });
               token.save(function(err) {
                 if (err) return next(err);
                 else {
                   req.token = {
-                    'token': token.value
+                    'token': token
                   };
                   next();
                 }
               });
             }
-            // if user already exist -> update 
+            // if TokenSChema already exist -> update 
             else {
-              token.value = data.token;
-              token.expire = data.expire;
+              console.log(token)
+              token.value = token;
+              token.expire = expiration;
               token.save(function(err) {
                 if (err) {
                   console.log(err);
                   return next(err);
                 } else {
                   req.token = {
-                    'token': token.value
+                    'token': token
                   };
                   next();
                 }
@@ -104,6 +113,7 @@ var genToken = function(usr) {
     expire: expires,
     uid: usr._id
   }, require('../config/secret')());
+
   return {
     'token': token,
     'expire': expires

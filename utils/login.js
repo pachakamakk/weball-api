@@ -1,17 +1,19 @@
 /*
  ** Header
  ** 
- ** Created By: 
- ** Created At: 
+ ** Created By: Elias CHETOUANI
+ ** Created At: 28/07
  ** Functions for Login, Generate Jwt 
  */
 
 var User = require('../models/user');
 var Token = require('../models/token');
-var jwt = require('jwt-simple');
+var secretKey = require('../config/secret')();
+var jwt = require('jsonwebtoken');
 
 
 var login = function(req, res, next) {
+
   if (!req.body.login) {
     return next({
       status: 400,
@@ -26,11 +28,12 @@ var login = function(req, res, next) {
       email: req.body.login
     }]
   }, function(err, user) {
-    //Error
+
+    // Error
     if (err)
       return next(err);
 
-    //No user found
+    // No user found
     else if (!user) {
       return next({
         status: 401,
@@ -51,46 +54,38 @@ var login = function(req, res, next) {
             message: 'Invalid password'
           });
         }
+
         // Success
         else {
-          var data = genToken(user);
-          Token.findOne({
+          var expiration = expiresIn(1);
+          var token = jwt.sign({
+            expire: expiration,
+            uid: user._id
+          }, secretKey);
+          var update = {
+            user: user._id,
+            value: token,
+            updated: new Date(),
+            expire: expiration
+          };
+          var options = {
+            upsert: true,
+            runValidators: true
+          };
+          Token.update({
             user: user._id
-          }, function(err, token) {
+          }, update, options, function(err, saved) {
             if (err) return next(err);
-            // Not token find make a new TokenSchema
-            else if (!token) {
-              var token = new Token({
-                value: data.token,
-                expire: data.expire,
-                user: user._id
-              });
-              token.save(function(err) {
-                if (err) return next(err);
-                else {
-                  req.token = {
-                    'token': token.value
-                  };
-                  next();
-                }
-              });
-            }
-            // if user already exist -> update 
-            else {
-              token.value = data.token;
-              token.expire = data.expire;
-              token.save(function(err) {
-                if (err) {
-                  console.log(err);
-                  return next(err);
-                } else {
-                  req.token = {
-                    'token': token.value
-                  };
-                  next();
-                }
-              });
-            }
+            else if (saved) {
+              req.token = {
+                'token': token
+              };
+              next();
+            } else
+              return next({
+                status: 405,
+                message: 'Error Token Update'
+              }, null);
           });
         }
       });
@@ -98,17 +93,6 @@ var login = function(req, res, next) {
   });
 }
 
-var genToken = function(usr) {
-  var expires = expiresIn(7);
-  var token = jwt.encode({
-    expire: expires,
-    uid: usr._id
-  }, require('../config/secret')());
-  return {
-    'token': token,
-    'expire': expires
-  };
-}
 
 function expiresIn(numDays) {
   var dateObj = new Date();

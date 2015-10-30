@@ -44,8 +44,8 @@ var FiveSchema = new mongoose.Schema({
     required: true
   },
   gps: {
-    longitude: String,
-    latitude: String
+    longitude: Number,
+    latitude: Number
   },
   photo: {
     type: String,

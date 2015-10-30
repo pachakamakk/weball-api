@@ -7,6 +7,10 @@ var TokenSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  updated: {
+    type: Date,
+    default: Date.now
+  },
   user: {
     type: ObjectId,
     ref: 'User',

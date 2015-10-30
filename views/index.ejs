@@ -75,7 +75,7 @@
 
 <br><br><hr>
 <a><b>Get informations about (current) user</b></a>
-<br><br><b>GET /me or /:_id  </b> <br>
+<br><br><b>GET /me </b> <br>
 <pre> Parameters
 <font color="red">
 "token":"42"
@@ -90,9 +90,7 @@
   "lastName": "elias",
   "date": "2015-04-06T17:14:41.808Z",
   "points": 0,
-  "hasTeam": false,
-  "terrainsFavs": [],
-  "friends": []
+  ...
 } </font> </pre>
 
 
@@ -115,8 +113,8 @@
 
 
 <br><br><hr>
-<a><b>Get user infos from username</b></a>
-<br><br><b>/users/jazalizil GET</b> <br>
+<a><b>Get user infos by Id</b></a>
+<br><br><b>/users/:_id GET</b> <br>
 <pre> Parameters
 <font color="red">
 "token":"42"
@@ -126,14 +124,14 @@
 {
   "username": "jazalizil",
   "email": "jazalizil@weball.fr",
-  "firstname": "jalil",
+  "firstName": "jalil",
   "birthday":"1942-08-30T23:42:00.756Z",
-  "lastname": "dab",
+  "lastName": "dab",
+  "fullName": "jalil dab",
   "register_date": "2015-05-31T14:32:30.931Z",
-  "has_team": false,
-  "fav_fields": [],
   "points": 0,
-  "friends": []
+  "relationShipStatus": "friend" // "pending", "confirm" need to confirm his request, "user"
+  ...
 } </font> </pre>
 
 

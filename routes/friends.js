@@ -10,7 +10,7 @@
   var router = express.Router();
   var Auth = require('../middlewares/Auth');
   var FriendRequest = require('../models/friendsrequest');
-  var Friend = require('../models/friends');
+  var Friend = require('../models/friend');
   var async = require('async');
   var User = require('../models/user');
 

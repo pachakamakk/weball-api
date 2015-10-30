@@ -6,9 +6,10 @@
  ** Functions for Authentification, getUserByJWT...
  */
 
-var jwt = require('jwt-simple');
+//var jwt = require('jwt-simple');
+var jwt = require('jsonwebtoken');
 var Token = require('../models/token');
-var User = require('../models/user');
+var secretKey = require('../config/secret.js')();
 
 
 /* How to use it ? 
@@ -27,18 +28,32 @@ var validateAccessAPIbyToken = function(req, res, next) {
     });
 
   // Check expiration of the token. In the token there are: value, exp, uid.
-  var decoded = jwt.decode(token, require('../config/secret.js')());
-  if (decoded.exp < Date.now()) {
-    return next({
-      message: 'Unauthorized: Token Expired',
-      status: 401
-    });
-  }
-  next();
+  //var decoded = jwt.decode(token, require('../config/secret.js')());
+  Token.findOne({
+    value: token
+  }, function(err, token) {
+    if (err) return next(err);
+    else if (token) {
+      jwt.verify(token.value, secretKey, function(err, decoded) {
+        if (err) return next(err);
+        else if (decoded.exp < Date.now())
+          return next({
+            message: 'Unauthorized: Token Expired',
+            status: 401
+          });
+        else
+          next();
+      });
+    } else
+      return next({
+        message: 'Deconnected',
+        status: 404
+      });
+  });
 };
 
 
-var validateAccessAPIAndGetUser = function(req, res, next) { 
+var validateAccessAPIAndGetUser = function(req, res, next) {
   var token = (req.body && req.body.token) || req.query.token || req.headers['x-access-token'];
   if (!token)
     return next({
@@ -46,46 +61,36 @@ var validateAccessAPIAndGetUser = function(req, res, next) {
       status: 401
     });
 
-  var decoded = jwt.decode(token, require('../config/secret.js')());
-  if (decoded.exp < Date.now()) {
-    return next({
-      message: 'Unauthorized: Token Expired',
-      status: 401
-    });
-  }
-
-  // Get User directy with the decoded token.
-  User.findOne({
-      _id: decoded.uid
-    }).select({
-      'username': 1,
-      'email': 1,
-      'firstName': 1,
-      'age': 1,
-      'location': 1,
-      'lastName': 1,
-      'favFields': 1,
-      'points': 1,
-      'friends': 1,
-      'photo': 1,
-      'matchs': 1,
-      'roles': 1
-    })
-    .exec(function(err, user) {
-      // Error
-      if (err) next(err);
-      // User not found
-      else if (!user)
-        return next({
-          message: 'No such user',
-          status: 404
-        });
-      // Success
-      else {
-        req.user = user;
-        return next();
-      }
-    });
+  // validation of the token.
+  Token.findOne({
+    value: token
+  }).populate({
+    path: 'user',
+    select: {
+      password: 0
+    }
+  }).exec(function(err, token) {
+    if (err) return next(err);
+    else if (token) {
+      jwt.verify(token.value, secretKey, function(err, decoded) {
+        if (err) return next(err);
+        else if (decoded.expire < Date.now())
+          return next({
+            message: 'Unauthorized: Token Expired',
+            status: 401
+          });
+        else {
+          console.log(decoded)
+          req.user = token.user;
+          next();
+        }
+      });
+    } else
+      return next({
+        message: 'Deconnected',
+        status: 404
+      });
+  });
 };
 
 exports.validateAccessAPIbyToken = validateAccessAPIbyToken;

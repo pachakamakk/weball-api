@@ -12,6 +12,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var login = require('./routes/login');
+var logout = require('./routes/logout');
 var users = require('./routes/users');
 //var clients = require('./routes/clients');
 var me = require('./routes/me');
@@ -76,6 +77,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Routes Point
 app.use('/', index);
 app.use('/login', login);
+app.use('/logout', logout);
 app.use('/users', users);
 //app.use('/clients', clients);
 app.use('/me', me);
@@ -89,7 +91,6 @@ app.use('/discussions', discussions);
 app.use('/invitations', invitations);
 app.use('/friends', friends);
 //app.use('/paypal', paypalRoute);
-
 
 
 // catch 404 and forward to error handler
@@ -107,7 +108,8 @@ console.log(app.get('env'));
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    console.log(err.stack); // print Complet ERROR in CONSOLE
+    if (err.stack)
+      console.log(err.stack); // print Complet ERROR in CONSOLE
     res.json({
       message: err.message,
       code: err.status

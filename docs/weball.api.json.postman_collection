@@ -323,7 +323,9 @@
 				"9832224a-21ab-42e9-7f61-5416487ff7b4",
 				"8ba96890-744c-dd6c-cc66-f4be55df2327",
 				"ceec9bd6-b2e1-8d8d-91cc-9499d7da848d",
-				"9ea986c0-9226-5566-be09-355c49d0a60e"
+				"9ea986c0-9226-5566-be09-355c49d0a60e",
+				"0207f80c-ddb6-4c71-fb8d-b99df4aad01c",
+				"f448e07d-e6ea-724e-b10b-342ca39d49d0"
 			],
 			"folders": [],
 			"timestamp": 1441660912819,
@@ -334,9 +336,28 @@
 			"remoteLink": "",
 			"public": false,
 			"createdAt": null,
-			"updatedAt": 1445727819082,
+			"updatedAt": 1446203344706,
 			"write": true,
 			"requests": [
+				{
+					"id": "0207f80c-ddb6-4c71-fb8d-b99df4aad01c",
+					"headers": "",
+					"url": "127.0.0.1:8080/users/now/?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDYyOTM1ODIyNTEsInVpZCI6IjU2MmMwZjNhOGFlMWViZTUyMWUzNjNiYyIsImlhdCI6MTQ0NjIwNzE4Mn0.x6egSyYWtnrqLM9DdF7kC_P097Ud6zhy67AvIUm7EKE&search=elias&skip=&limit",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "GET",
+					"data": [],
+					"dataMode": "params",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1446207200769,
+					"name": "Get a User NOW",
+					"description": "For Search Bar",
+					"collectionId": "a812479a-0e69-fad1-efc4-e33834063d17",
+					"responses": []
+				},
 				{
 					"id": "8ba96890-744c-dd6c-cc66-f4be55df2327",
 					"headers": "",
@@ -347,7 +368,7 @@
 					"data": [
 						{
 							"key": "login",
-							"value": "elias2",
+							"value": "elias",
 							"type": "text",
 							"enabled": true
 						},
@@ -363,7 +384,7 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1445846165783,
+					"time": 1445858416012,
 					"name": "Login",
 					"description": "Login with email or username",
 					"collectionId": "a812479a-0e69-fad1-efc4-e33834063d17",
@@ -428,7 +449,7 @@
 				{
 					"id": "9ea986c0-9226-5566-be09-355c49d0a60e",
 					"headers": "",
-					"url": "127.0.0.1:8080/users/elias2",
+					"url": "127.0.0.1:8080/users/562c1dceb22bd691232ac289?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDY0NjMyMTY3NjgsInVpZCI6IjU2MmMwZjNhOGFlMWViZTUyMWUzNjNiYyJ9.JZT-mfvYhKTsL5EXuIgSrU2QSZg7aq6qYtCS4GThpbI",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "GET",
@@ -438,7 +459,7 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1445763938662,
+					"time": 1445862031358,
 					"name": "Get a User",
 					"description": "",
 					"collectionId": "a812479a-0e69-fad1-efc4-e33834063d17",
@@ -485,6 +506,32 @@
 					"time": 1445731878591,
 					"name": "Update a User",
 					"description": "",
+					"collectionId": "a812479a-0e69-fad1-efc4-e33834063d17",
+					"responses": []
+				},
+				{
+					"id": "f448e07d-e6ea-724e-b10b-342ca39d49d0",
+					"headers": "",
+					"url": "127.0.0.1:8080/logout",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "DELETE",
+					"data": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDYyODk0NDc3NzYsInVpZCI6IjU2MmMwZjNhOGFlMWViZTUyMWUzNjNiYyIsImlhdCI6MTQ0NjIwMzA0N30.8NJK5SVcRR90VQYgigE7gYEvfvFBkqYrpKxkiWTi1v4",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "urlencoded",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1446203361908,
+					"name": "Logout",
+					"description": "Logout User with Token",
 					"collectionId": "a812479a-0e69-fad1-efc4-e33834063d17",
 					"responses": []
 				}
@@ -1201,7 +1248,7 @@
 				{
 					"id": "56662a7b-fa9f-3601-bf61-d08945843017",
 					"headers": "",
-					"url": "127.0.0.1:8080/friends/users/562c0f3a8ae1ebe521e363bc?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDY0MjI1OTM0OTcsInVpZCI6IjU2MmMxZGNlYjIyYmQ2OTEyMzJhYzI4OSJ9.B7XP9bdkZY1HECvj4SE4M-OcE4kJnzo2MAJgiFJiEDg",
+					"url": "127.0.0.1:8080/friends/users/562c0f3a8ae1ebe521e363bc?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcmUiOjE0NDYyODk0NDc3NzYsInVpZCI6IjU2MmMwZjNhOGFlMWViZTUyMWUzNjNiYyIsImlhdCI6MTQ0NjIwMzA0N30.8NJK5SVcRR90VQYgigE7gYEvfvFBkqYrpKxkiWTi1v4",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "GET",
@@ -1211,7 +1258,7 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1445856589274,
+					"time": 1446203066115,
 					"name": "Get Friends",
 					"description": "// RESULT SUCCESS\n\n{\n  \"_id\": \"562e019982ae4fd648676080\",\n  \"user\": \"562c0f3a8ae1ebe521e363bc\",\n  \"nbFriends\": 1,\n  \"list\": [\n    {\n      \"user\": {\n        \"_id\": \"562c1dceb22bd691232ac289\",\n        \"username\": \"elias2\",\n        \"firstName\": \"eli\",\n        \"lastName\": \"chet\"\n      },\n      \"date\": \"2015-10-26T10:34:01.063Z\",\n      \"requester\": \"562c0f3a8ae1ebe521e363bc\",\n      \"_id\": \"562e0199ac50f69f10c7c30f\"\n    }\n  ]\n}\n\nIt doesn't work if:\n\n- No Friends",
 					"collectionId": "f4f6bfe7-e2a6-fc1f-0dac-2d4555697592",
