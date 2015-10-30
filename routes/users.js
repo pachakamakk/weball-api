@@ -135,7 +135,7 @@ router.post('/', function(req, res, next) {
 
 //Get user from his id (to access a his profil)
 .get('/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
-  var relationShipStatus = new String;
+  var relationShipStatus = "";
   async.parallel([
       function requestExist(callback) {
         FriendRequest.findOne({
@@ -196,7 +196,9 @@ router.post('/', function(req, res, next) {
           else {
             if (relationShipStatus.length == 0)
               user.relationShipStatus = "user";
-            user.relationShipStatus = relationShipStatus;
+            else
+              user.relationShipStatus = relationShipStatus;
+            console.log(user)
             res.json(user);
           }
         });
