@@ -14,7 +14,9 @@
   var async = require('async');
   var mongoose = require('mongoose');
   var ObjectId = mongoose.Types.ObjectId;
-
+  var io = require('socket.io')(6652);
+  
+  
   // Send message to a user (by id of user)
   router.patch('/user/:_id', Auth.validateAccessAPIAndGetUser, function(req, res, next) {
     Discussion.findOne({
@@ -28,6 +30,13 @@
           createdAt: new Date(),
           createdBy: req.user._id
         });
+		io.on('connection', function (socket) {
+			socket.broadcast.emit(discussion._id, {
+				content: req.body.content,
+				createdAt: new Date(),
+				createdBy: req.user._id
+			})
+		});
         discussion.save(function(err, discussion) {
           if (err)
             return next(err);
@@ -46,8 +55,16 @@
         discussion.users.push(req.params._id);
         discussion.save(function(err, discussion) {
           if (err) return next(err);
-          else
+          else {
+			io.on('connection', function (socket) {
+				socket.broadcast.emit(discussion._id, {
+					content: req.body.content,
+					createdAt: new Date(),
+					createdBy: req.user._id
+				})
+			});
             res.json(discussion);
+		  }
         });
       }
     });
